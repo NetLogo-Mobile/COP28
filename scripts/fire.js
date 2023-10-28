@@ -1,0 +1,1 @@
+/** Fire: The fire model specific code goes here. */

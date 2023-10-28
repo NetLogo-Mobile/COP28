@@ -1,0 +1,10 @@
+/* Stylesheets for Embedded Simulations */
+
+body {
+    font-family: Lato, sans-serif;
+}
+
+canvas {
+    width: 100vw !important;
+    height: 100vh !important;
+}

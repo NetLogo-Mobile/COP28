@@ -1,0 +1,9 @@
+/* Stylesheets for the Index page */
+a.bordered {
+    color: #334456;
+    padding: 10px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px;
+    text-decoration: none;
+}

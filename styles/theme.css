@@ -1,0 +1,38 @@
+/* General Stylesheets for Pages */
+
+body {
+    font-family: Lato, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.container {
+    padding: 30px;
+    height: 100vh;
+    background-color: #ffffff;
+}
+
+/* The bordered style */
+
+.bordered {
+    border: 2px solid #334456;
+    border-radius: 10px;
+    box-shadow: #334456 3px 3px 0;
+    background: #ffffff;
+    transition: 0.3s ease;
+}
+
+div.card.bordered {
+    height: calc(100vh - 180px);
+    padding: 20px 12px;
+}
+
+button.bordered {
+    width: 100%;
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button.bordered:hover {
+    background: #f5f5f5;
+}

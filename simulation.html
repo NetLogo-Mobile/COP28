@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles/simulation.css" />
+  </head>
+  <body style="margin: 0px">
+    <div class="dark-overlay" id="loading-overlay"></div>
+    <div id="alert-container"></div>
+    <div id="netlogo-model-container" class="netlogo-model-container"></div>
+    <script src="scripts/placeholder.js"></script>
+
+    <script src="https://www.netlogoweb.org/assets/jquery/dist/00727d1d5d9c90f7de826f1a4a9cc632-jquery.min.js"></script>
+    <script src="https://www.netlogoweb.org/assets/mousetrap/ca067c14a1159f519241b602e95bf45c-mousetrap.min.js"></script>
+    <script src="https://www.netlogoweb.org/assets/ractive/a5a0d36d759f07c111d33eb49cf7f300-ractive.min.js"></script>
+    <script src="https://www.netlogoweb.org/assets/codemirror/addon/mode/290d55f765743d635798cd98c2141163-simple.js"></script>
+
+    <script src="https://www.netlogoweb.org/tortoise-compiler.js"></script>
+    <script src="https://www.netlogoweb.org/netlogo-engine.js"></script>
+
+    <script>
+      window.debugMode = false
+      Ractive.DEBUG = window.debugMode
+      window.standaloneURL = `${window.location.protocol}//netlogoweb.org/standalone`
+    </script>
+    
+    <script src="scripts/simulation.js"></script>
+  </body>
+</html>
