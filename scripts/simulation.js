@@ -38,3 +38,50 @@ $(document).ready(function () {
     console.error("No model location provided in the URL bookmark.");
   }
 });
+
+/** Taking messages from the parent iFrame */
+window.addEventListener("message", (event) => {
+    if (!event.data) return;
+    switch (event.data.sender) {
+      case "CallCommand":
+        CallCommand(event.data.command);
+        break;
+      case "CallReporter":
+        window.parent.postMessage({
+          sender: "CallReporter",
+          result: CallReporter(event.data.command),
+          id: event.data.id
+        }, "*");
+        break;
+      case "RunCommand":
+        RunCommand(event.data.command);
+        break;
+      case "RunReporter":
+        window.parent.postMessage({
+          sender: "RunReporter",
+          result: RunReporter(event.data.command),
+          id: event.data.id
+        }, "*");
+        break;
+    }
+});
+
+/** Call a Command */
+function CallCommand(Command) {
+  workspace.procedurePrims.callCommand(Command);
+}
+
+/** Call a Reporter */
+function CallReporter(Reporter) {
+  return workspace.procedurePrims.callReporter(Reporter);
+}
+
+/** Run a Reporter Statement */
+function RunReporter(Statement) {
+  return session.runReporter(Statement).value;
+}
+
+/** Run a Command Statement */
+function RunCommand(Statement) {
+  return session.run(Statement);
+}
