@@ -1,4 +1,7 @@
 /* Stylesheets for the Index page */
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@300&family=Lato:wght@700&display=swap');
+
+
 a.bordered {
     color: #334456;
     padding: 10px 10px;
@@ -6,4 +9,23 @@ a.bordered {
     font-weight: bold;
     border-radius: 30px;
     text-decoration: none;
+}
+
+
+.img-mode-icon {
+    height: 14vh;
+    width: 14vh;
+}
+
+.img-bottom-icon {
+    height: 3.25vh;
+    object-fit: fill;
+}
+
+.label-bottom{
+    font-family: 'Lato';
+    font-size: 1.25rem;
+    color: #334456;
+    line-height: 18px;
+    font-weight: 700;
 }
