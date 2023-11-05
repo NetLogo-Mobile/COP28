@@ -4,7 +4,9 @@
 var Simulation = null;
 var Handlers = {};
 var SimulationFrame = document.getElementById("simulation");
-SimulationFrame.onload = () => { Simulation = SimulationFrame.contentWindow; };
+SimulationFrame.onload = () => { 
+    Simulation = SimulationFrame.contentWindow; 
+};
 
 /** Call a Command */
 function CallCommand(Command) {
@@ -50,6 +52,10 @@ function RunCommand(Statement) {
 
 /** Taking messages from the simulation iFrame */
 window.addEventListener("message", (event) => {
+    if (event.data.type == "nlw-resize") {
+        // Resize the view
+        RunCommand(`resize ${Simulation.outerWidth} ${Simulation.outerHeight}`);
+    }
     if (!event.data || !event.data.id) return;
     Handlers[event.data.id](event.data.result);
     delete Handlers[event.data.id];

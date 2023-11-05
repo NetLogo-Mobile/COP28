@@ -40,12 +40,6 @@ body {
     transition: 0.3s ease;
 }
 
-div.card.bordered {
-    /*height: calc(100vh - 180px); */
-    height: 75svh;
-    padding: 20px 12px;
-}
-
 button.bordered {
     width: 100%;
     padding: 12px 30px;

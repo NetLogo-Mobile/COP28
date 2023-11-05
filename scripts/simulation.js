@@ -83,5 +83,5 @@ function RunReporter(Statement) {
 
 /** Run a Command Statement */
 function RunCommand(Statement) {
-  return session.run(Statement);
+  return session.run("command", Statement);
 }

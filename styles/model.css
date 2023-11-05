@@ -1,4 +1,4 @@
-/* General Stylesheets for Models */
+/* General Stylesheets for Model Pages */
 .model-container {
     width: 100%;
     height: 100%; 
@@ -14,4 +14,15 @@
     border: none; 
     padding: 0;
     margin: 0;
+}
+
+div.intro {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+div.card.bordered {
+    flex: 1;
+    padding: 20px 12px;
 }

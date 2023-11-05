@@ -39,10 +39,12 @@ end
 
 ;; creates the fire turtles
 to ignite  ;; patch procedure
-  sprout-fires 1
+  if pcolor = green and count fires-here = 0 [
+    sprout-fires 1
     [ set color red ]
-  set pcolor black
-  set burned-trees burned-trees + 1
+    set pcolor black
+    set burned-trees burned-trees + 1
+  ]
 end
 
 ;; achieve fading color effect for the fire as it burns
@@ -54,18 +56,27 @@ to fade-embers
           die ] ]
 end
 
-
+;; resize the world
+to resize [ screen-width screen-height ]
+  let coefficient 20
+  if screen-height <= 480 [ set coefficient 10 ]
+  if screen-height <= 720 [ set coefficient 15 ]
+  let width round (screen-width / coefficient) - 1
+  let height round (screen-height / coefficient) - 1
+  resize-world 0 width 0 height
+  setup
+end
 ; Copyright 1997 Uri Wilensky.
 ; See Info tab for full copyright and license.
 @#$#@#$#@
 GRAPHICS-WINDOW
 200
 10
-710
-521
+274
+85
 -1
 -1
-2.0
+6.0
 1
 10
 1
@@ -75,10 +86,10 @@ GRAPHICS-WINDOW
 0
 0
 1
--125
-125
--125
-125
+0
+10
+0
+10
 1
 1
 1
