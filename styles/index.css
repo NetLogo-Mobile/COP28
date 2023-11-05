@@ -1,7 +1,6 @@
 /* Stylesheets for the Index page */
 @import url('https://fonts.googleapis.com/css2?family=Geologica:wght@300&family=Lato:wght@700&display=swap');
 
-
 a.bordered {
     color: #334456;
     padding: 10px 10px;
@@ -11,21 +10,22 @@ a.bordered {
     text-decoration: none;
 }
 
-
 .img-mode-icon {
-    height: 14vh;
-    width: 14vh;
+    margin: 0 1vw;
+    height: 72px;
+    max-height: 14vh;
 }
 
 .img-bottom-icon {
-    height: 3.25vh;
+    height: 24px;
     object-fit: fill;
 }
 
-.label-bottom{
-    font-family: 'Lato';
-    font-size: 1.25rem;
+.label-bottom {
     color: #334456;
+    margin: 0 0 0 0.1rem;
+    font-family: 'Lato';
+    font-size: 18px;
     line-height: 18px;
     font-weight: 700;
 }

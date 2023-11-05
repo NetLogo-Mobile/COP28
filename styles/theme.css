@@ -1,14 +1,25 @@
 /* General Stylesheets for Pages */
+html, body {
+    overflow: hidden;
+}
+
 body {
     font-family: Lato, sans-serif;
     background-color: #f5f5f5;
 }
 
 .container {
+    width: 100svw;
+    height: calc(100svh - 6rem);
     padding: 30px;
     background-color: #ffffff;
-    height: 100svh;
-    width: 100svw;
+}
+
+@media (max-height: 720px) {
+    .container.my-5 {
+        margin: 0 !important;
+        height: 100svh;
+    }
 }
 
 .no-padding {
