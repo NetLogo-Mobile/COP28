@@ -8,6 +8,12 @@ body {
     padding: 30px;
     background-color: #ffffff;
     height: 100svh;
+    width: 100svw;
+}
+
+.no-padding {
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 /* The bordered style */
@@ -59,8 +65,8 @@ button.bordered:hover {
 .img-top-fixed {
     height: 40vh; 
     width: 100%; 
-    object-fit: fill; 
-    border-radius: 3%;
+    object-fit: cover; 
+    border-radius: 1rem;
 }
 
 .invisible-element {

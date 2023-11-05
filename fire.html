@@ -27,7 +27,7 @@
             <!-- Content -->
             <div class="row card mb-3 bordered">
                 <div class="page-1">
-                    <img src="URL_TO_IMAGE" alt="Fire Image" class="card-img-top demo-img img-top-fixed">
+                    <img alt="Fire Image" class="card-img-top demo-img img-top-fixed">
                     <div class="card-body">
                         <h5 class="card-title onboarding-title">WHAT IS IT?</h5>
                         <p class="card-text onboarding-descript">This is the fire model from NetLogo. It simulates the spread of a fire through a forest.</p>
@@ -40,11 +40,12 @@
                 <button type="button" class="bordered" id="button-next">NEXT</button>
             </div>
         </div>
-        
+
         <!-- For Acero: The Simulation iFrame-->
-        <div class="model invisible-element">
-            <iframe src="simulation.html#models/fire.nlogo" id="simulation" class="model-container"></iframe>
+        <div class="model-container invisible-element">
+            <iframe src="simulation.html#models/fire.nlogo" id="simulation"></iframe>
         </div>
+        
     </div>
 
     <!-- Bootstrap JS and jQuery -->
@@ -53,13 +54,13 @@
     
     <!-- Dynamic JS -->
     <script src="scripts/onboarding.js"></script>
-    <script src="scripts/model.js"></script>
-    <script src="scripts/fire.js"></script>
     <script>
         var currentPage = 0;
         var modelIndex = 1; //index for model, 0 sheep & wolves, 1 = fire, 2 = climate change
         loadPageContent(currentPage, modelIndex);
     </script>
+    <script src="scripts/model.js"></script>
+    <script src="scripts/fire.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
 // Page data
+
 const pages = [[{
     img: 'assets/wolfsheep.png',
     title: 'WHAT IS IT?',
@@ -33,7 +34,6 @@ const pages = [[{
     }
 ], null];
 
-
 function updateContent(pageIndex, modelIndex) {
     const { img, title, description, buttonText } = pages[modelIndex][pageIndex];
     document.querySelector('.demo-img').src = img;
@@ -45,11 +45,6 @@ function updateContent(pageIndex, modelIndex) {
     }
 }
 
-// function loadFireModel(parent) {
-//     parent.innerHTML = `<iframe id="fire-model" src="simulation.html#models/fire.nlogo"></iframe>`;
-// }
-
-
 function loadPageContent(currentPage, modelIndex) {
     document.querySelector('.container').addEventListener('click', function(event) {
         const target = event.target;
@@ -59,10 +54,7 @@ function loadPageContent(currentPage, modelIndex) {
             if (currentPage < pages.length) {
                 updateContent(currentPage, modelIndex);
             } else {
-                //loadFireModel(document.querySelector('.container'));
-                // clear intro, show the model 
-                document.querySelector('#intro').remove();
-                document.querySelector('.model').classList.remove('invisible-element');
+                setup();
             }
         }
     });
