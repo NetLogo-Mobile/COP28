@@ -1,1 +1,7 @@
 /* General Stylesheets for Models */
+
+.model-container {
+    height: 80svh;
+    width: 80svw;
+}
+

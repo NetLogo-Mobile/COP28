@@ -62,3 +62,7 @@ button.bordered:hover {
     object-fit: fill; 
     border-radius: 3%;
 }
+
+.invisible-element {
+    display: none;
+}
