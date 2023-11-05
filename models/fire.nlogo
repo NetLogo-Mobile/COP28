@@ -32,7 +32,7 @@ to add-fire
   ;; mouse interaction
   if mouse-down? and mouse-inside? [
     ;; make a column of burning trees
-    ask patches with [distancexy mouse-xcor mouse-ycor <= 6]
+    ask patches with [distancexy mouse-xcor mouse-ycor <= 5]
       [ ignite ]
   ]
 end
@@ -58,9 +58,11 @@ end
 
 ;; resize the world
 to resize [ screen-width screen-height ]
-  let coefficient 20
+  let coefficient 30
   if screen-height <= 480 [ set coefficient 10 ]
   if screen-height <= 720 [ set coefficient 15 ]
+  if screen-height <= 1080 [ set coefficient 20 ]
+  if screen-height <= 1500 [ set coefficient 25 ]
   let width round (screen-width / coefficient) - 1
   let height round (screen-height / coefficient) - 1
   resize-world 0 width 0 height
@@ -90,8 +92,8 @@ GRAPHICS-WINDOW
 10
 0
 10
-1
-1
+0
+0
 1
 ticks
 30.0
