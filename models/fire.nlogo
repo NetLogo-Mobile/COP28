@@ -19,12 +19,6 @@ to setup
 end
 
 to go
-  ;; mouse interaction
-  if mouse-down? and mouse-inside? [
-    ;; make a column of burning trees
-    ask patches with [distancexy mouse-xcor mouse-ycor <= 6]
-      [ ignite ]
-  ]
   ;; the original fire
   ask fires
     [ ask neighbors4 with [pcolor = green]
@@ -32,6 +26,15 @@ to go
       set breed embers ]
   fade-embers
   tick
+end
+
+to add-fire
+  ;; mouse interaction
+  if mouse-down? and mouse-inside? [
+    ;; make a column of burning trees
+    ask patches with [distancexy mouse-xcor mouse-ycor <= 6]
+      [ ignite ]
+  ]
 end
 
 ;; creates the fire turtles
@@ -133,6 +136,23 @@ BUTTON
 setup
 setup
 NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+26
+194
+113
+227
+NIL
+add-fire
+T
 1
 T
 OBSERVER
