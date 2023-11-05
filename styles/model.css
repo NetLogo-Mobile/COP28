@@ -1,14 +1,11 @@
 /* General Stylesheets for Models */
-
 .model-container {
     width: 100%;
-    height: 90svh; 
+    height: 100%; 
     padding: 0;
     margin: 0;
-    overflow: hidden; 
-    border-radius: 3%;
     border: solid 2px #344054;
-    border-radius: 1rem;
+    overflow: hidden; 
 }
 
 .model-container iframe {
