@@ -148,3 +148,18 @@ input[type='range'].styled-slider {
   margin-left: 7.34%;
 }
 
+.running-model-stats {
+  height: 44.7%;
+  width: 25%;
+  max-width: 100px;
+  border: 1.5px solid #344054;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.running-model-stats-icon {
+  height: 55.8%;
+  aspect-ratio: 1/1;
+}

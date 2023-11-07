@@ -1,6 +1,6 @@
 /** Fire: The fire model specific code goes here. */
 async function GameLoop() {
-    CallCommand("go")
+    CallCommand("go");
     var Fires = await RunReporter("count fires");
     if (Fires == 0) {
         // The game ends
@@ -11,9 +11,41 @@ async function GameLoop() {
 // globals so we don't have to scan the dom every time 
 var iframe_document = document.getElementById("simulation").contentWindow.document;
 var densityLabel;
+var currentDensity;
 
+// changes the control widget when running 
+function runningModelDisplay() {
+    //remove slider label container
+    document.querySelector('.slider-label-container').replaceChildren();
+    // create the running model stat display
+    let densityDisplay = document.createElement('div');
+    densityDisplay.classList.add('running-model-stats');
+    densityDisplay.classList.add('not-selectable');
+    densityDisplay.style.backgroundColor = '#32D583';
+    densityDisplay.style.color = '#FCFCFD';
+    let svgImage = document.createElement('img');
+    svgImage.classList.add('running-model-stats-icon');
+    svgImage.src = '../assets/ChartPieSliceWhite.svg';
+    // create the 
+    densityDisplay.appendChild(svgImage);
+    // create the burned label
+    let burnedLabel = document.createElement('span');
+    burnedLabel.classList.add('running-model-stats');
+    burnedLabel.classList.add('not-selectable');
+    burnedLabel.style.backgroundColor = '#F04438';
+    svgImage = document.createElement('img');
+    svgImage.classList.add('running-model-stats-icon');
+    svgImage.src = '../assets/FireSimple.svg';
+
+    
+    // add it to the control widget container
+    burnedLabel.appendChild(svgImage);
+    document.querySelector('.control-widget-container').appendChild(densityDisplay);
+    document.querySelector('.control-widget-container').appendChild(burnedLabel);
+}
 function setDensity(value) {
     densityLabel.innerText = `Density: ${value}%`;
+    currentDensity = value;
     RunCommand(`set density ${value}`);
     CallCommand("setup");
 }
@@ -58,6 +90,7 @@ function controlWidget(parent) {
     button.addEventListener('click', function () {
         // ASK how to set the model speed ? 
         GameLoop();
+        runningModelDisplay();
     });
     // create density label
     densityLabel = document.createElement('span');
