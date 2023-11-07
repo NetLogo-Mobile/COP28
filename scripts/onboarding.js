@@ -46,7 +46,8 @@ function updateContent(pageIndex, modelIndex) {
 }
 
 function loadPageContent(currentPage, modelIndex) {
-    document.querySelector('.container').addEventListener('click', function(event) {
+    let container = document.querySelector('.container');
+    container.addEventListener('click', function(event) {
         const target = event.target;
     
         if (target.matches('#button-next')) {
@@ -54,7 +55,7 @@ function loadPageContent(currentPage, modelIndex) {
             if (currentPage < pages.length) {
                 updateContent(currentPage, modelIndex);
             } else {
-                setup();
+                setup(container);
             }
         }
     });
