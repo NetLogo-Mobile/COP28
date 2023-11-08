@@ -113,7 +113,7 @@ function controlWidget() {
             class: 'control-widget-play'
         })).on('click', function () {
             switchMode(true);
-            $("#density-val").val(`${currentDensity}%`);
+            $("#density-val").text(`${currentDensity}%`);
             RunReporter("report-burned-trees").then(burnedTrees => {
                 initialTreesBurned = burnedTrees;
                 // Now start the simulation
