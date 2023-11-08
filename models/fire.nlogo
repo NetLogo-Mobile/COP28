@@ -73,11 +73,13 @@ to-report report-burned-trees
   report burned-trees
 end
 
-
 to-report report-initial-trees
   report initial-trees
 end
 
+to-report is-finished
+  report count fires = 0 and count embers = 0
+end
 ; Copyright 1997 Uri Wilensky.
 ; See Info tab for full copyright and license.
 @#$#@#$#@
@@ -559,7 +561,7 @@ false
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 @#$#@#$#@
-NetLogo 6.3.0-beta1
+NetLogo 6.4.0-beta1
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
