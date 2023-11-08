@@ -58,11 +58,11 @@ end
 
 ;; resize the world
 to resize [ screen-width screen-height ]
-  let coefficient 30
-  if screen-height <= 480 [ set coefficient 10 ]
-  if screen-height <= 720 [ set coefficient 15 ]
-  if screen-height <= 1080 [ set coefficient 20 ]
-  if screen-height <= 1500 [ set coefficient 25 ]
+  let coefficient 20
+  if screen-height <= 480 [ set coefficient 6 ]
+  if screen-height <= 720 [ set coefficient 8 ]
+  if screen-height <= 1080 [ set coefficient 12 ]
+  if screen-height <= 1500 [ set coefficient 15 ]
   let width round (screen-width / coefficient) - 1
   let height round (screen-height / coefficient) - 1
   resize-world 0 width 0 height

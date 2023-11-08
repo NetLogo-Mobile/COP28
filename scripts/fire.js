@@ -10,8 +10,10 @@ async function GameLoop() {
     })
     if (Fires == 0) {
         // game is over
-        resultsTab();
+        await WaitFor(500);
+        // resultsTab();
     } else {
+        await WaitFor(20);
         return await GameLoop();
     }
 }

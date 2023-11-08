@@ -1,5 +1,8 @@
 /** Model: All model-general code goes here. */
 
+/** WaitFor: A helper for Async Timeout. */
+const WaitFor = delay => new Promise(resolve => setTimeout(resolve, delay));
+
 /** Load the simulation & window */
 var Simulation = null;
 var Handlers = {};
