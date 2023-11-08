@@ -1,14 +1,14 @@
 /** Fire: The fire model specific code goes here. */
 async function GameLoop() {
     CallCommand("go");
-    var Fires = await RunReporter("count fires");
+    var Finished = await CallReporter("is-finished");
     // can probably make this better by not running it per call since it doesn't change 
     var initialTreesValue = await RunReporter("report-initial-trees");
     RunReporter("report-burned-trees").then(burnedTreesValue => {
         let burnedPercentage = (burnedTreesValue / initialTreesValue) * 100;
         $('#burned-val').text(`${burnedPercentage.toFixed(1)}%`);
     })
-    if (Fires == 0) {
+    if (Finished) {
         // game is over
         await WaitFor(500);
         switchMode(false);
