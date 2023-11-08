@@ -63,6 +63,8 @@ window.addEventListener("message", (event) => {
           id: event.data.id
         }, "*");
         break;
+      case "Click":
+        $(event.data.selector).click()
     }
 });
 

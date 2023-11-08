@@ -11,6 +11,7 @@ async function GameLoop() {
     if (Fires == 0) {
         // game is over
         await WaitFor(500);
+        switchMode(false);
         // resultsTab();
     } else {
         await WaitFor(20);
@@ -19,16 +20,13 @@ async function GameLoop() {
 }
 
 // globals so we don't have to scan the DOM every time 
-var iframe_document = $("#simulation").contents();
 var densityLabel;
 var currentDensity;
 var initialTrees;
 var initialTreesBurned;
-let screenWidth, screenHeight, iframeWidth, iframeHeight;
 
 // changes the control widget when running 
 function runningModelDisplay() {
-    $('.slider-label-container').empty(); // Remove slider label container
     // create the running model stat display
     let densityDisplay = $('<div/>', {
         class: 'running-model-stats not-selectable',
@@ -45,7 +43,8 @@ function runningModelDisplay() {
         text: 'Density',
         class: 'stats-val-top-text not-selectable',
     }), $('<span/>', {
-        text: `${currentDensity}%`,
+        text: `50%`,
+        id: 'density-val',
         class: 'stats-val-bottom-text not-selectable',
     })); 
 
@@ -106,19 +105,20 @@ function controlSlider(parent) {
 }
 
 /* controlWidget: Creates the control widget for the game */
-function controlWidget(parent) {
+function controlWidget() {
     let widgetContainer = $('<div/>', { class: 'control-widget-container' });
     let button = $('<div/>', { class: 'control-widget-play-container' })
         .append($('<img/>', {
             src: '../assets/ArrowCounterClockwise.svg',
             class: 'control-widget-play'
         })).on('click', function () {
+            switchMode(true);
+            $("#density-val").val(`${currentDensity}%`);
             RunReporter("report-burned-trees").then(burnedTrees => {
                 initialTreesBurned = burnedTrees;
                 // Now start the simulation
                 GameLoop();
             });
-            runningModelDisplay();
         });
 
     densityLabel = $('<span/>', { class: 'density-label not-selectable', text: 'Density' });
@@ -131,14 +131,20 @@ function controlWidget(parent) {
 
     controlSlider(sliderLabelContainer);
     widgetContainer.append(button, sliderLabelContainer);
-    $(parent).append(widgetContainer);
+    $('.model-container').append(widgetContainer);
+}
+controlWidget();
+runningModelDisplay();
+
+function switchMode(isRunning) {
+    $(".slider-label-container").toggle(!isRunning);
+    $(".running-model-stats").toggle(isRunning);
 }
 
 function resultsTab() {
     // blur background, not selectable 
     $('.container').css('pointer-events', 'none');
     // create new div
-    console.log('results');
     console.log('results');
     let resultsSummaryStatsContainer = $('<div/>', {
         class: 'results-summary-stats-container'
@@ -230,41 +236,14 @@ function resultsTab() {
             $('body').append(resultsContainer);
         });
     });
-
-}
-
-function convertToNetLogoCoords(x, y, screenWidth, screenHeight, iframeWidth, iframeHeight) {
-    let netLogoX = x * (screenWidth / iframeWidth);
-    let netLogoY = (1 - (y / iframeHeight)) * screenHeight;
-
-    return { x: Math.floor(netLogoX), y: Math.floor(netLogoY) };
-}
-
-function addFires(event) {
-    if (screenWidth && screenHeight) {
-        let netlogoCoords = convertToNetLogoCoords(event.pageX, event.pageY, screenWidth, screenHeight, iframeWidth, iframeHeight);
-        RunCommand(`ask patches with [distancexy ${netlogoCoords.x} ${netlogoCoords.y} <= 5] [ ignite ]`);
-    } else {
-        console.log("Waiting for world dimensions...");
-    }
 }
 
 function setup(parent) {
     $('#intro').remove();
     $('.model-container').removeClass('invisible-element');
-    iframe_document.find("#netlogo-model-container").remove();
     $(".container").addClass("no-padding");
-    controlWidget(parent);
+    RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
     setDensity(50);
-
-    RunReporter('world-width').then(width => screenWidth = width);
-    RunReporter('world-height').then(height => screenHeight = height);
-
-    iframeWidth = iframe_document.find("canvas").width();
-    iframeHeight = iframe_document.find("canvas").height();
-
-    iframe_document.on('click', addFires);  
+    switchMode(false);
+    Click("#netlogo-button-5 input");
 }
-
-
-

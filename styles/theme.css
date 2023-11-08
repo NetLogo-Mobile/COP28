@@ -29,7 +29,7 @@ body {
 @media (max-height: 720px) {
     .container.my-5 {
         margin: 0 !important;
-        height: 100svh;
+        height: 100svh !important;
     }
 }
 

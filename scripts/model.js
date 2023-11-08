@@ -11,6 +11,14 @@ SimulationFrame.onload = () => {
     Simulation = SimulationFrame.contentWindow; 
 };
 
+/** Click a Button */
+function Click(Selector) {
+    Simulation.postMessage({
+        sender: "Click",
+        selector: Selector
+    })
+}
+
 /** Call a Command */
 function CallCommand(Command) {
     Simulation.postMessage({
@@ -55,10 +63,6 @@ function RunCommand(Statement) {
 
 /** Taking messages from the simulation iFrame */
 window.addEventListener("message", (event) => {
-    if (event.data.type == "nlw-resize") {
-        // Resize the view
-        RunCommand(`resize ${Simulation.outerWidth} ${Simulation.outerHeight}`);
-    }
     if (!event.data || !event.data.id) return;
     Handlers[event.data.id](event.data.result);
     delete Handlers[event.data.id];
