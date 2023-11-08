@@ -2,130 +2,135 @@
 async function GameLoop() {
     CallCommand("go");
     var Fires = await RunReporter("count fires");
+    // can probably make this better by not running it per call since it doesn't change 
+    var initialTreesValue = await RunReporter("report-initial-trees");
+    RunReporter("report-burned-trees").then(burnedTreesValue => {
+        let burnedPercentage = (burnedTreesValue / initialTreesValue) * 100;
+        $('#burned-val').text(`${burnedPercentage.toFixed(1)}%`);
+    })
     if (Fires == 0) {
-        // The game ends
-        alert("Game Over!");
-    } else return await GameLoop();
+        alert("Game Over!"); // The game ends
+    } else {
+        return await GameLoop();
+    }
 }
 
-// globals so we don't have to scan the dom every time 
-var iframe_document = document.getElementById("simulation").contentWindow.document;
+// globals so we don't have to scan the DOM every time 
+var iframe_document = $("#simulation").contents();
 var densityLabel;
 var currentDensity;
+var initialTrees;
 
 // changes the control widget when running 
 function runningModelDisplay() {
-    //remove slider label container
-    document.querySelector('.slider-label-container').replaceChildren();
+    $('.slider-label-container').empty(); // Remove slider label container
     // create the running model stat display
-    let densityDisplay = document.createElement('div');
-    densityDisplay.classList.add('running-model-stats');
-    densityDisplay.classList.add('not-selectable');
-    densityDisplay.style.backgroundColor = '#32D583';
-    densityDisplay.style.color = '#FCFCFD';
-    let svgImage = document.createElement('img');
-    svgImage.classList.add('running-model-stats-icon');
-    svgImage.src = '../assets/ChartPieSliceWhite.svg';
-    // create the 
-    densityDisplay.appendChild(svgImage);
-    // create the burned label
-    let burnedLabel = document.createElement('span');
-    burnedLabel.classList.add('running-model-stats');
-    burnedLabel.classList.add('not-selectable');
-    burnedLabel.style.backgroundColor = '#F04438';
-    svgImage = document.createElement('img');
-    svgImage.classList.add('running-model-stats-icon');
-    svgImage.src = '../assets/FireSimple.svg';
+    let densityDisplay = $('<div/>', {
+        class: 'running-model-stats not-selectable',
+        css: { backgroundColor: '#32D583', color: '#FCFCFD' }
+    }).append($('<img/>', {
+        class: 'running-model-stats-icon',
+        src: '../assets/ChartPieSliceWhite.svg'
+    }));
 
-    
-    // add it to the control widget container
-    burnedLabel.appendChild(svgImage);
-    document.querySelector('.control-widget-container').appendChild(densityDisplay);
-    document.querySelector('.control-widget-container').appendChild(burnedLabel);
+    // create density display stats 
+    let densityValContainer = $('<div/>', {
+        class: 'stats-val-container not-selectable'
+    }).append($('<span/>', {
+        text: 'Density',
+        class: 'stats-val-top-text not-selectable',
+    }), $('<span/>', {
+        text: `${currentDensity}%`,
+        class: 'stats-val-bottom-text not-selectable',
+    })); 
+
+    densityDisplay.append(densityValContainer);
+
+    // create the burned label
+    let burnedLabel = $('<div/>', {
+        class: 'running-model-stats not-selectable',
+        css: { backgroundColor: '#F04438' }
+    }).append($('<img/>', {
+        class: 'running-model-stats-icon',
+        src: '../assets/FireSimple.svg'
+    }));
+
+    // create burn display stats
+    let burnedValContainer = $('<div/>', {
+        class: 'stats-val-container not-selectable'
+    }).append($('<span/>', {
+        class: 'stats-val-top-text not-selectable',
+        text: 'Burned'
+    }), $('<span/>', {
+        class: 'stats-val-bottom-text not-selectable',
+        id: 'burned-val',
+        text: '50%'
+    }));
+
+    burnedLabel.append(burnedValContainer);
+
+    $('.control-widget-container').append(densityDisplay, burnedLabel);
 }
+
 function setDensity(value) {
-    densityLabel.innerText = `Density: ${value}%`;
+    densityLabel.text(`Density: ${value}%`);
     currentDensity = value;
     RunCommand(`set density ${value}`);
     CallCommand("setup");
 }
 
-/* controlSlider:  Creates the slider for the control widget of the game */
+/* controlSlider: Creates the slider for the control widget of the game */
 function controlSlider(parent) {
-    // will refactor this later to make it take multiple modes 
-    var slider = document.createElement('input');
-    slider.setAttribute('type', 'range');
-    slider.setAttribute('class', 'styled-slider slider-progress');
-    slider.setAttribute('min', '0');
-    slider.setAttribute('max', '100');
-    slider.setAttribute('value', '50');
-    
-    // Set the --value CSS variable for the slider
-    slider.style.setProperty('--value', slider.value);
-    slider.style.setProperty('--min', slider.min);
-    slider.style.setProperty('--max', slider.max);
-    slider.style.setProperty('--value', slider.value);
-
-    // Add an event listener to update the value when the slider changes
-    slider.addEventListener('input', function () {
-        this.style.setProperty('--value', this.value);
-        setDensity(this.value);
+    var slider = $('<input/>', {
+        type: 'range',
+        class: 'styled-slider slider-progress',
+        min: '0',
+        max: '100',
+        value: '50',
+        css: {
+            '--value': '50',
+            '--min': '0',
+            '--max': '100'
+        }
+    }).on('input', function () {
+        $(this).css('--value', $(this).val());
+        setDensity($(this).val());
     });
 
-    parent.appendChild(slider);
-    return slider;
+    parent.append(slider);
 }
 
 /* controlWidget: Creates the control widget for the game */
 function controlWidget(parent) {
-    let widgetContainer = document.createElement('div');
-    widgetContainer.classList.add('control-widget-container');
-    let button = document.createElement('div');
-    button.classList.add('control-widget-play-container');
-    let playSVG = document.createElement('img');
-    playSVG.src = '../assets/ArrowCounterClockwise.svg';
-    playSVG.classList.add('control-widget-play');
-    button.appendChild(playSVG);
-    // add event listener to the button
-    button.addEventListener('click', function () {
-        // ASK how to set the model speed ? 
-        GameLoop();
-        runningModelDisplay();
-    });
-    // create density label
-    densityLabel = document.createElement('span');
-    densityLabel.classList.add('density-label');
-    densityLabel.classList.add('not-selectable');
-    densityLabel.innerText = 'Density';
-    // create tooltip label
-    let tooltipLabel = document.createElement('span');
-    tooltipLabel.classList.add('tooltip-label');
-    tooltipLabel.classList.add('not-selectable');
-    tooltipLabel.innerText = 'Drag to change the density';
-    // create container for slider and label
-    let sliderLabelContainer = document.createElement('div');
-    sliderLabelContainer.classList.add('slider-label-container');
-    sliderLabelContainer.appendChild(densityLabel);
-    sliderLabelContainer.appendChild(controlSlider(widgetContainer));
-    sliderLabelContainer.appendChild(tooltipLabel);
+    let widgetContainer = $('<div/>', { class: 'control-widget-container' });
+    let button = $('<div/>', { class: 'control-widget-play-container' })
+        .append($('<img/>', {
+            src: '../assets/ArrowCounterClockwise.svg',
+            class: 'control-widget-play'
+        })).on('click', function () {
+            GameLoop();
+            runningModelDisplay();
+        });
 
-    widgetContainer.appendChild(button);
-    widgetContainer.appendChild(sliderLabelContainer);
-    parent.appendChild(widgetContainer);
+    densityLabel = $('<span/>', { class: 'density-label not-selectable', text: 'Density' });
+    let tooltipLabel = $('<span/>', {
+        class: 'tooltip-label not-selectable',
+        text: 'Drag to change the density'
+    });
+    let sliderLabelContainer = $('<div/>', { class: 'slider-label-container' })
+        .append(densityLabel, tooltipLabel);
+
+    controlSlider(sliderLabelContainer);
+    widgetContainer.append(button, sliderLabelContainer);
+    $(parent).append(widgetContainer);
 }
 
 function setup(parent) {
-    document.querySelector('#intro').remove();
-    document.querySelector('.model-container').classList.remove('invisible-element');
-    // when setting up, we remove the padding from the container so that the game can be full screen
-    document.querySelector(".container").classList.add("no-padding");
-    // hide the netlogo model container
-    // only leave behind the canvas 
-    iframe_document.getElementById("netlogo-model-container").style = "display: none";
+    $('#intro').remove();
+    $('.model-container').removeClass('invisible-element');
+    $(".container").addClass("no-padding");
+    iframe_document.find("#netlogo-model-container");
     controlWidget(parent);
     setDensity(50);
-    // turn on add fire  --> Ask how to do this? 
-    let checkbox = iframe_document.querySelectorAll("input[type=checkbox]")[1];
-    checkbox.click();
+    iframe_document.find("input[type=checkbox]").eq(1).click(); // Turn on add fire
 }
-

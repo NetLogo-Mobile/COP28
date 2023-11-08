@@ -68,6 +68,15 @@ to resize [ screen-width screen-height ]
   resize-world 0 width 0 height
   setup
 end
+
+to-report report-burned-trees
+  report burned-trees
+end
+
+to-report report-initial-trees
+  report initial-trees
+end
+
 ; Copyright 1997 Uri Wilensky.
 ; See Info tab for full copyright and license.
 @#$#@#$#@

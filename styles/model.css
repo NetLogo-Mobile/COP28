@@ -1,5 +1,5 @@
 /* General Stylesheets for Model Pages */
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
 .model-container {
     width: 100%;
@@ -153,13 +153,33 @@ input[type='range'].styled-slider {
   width: 25%;
   max-width: 100px;
   border: 1.5px solid #344054;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   display: flex;
   justify-content: center; 
   align-items: center;
+  margin-right: 8.517%;
 }
 
 .running-model-stats-icon {
   height: 55.8%;
   aspect-ratio: 1/1;
+}
+
+.stats-val-container {
+  padding-left: 8.2%;
+  display: flex;
+  flex-direction: column;
+  color: #FCFCFD;
+  padding-top: 5%;
+}
+
+.stats-val-top-text {
+  font-size: 1.2svh;
+  font-weight: 300;
+  line-height: 70%; 
+}
+
+.stats-val-bottom-text {
+  font-size: 1.8svh;
+  font-weight: 700;
 }
