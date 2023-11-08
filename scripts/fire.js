@@ -9,7 +9,8 @@ async function GameLoop() {
         $('#burned-val').text(`${burnedPercentage.toFixed(1)}%`);
     })
     if (Fires == 0) {
-        alert("Game Over!"); // The game ends
+        // game is over
+        resultsTab();
     } else {
         return await GameLoop();
     }
@@ -20,6 +21,8 @@ var iframe_document = $("#simulation").contents();
 var densityLabel;
 var currentDensity;
 var initialTrees;
+var initial_fires_added;
+let screenWidth, screenHeight, iframeWidth, iframeHeight;
 
 // changes the control widget when running 
 function runningModelDisplay() {
@@ -125,12 +128,49 @@ function controlWidget(parent) {
     $(parent).append(widgetContainer);
 }
 
+function resultsTab() {
+    // blur background, not selectable 
+    $('.container').css('pointer-events', 'none');
+    // create new div
+    console.log('results');
+    let resultsContainer = $('<div/>', {
+        class: 'results-container not-selectable'
+    });
+    $('body').append(resultsContainer);
+} 
+
+function convertToNetLogoCoords(x, y, screenWidth, screenHeight, iframeWidth, iframeHeight) {
+    let netLogoX = x * (screenWidth / iframeWidth);
+    let netLogoY = (1 - (y / iframeHeight)) * screenHeight;
+
+    return { x: Math.floor(netLogoX), y: Math.floor(netLogoY) };
+}
+
+function addFires(event) {
+    if (screenWidth && screenHeight) {
+        let netlogoCoords = convertToNetLogoCoords(event.pageX, event.pageY, screenWidth, screenHeight, iframeWidth, iframeHeight);
+        RunCommand(`ask patches with [distancexy ${netlogoCoords.x} ${netlogoCoords.y} <= 5] [ ignite ]`);
+    } else {
+        console.log("Waiting for world dimensions...");
+    }
+}
+
 function setup(parent) {
     $('#intro').remove();
     $('.model-container').removeClass('invisible-element');
+    iframe_document.find("#netlogo-model-container").remove();
     $(".container").addClass("no-padding");
-    iframe_document.find("#netlogo-model-container");
     controlWidget(parent);
     setDensity(50);
-    iframe_document.find("input[type=checkbox]").eq(1).click(); // Turn on add fire
+
+    RunReporter('world-width').then(width => screenWidth = width);
+    RunReporter('world-height').then(height => screenHeight = height);
+
+    iframeWidth = iframe_document.find("canvas").width();
+    iframeHeight = iframe_document.find("canvas").height();
+
+    iframe_document.on('click', addFires);
 }
+
+
+

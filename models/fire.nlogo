@@ -73,6 +73,7 @@ to-report report-burned-trees
   report burned-trees
 end
 
+
 to-report report-initial-trees
   report initial-trees
 end

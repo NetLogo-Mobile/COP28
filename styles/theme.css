@@ -87,3 +87,15 @@ button.bordered:hover {
 .invisible-element {
     display: none;
 }
+
+.results-container{
+    fill: rgba(52, 64, 84, 0.30);
+    backdrop-filter: blur(5px);
+    height: 100svh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    display:flex;
+    flex-direction: column;
+}
