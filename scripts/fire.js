@@ -33,7 +33,7 @@ function runningModelDisplay() {
         css: { backgroundColor: '#32D583', color: '#FCFCFD' }
     }).append($('<img/>', {
         class: 'running-model-stats-icon',
-        src: '../assets/ChartPieSliceWhite.svg'
+        src: './assets/ChartPieSliceWhite.svg'
     }));
 
     // create density display stats 
@@ -56,7 +56,7 @@ function runningModelDisplay() {
         css: { backgroundColor: '#F04438' }
     }).append($('<img/>', {
         class: 'running-model-stats-icon',
-        src: '../assets/FireSimple.svg'
+        src: './assets/FireSimple.svg'
     }));
 
     // create burn display stats
@@ -109,7 +109,7 @@ function controlWidget() {
     let widgetContainer = $('<div/>', { class: 'control-widget-container' });
     let button = $('<div/>', { class: 'control-widget-play-container' })
         .append($('<img/>', {
-            src: '../assets/ArrowCounterClockwise.svg',
+            src: './assets/ArrowCounterClockwise.svg',
             class: 'control-widget-play'
         })).on('click', function () {
             switchMode(true);
@@ -180,7 +180,7 @@ function resultsTab() {
                 css: { backgroundColor: '#32D583', color: '#FCFCFD' }
             }).append($('<img/>', {
                 class: 'results-model-stats-icon', 
-                src: '../assets/ChartPieSliceWhite.svg'
+                src: './assets/ChartPieSliceWhite.svg'
             }));
             
             let densityValContainerResult = $('<div/>', {
@@ -200,7 +200,7 @@ function resultsTab() {
                 css: { backgroundColor: '#F04438', color: '#FCFCFD'}
             }).append($('<img/>', {
                 class: 'results-model-stats-icon',
-                src: '../assets/FireSimple.svg'
+                src: './assets/FireSimple.svg'
             }));
             
             let burnedValContainerResult = $('<div/>', {
@@ -221,7 +221,7 @@ function resultsTab() {
                 css: { backgroundColor: '#6941C6', color: '#FCFCFD'} 
             }).append($('<img/>', {
                 class: 'results-model-stats-icon',
-                src: '../assets/amountBurned.svg'
+                src: './assets/amountBurned.svg'
             }), $('<div/>', {
                 class: 'stats-val-container not-selectable',
             }).append($('<span/>', {
