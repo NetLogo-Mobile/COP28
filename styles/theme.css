@@ -79,8 +79,9 @@ button.bordered:hover {
 }
 
 .img-top-fixed {
-    height: 40vh; 
-    width: 100%; 
+    width: 100%;
+    aspect-ratio: 1/1;
+    height: calc(100%-200px);
     object-fit: cover; 
     border-radius: 1rem;
 }
