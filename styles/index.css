@@ -3,7 +3,10 @@
 
 a.bordered {
     color: #334456;
-    padding: 10px 10px;
+    position: relative;
+    height: 72px;
+    padding: 0 10px 0 100px;
+    line-height: 70px;
     font-size: 18px;
     font-weight: bold;
     border-radius: 30px;
@@ -11,9 +14,10 @@ a.bordered {
 }
 
 .img-mode-icon {
-    margin: 0 1vw;
-    height: 72px;
-    max-height: 14vh;
+    left: 8px;
+    bottom: 0;
+    height: 90px;
+    position: absolute;
 }
 
 .img-bottom-icon {

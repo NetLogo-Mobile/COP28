@@ -28,7 +28,8 @@ body {
 
 @media (max-height: 720px) {
     .container.my-5 {
-        margin: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
         height: 100svh !important;
     }
 }
