@@ -246,7 +246,7 @@ function resultsTab() {
             text: `“Swipe to see detail stats. Note that different distribution of trees might result in different burnt ratio. Try adjusting density value or add more trees.”`,
             class: 'results-summary-tip'
         }))
-
+///erwqreqw
         $('body').append(resultsContainer);
         // try again
         resultsContainer.append($('<button/>', {
