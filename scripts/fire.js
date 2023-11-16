@@ -41,11 +41,11 @@ function runningModelDisplay() {
         class: 'stats-val-container not-selectable'
     }).append($('<span/>', {
         text: 'Density',
-        class: 'stats-val-top-text not-selectable',
+        class: 'run-stats-val-top-text not-selectable',
     }), $('<span/>', {
         text: `50%`,
         id: 'density-val',
-        class: 'stats-val-bottom-text not-selectable',
+        class: 'run-stats-val-bottom-text not-selectable',
     })); 
 
     densityDisplay.append(densityValContainer);
@@ -63,10 +63,10 @@ function runningModelDisplay() {
     let burnedValContainer = $('<div/>', {
         class: 'stats-val-container not-selectable'
     }).append($('<span/>', {
-        class: 'stats-val-top-text not-selectable',
+        class: 'run-stats-val-top-text not-selectable',
         text: 'Burned'
     }), $('<span/>', {
-        class: 'stats-val-bottom-text not-selectable',
+        class: 'run-stats-val-bottom-text not-selectable',
         id: 'burned-val',
         text: '50%'
     }));
