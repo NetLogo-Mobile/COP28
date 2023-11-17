@@ -133,115 +133,24 @@ const IntroMetadata =
  * Displays the results tab with model statistics
  */
 function ResultsTab() {
-    // blur background, not selectable 
-    $('.container').css('pointer-events', 'none');
-    // create new div
-    let resultsSummaryStatsContainer = $('<div/>', {
-        class: 'results-summary-stats-container'
-    });
-
-    let firesAddedPercentage = (InitialValues.initialTreesBurned / InitialValues.initialTrees * 100).toFixed(1);
-    console.log(`Percentage of Fires Added: ${firesAddedPercentage}%`);
     RunReporter("report-burned-trees").then(burnedTrees => {
-        let burnedTreesPercentage = (burnedTrees / InitialValues.initialTrees * 100).toFixed(1);
-        console.log(`Percentage of Trees Burned: ${burnedTreesPercentage}%`);
+        let FiresAdded = (InitialValues.initialTreesBurned / InitialValues.initialTrees * 100).toFixed(1);
+        let BurnedTrees = (burnedTrees / InitialValues.initialTrees * 100).toFixed(1);
 
-        let resultsContainer = $('<div/>', {
-            class: 'results-container not-selectable'
-        });
+        ShowResultTab();
+        // Update texts where necessary
+        let FireAddedLabel = GetResultLabel(0);
+        let TreeDensityLabel = GetResultLabel(1);
+        let BurnedLabel = GetResultLabel(2);
+        TreeDensityLabel.text(`${ControlWidget.CurrentDensity}%`);
+        FireAddedLabel.text(`${FiresAdded}%`);
+        BurnedLabel.text(`${BurnedTrees}%`);
 
-        let resultsSummaryContainer = $('<div/>', {
-            class: 'results-summary-container bordered'
-        });
-
-        let resultsSummaryTitle = $('<span/>', {
-            class: 'results-summary-title',
-            text: 'RESULTS'
-        });
-
-        resultsSummaryContainer.append(resultsSummaryTitle);
-
-        if (resultsSummaryStatsContainer) {
-            resultsSummaryContainer.append(resultsSummaryStatsContainer);
-        }
-        resultsContainer.append(resultsSummaryContainer);
-
-        let densityLabelResult = $('<div/>', {
-            class: 'results-model-stats not-selectable',
-            css: { backgroundColor: '#32D583', color: '#FCFCFD' }
-        }).append($('<img/>', {
-            class: 'results-model-stats-icon',
-            src: './assets/ChartPieSlice.svg',
-        }));
-
-        let densityValContainerResult = $('<div/>', {
-            class: 'stats-val-container not-selectable',
-        }).append($('<span/>', {
-            class: 'stats-val-top-text not-selectable',
-            text: 'The density of the trees:'
-        }), $('<span/>', {
-            class: 'stats-val-bottom-text not-selectable',
-            id: 'density-val-result',
-            text: `${ControlWidget.CurrentDensity}%`,
-        }));
-
-
-        densityLabelResult.append(densityValContainerResult);
-
-        let burnedLabelResult = $('<div/>', {
-            class: 'results-model-stats not-selectable',
-            css: { backgroundColor: '#F04438', color: '#FCFCFD' }
-        }).append($('<img/>', {
-            class: 'results-model-stats-icon',
-            src: './assets/FireSimple.svg',
-        }));
-
-        let burnedValContainerResult = $('<div/>', {
-            class: 'stats-val-container not-selectable',
-        }).append($('<span/>', {
-            class: 'stats-val-top-text not-selectable',
-            text: 'The percentage of fire added:'
-        }), $('<span/>', {
-            class: 'stats-val-bottom-text not-selectable',
-            id: 'burned-val-result',
-            text: `${firesAddedPercentage}%`,
-        }));
-
-        burnedLabelResult.append(burnedValContainerResult);
-
-        let percentBurnedStatsContainer = $('<div/>', {
-            class: 'results-model-stats not-selectable',
-            css: { backgroundColor: '#6941C6', color: '#FCFCFD' }
-        }).append($('<img/>', {
-            class: 'results-model-stats-icon',
-            src: './assets/amountBurned.svg',
-            style: 'margin-left: 8%'
-        }), $('<div/>', {
-            class: 'stats-val-container not-selectable',
-        }).append($('<span/>', {
-            class: 'stats-val-top-text not-selectable',
-            text: 'The percentage of trees burned:'
-        }), $('<span/>', {
-            class: 'stats-val-bottom-text not-selectable',
-            text: `${burnedTreesPercentage}%`
-        })));
-
-        resultsSummaryStatsContainer.append(burnedLabelResult, densityLabelResult, percentBurnedStatsContainer);
-
-        resultsSummaryContainer.append($('<span/>', {
-            text: `“Swipe to see detail stats. Note that different distribution of trees might result in different burnt ratio. Try adjusting density value or add more trees.”`,
-            class: 'results-summary-tip'
-        }))
-        $('body').append(resultsContainer);
-        // try again
-        resultsContainer.append($('<button/>', {
-            class: 'results-summary-button',
-            text: 'TRY AGAIN'
-        }).on('click', function () {
+        // Try again button functionality
+        $('.results-summary-button').on('click', function () {
             SetDensity(ControlWidget.CurrentDensity);
             SwitchMode(false);
-            resultsContainer.remove();
-            $('.container').css('pointer-events', 'auto');
-        }));
+            HideResultTab();
+        });
     });
 }

@@ -106,3 +106,25 @@ function ShowSlider(Callback, DefaultValue) {
     });
     Callback(DefaultValue);
 }
+
+/** The result interface */
+/**
+ * Shows the results tab
+ */
+function ShowResultTab() {
+    $('.container').css('pointer-events', 'none');
+    $('.results-container').removeClass('invisible-element');
+}
+/**
+ * Hides the results tab
+ */
+function HideResultTab() {
+    $('.container').css('pointer-events', 'auto');
+    $('.results-container').addClass('invisible-element');
+}
+/**
+ * Gets the label of a result widget
+ */
+function GetResultLabel(Index) {
+    return $('.results-model-stats').eq(Index).children("span.stats-val-bottom-text");
+}
