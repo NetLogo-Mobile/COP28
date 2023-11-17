@@ -25,56 +25,6 @@ var currentDensity;
 var initialTrees;
 var initialTreesBurned;
 
-// changes the control widget when running 
-function runningModelDisplay() {
-    // create the running model stat display
-    let densityDisplay = $('<div/>', {
-        class: 'running-model-stats not-selectable',
-        css: { backgroundColor: '#32D583', color: '#FCFCFD' }
-    }).append($('<img/>', {
-        class: 'running-model-stats-icon',
-        src: './assets/ChartPieSlice.svg'
-    }));
-
-    // create density display stats 
-    let densityValContainer = $('<div/>', {
-        class: 'stats-val-container not-selectable'
-    }).append($('<span/>', {
-        text: 'Density',
-        class: 'run-stats-val-top-text not-selectable',
-    }), $('<span/>', {
-        text: `50%`,
-        id: 'density-val',
-        class: 'run-stats-val-bottom-text not-selectable',
-    })); 
-
-    densityDisplay.append(densityValContainer);
-
-    // create the burned label
-    let burnedLabel = $('<div/>', {
-        class: 'running-model-stats not-selectable',
-        css: { backgroundColor: '#F04438' }
-    }).append($('<img/>', {
-        class: 'running-model-stats-icon',
-        src: './assets/FireSimple.svg',
-    }));
-
-    // create burn display stats
-    let burnedValContainer = $('<div/>', {
-        class: 'stats-val-container not-selectable'
-    }).append($('<span/>', {
-        class: 'run-stats-val-top-text not-selectable',
-        text: 'Burned'
-    }), $('<span/>', {
-        class: 'run-stats-val-bottom-text not-selectable',
-        id: 'burned-val',
-        text: '50%'
-    }));
-
-    burnedLabel.append(burnedValContainer);
-
-    $('.control-widget-container').append(densityDisplay, burnedLabel);
-}
 
 function setDensity(value) {
     densityLabel.text(`Density: ${value}%`);
@@ -83,62 +33,30 @@ function setDensity(value) {
     CallCommand("setup");
 }
 
-/* controlSlider: Creates the slider for the control widget of the game */
-function controlSlider(parent) {
-    var slider = $('<input/>', {
-        type: 'range',
-        class: 'styled-slider slider-progress',
-        min: '0',
-        max: '100',
-        value: '50',
-        css: {
-            '--value': '50',
-            '--min': '0',
-            '--max': '100'
-        }
-    }).on('input', function () {
-        $(this).css('--value', $(this).val());
-        setDensity($(this).val());
-    });
-
-    parent.append(slider);
-}
-
-/* controlWidget: Creates the control widget for the game */
-function controlWidget() {
-    let widgetContainer = $('<div/>', { class: 'control-widget-container' });
-    let button = $('<div/>', { class: 'control-widget-play-container' })
-        .append($('<img/>', {
-            src: './assets/ArrowCounterClockwise.svg',
-            class: 'control-widget-play'
-        })).on('click', function () {
-            switchMode(true);
-            $("#density-val").text(`${currentDensity}%`);
-            RunReporter("report-burned-trees").then(burnedTrees => {
-                initialTreesBurned = burnedTrees;
-                // Now start the simulation
-                GameLoop();
-            });
-        });
-
-    densityLabel = $('<span/>', { class: 'density-label not-selectable', text: 'Density' });
-    let tooltipLabel = $('<span/>', {
-        class: 'tooltip-label not-selectable',
-        text: 'Drag to change the density'
-    });
-    let sliderLabelContainer = $('<div/>', { class: 'slider-label-container' })
-        .append(densityLabel, tooltipLabel);
-
-    controlSlider(sliderLabelContainer);
-    widgetContainer.append(button, sliderLabelContainer);
-    $('.model-container').append(widgetContainer);
-}
-controlWidget();
-runningModelDisplay();
-
 function switchMode(isRunning) {
     $(".slider-label-container").toggle(!isRunning);
     $(".running-model-stats").toggle(isRunning);
+}
+
+function handleRun() {
+    switchMode(true);
+    $("#density-val").text(`${currentDensity}%`);
+    RunReporter("report-burned-trees").then(burnedTrees => {
+        initialTreesBurned = burnedTrees;
+        // Now start the simulation
+        GameLoop();
+    });
+}
+
+function showSlider() {
+    // for the slider 
+    $('.styled-slider').on('input', function() {
+        var value = $(this).val();
+        $(this).css('--value', value);
+        setDensity(value);
+    });
+
+    densityLabel = $('.density-label');
 }
 
 function resultsTab() {
@@ -149,7 +67,6 @@ function resultsTab() {
         class: 'results-summary-stats-container'
     });
     
-    // create results-stats-summary
     console.log(`Density: ${currentDensity}%`);
     
     RunReporter("report-initial-trees").then(initialTrees => {
@@ -246,7 +163,6 @@ function resultsTab() {
             text: `“Swipe to see detail stats. Note that different distribution of trees might result in different burnt ratio. Try adjusting density value or add more trees.”`,
             class: 'results-summary-tip'
         }))
-///erwqreqw
         $('body').append(resultsContainer);
         // try again
         resultsContainer.append($('<button/>', {
@@ -262,11 +178,12 @@ function resultsTab() {
     });
 }
 
-function setup(parent) {
+function setup() {
     $('#intro').remove();
     $('.model-container').removeClass('invisible-element');
     $(".container").addClass("no-padding");
     RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
+    showSlider();
     setDensity(50);
     switchMode(false);
     Click("#netlogo-button-5 input");

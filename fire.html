@@ -44,6 +44,40 @@
         <!-- For Acero: The Simulation iFrame-->
         <div class="model-container invisible-element">
             <iframe src="simulation.html#models/fire.nlogo" id="simulation" scrolling="no"></iframe>
+            <!-- Control widget -->
+            <div class="control-widget-container">
+                <!-- Play/Reset Button -->
+                <div class="control-widget-play-container" onclick="handleRun()">
+                    <img src="./assets/ArrowCounterClockwise.svg" class="control-widget-play" />
+                </div>
+            
+                <!-- Slider Label Container -->
+                <div class="slider-label-container">
+                    <!-- Density Label -->
+                    <span class="density-label not-selectable">Density</span>
+                    <!-- Tooltip Label -->
+                    <span class="tooltip-label not-selectable">Drag to change the density</span>
+                    <input type="range" class="styled-slider slider-progress" min="0" max="100" value="50" style="--value: 50; --min: 0; --max: 100;">
+                </div>
+
+                <!-- Density Display -->
+                <div class="running-model-stats not-selectable" style="background-color: #32D583; color: #FCFCFD;">
+                    <img src="./assets/ChartPieSlice.svg" class="running-model-stats-icon">
+                    <div class="stats-val-container not-selectable">
+                        <span class="run-stats-val-top-text not-selectable">Density</span>
+                        <span id="density-val" class="run-stats-val-bottom-text not-selectable">50%</span>
+                    </div>
+                </div>
+
+                <!-- Burned Label -->
+                <div class="running-model-stats not-selectable" style="background-color: #F04438;">
+                    <img src="./assets/FireSimple.svg" class="running-model-stats-icon">
+                    <div class="stats-val-container not-selectable">
+                        <span class="run-stats-val-top-text not-selectable">Burned</span>
+                        <span id="burned-val" class="run-stats-val-bottom-text not-selectable">50%</span>
+                    </div>
+                </div>
+            </div>
         </div>
         
     </div>
