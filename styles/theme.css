@@ -9,6 +9,10 @@ body {
     background-color: #f5f5f5;
 }
 
+.invisible-element {
+    display: none;
+}
+
 .not-selectable {
     user-select: none;
     -webkit-user-select: none;
@@ -86,8 +90,4 @@ button.bordered:hover {
     height: 40vh; 
     object-fit: cover; 
     border-radius: 1rem;
-}
-
-.invisible-element {
-    display: none;
 }

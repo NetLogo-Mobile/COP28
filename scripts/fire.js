@@ -20,15 +20,14 @@ async function GameLoop() {
 }
 
 // globals so we don't have to scan the DOM every time 
-var densityLabel;
-var currentDensity;
-var initialTrees;
-var initialTreesBurned;
+
+var controlWidget;
+var initialValues = {};
 
 
 function setDensity(value) {
-    densityLabel.text(`Density: ${value}%`);
-    currentDensity = value;
+    controlWidget.densityLabel.text(`Density: ${value}%`);
+    controlWidget.currentDensity = value;
     RunCommand(`set density ${value}`);
     CallCommand("setup");
 }
@@ -40,23 +39,37 @@ function switchMode(isRunning) {
 
 function handleRun() {
     switchMode(true);
-    $("#density-val").text(`${currentDensity}%`);
-    RunReporter("report-burned-trees").then(burnedTrees => {
-        initialTreesBurned = burnedTrees;
-        // Now start the simulation
-        GameLoop();
-    });
+    $("#density-val").text(`${controlWidget.currentDensity}%`);
+    initValues();
+    GameLoop();
 }
 
 function showSlider() {
     // for the slider 
-    $('.styled-slider').on('input', function() {
+    controlWidget.slider.on('input', function() {
         var value = $(this).val();
         $(this).css('--value', value);
         setDensity(value);
     });
 
-    densityLabel = $('.density-label');
+}
+
+async function initValues() {
+    try {
+        // Fetch initial trees and initialTreesBurned
+        const initialTreesResult = await RunReporter("report-initial-trees");
+        const initialTreesBurnedResult = await RunReporter("report-burned-trees"); 
+
+        let firesAddedPercentageCalc = (initialTreesBurnedResult / initialTreesResult * 100).toFixed(1);
+        initialValues = {
+            initialTrees: initialTreesResult,
+            initialTreesBurned: initialTreesBurnedResult,
+            firesAddedPercentage: firesAddedPercentageCalc
+        };
+
+    } catch (error) {
+        console.error('Error occurred while initializing initialValues:', error);
+    }
 }
 
 function resultsTab() {
@@ -67,11 +80,9 @@ function resultsTab() {
         class: 'results-summary-stats-container'
     });
     
-    console.log(`Density: ${currentDensity}%`);
     
     RunReporter("report-initial-trees").then(initialTrees => {
-
-        let firesAddedPercentage = (initialTreesBurned / initialTrees * 100).toFixed(1);
+        let firesAddedPercentage = (initialValues.initialTreesBurned / initialTrees * 100).toFixed(1);
         console.log(`Percentage of Fires Added: ${firesAddedPercentage}%`);
         RunReporter("report-burned-trees").then(burnedTrees => {
             let burnedTreesPercentage = (burnedTrees / initialTrees * 100).toFixed(1);
@@ -113,7 +124,7 @@ function resultsTab() {
         }), $('<span/>', {
             class: 'stats-val-bottom-text not-selectable',
             id: 'density-val-result', 
-            text: `${currentDensity}%`,
+            text: `${controlWidget.currentDensity}%`,
         }));
         
         
@@ -169,7 +180,7 @@ function resultsTab() {
         class: 'results-summary-button',
         text: 'TRY AGAIN'
     }).on('click', function () {        
-        setDensity(currentDensity);
+        setDensity(controlWidget.currentDensity);
         switchMode(false);
         resultsContainer.remove();
         $('.container').css('pointer-events', 'auto');
@@ -183,6 +194,13 @@ function setup() {
     $('.model-container').removeClass('invisible-element');
     $(".container").addClass("no-padding");
     RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
+
+    // define objects
+    controlWidget = {
+        slider: $('.styled-slider'),
+        densityLabel: $('.density-label'),
+        currentDensity: 0,
+    };
     showSlider();
     setDensity(50);
     switchMode(false);
