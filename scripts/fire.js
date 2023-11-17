@@ -1,92 +1,150 @@
-/** Fire: The fire model specific code goes here. */
+/** Fire: The fire model specific code goes here. *
+/**
+ * Sets up the model interface and initializes components
+ */
+function Setup() {
+    // Show the model
+    ShowModel({
+        Density: 0,
+        DensityLabel: $('.density-label'),
+        DensityVal: $('.density-val'),
+        BurnedVal: $('.burned-val'),
+    });
+    // Setup the model
+    RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
+    Click("#netlogo-button-5 input");
+    // Define objects
+    ShowSlider(SetDensity, 50);
+}
+
+/**
+ * Handles the 'run' action of the model
+ */
+function HandleRun() {
+    SwitchMode(true);
+    InitializeValues();
+    GameLoop();
+}
+
+/**
+ * Game loop function for running the model
+ */
 async function GameLoop() {
     CallCommand("go");
-    var Finished = await CallReporter("is-finished");
-    // can probably make this better by not running it per call since it doesn't change 
-    var initialTreesValue = await RunReporter("report-initial-trees");
-    RunReporter("report-burned-trees").then(burnedTreesValue => {
-        let burnedPercentage = (burnedTreesValue / initialTreesValue) * 100;
+    // Check if the game is over
+    var finished = await CallReporter("is-finished");
+    CallReporter("report-burned-trees").then(burnedTrees => {
+        let burnedPercentage = (burnedTrees / InitialValues.initialTrees) * 100;
         $('#burned-val').text(`${burnedPercentage.toFixed(1)}%`);
-    })
-    if (Finished) {
-        // game is over
+    });
+    if (finished) {
+        // Game is over
         await WaitFor(500);
-        switchMode(false);
-        resultsTab();
+        SwitchMode(false);
+        ResultsTab();
     } else {
         await WaitFor(20);
         return await GameLoop();
     }
 }
 
-// globals so we don't have to scan the DOM every time 
-
-var controlWidget;
-var initialValues = {};
-
-
-function setDensity(value) {
-    controlWidget.densityLabel.text(`Density: ${value}%`);
-    controlWidget.currentDensity = value;
+/**
+ * Sets the density value and updates the related UI components
+ * @param {number} value - The density value to set
+ */
+function SetDensity(value) {
+    ControlWidget.DensityLabel.text(`Density: ${value}%`);
+    ControlWidget.DensityVal.text(`${value}%`);
+    ControlWidget.CurrentDensity = value;
     RunCommand(`set density ${value}`);
     CallCommand("setup");
 }
 
-function switchMode(isRunning) {
-    $(".slider-label-container").toggle(!isRunning);
-    $(".running-model-stats").toggle(isRunning);
-}
-
-function handleRun() {
-    switchMode(true);
-    $("#density-val").text(`${controlWidget.currentDensity}%`);
-    initValues();
-    GameLoop();
-}
-
-function showSlider() {
-    // for the slider 
-    controlWidget.slider.on('input', function() {
-        var value = $(this).val();
-        $(this).css('--value', value);
-        setDensity(value);
-    });
-
-}
-
-async function initValues() {
+// Initial values
+var InitialValues = {};
+/**
+ * Initializes the initial values for the model
+ */
+async function InitializeValues() {
     try {
-        // Fetch initial trees and initialTreesBurned
         const initialTreesResult = await RunReporter("report-initial-trees");
-        const initialTreesBurnedResult = await RunReporter("report-burned-trees"); 
+        const initialTreesBurnedResult = await RunReporter("report-burned-trees");
 
         let firesAddedPercentageCalc = (initialTreesBurnedResult / initialTreesResult * 100).toFixed(1);
-        initialValues = {
+        InitialValues = {
             initialTrees: initialTreesResult,
             initialTreesBurned: initialTreesBurnedResult,
             firesAddedPercentage: firesAddedPercentageCalc
         };
 
     } catch (error) {
-        console.error('Error occurred while initializing initialValues:', error);
+        console.error('Error occurred while initializing InitialValues:', error);
     }
 }
 
-function resultsTab() {
+// Metadata for Introduction
+const IntroMetadata =
+    [
+        {
+            img: "assets/fire.png",
+            title: "WHAT IS IT?",
+            description:
+                "The model you will be playing with simulates the spread of a fire through a forest.",
+        },
+        {
+            img: "assets/burning.gif",
+            title: "HOW DOES IT WORK?",
+            description:
+                "You will be able to change the density of the trees in the forest, and add fires through touching, to understand how fires spread in forests.",
+        },
+        {
+            img: "assets/burning_close.gif",
+            title: "HOW DOES IT WORK?",
+            description:
+                "The fire spreads in four directions: to the tree directly north, and to trees to the east, south, and west.",
+            buttonText: "GET STARTED",
+        },
+    ];
+
+/**
+    [
+        {
+          img: "assets/wolfsheep.png",
+          title: "WHAT IS IT?",
+          description:
+            "This model explores the stability of predator-prey ecosystems. Such a system is called unstable if it tends to result in extinction for one or more species involved. In contrast, a system is stable if it tends to maintain itself over time, despite fluctuations in population sizes.",
+        },
+        {
+          img: "assets/sheep.gif",
+          title: "HOW DOES IT WORK?",
+          description:
+            'There are two main variations to this model. In the first variation, the "sheep-wolves" version, wolves and sheep wander randomly around the landscape, while the wolves look for sheep to prey on. Each step costs the wolves energy, and they must eat sheep in order to replenish their energy - when they run out of energy they die. To allow the population to continue, each wolf or sheep has a fixed probability of reproducing at each time step. In this variation, we model the grass as "infinite" so that sheep always have enough to eat, and we don\'t explicitly model the eating or growing of grass. As such, sheep don\'t either gain or lose energy by eating or moving.',
+        },
+        {
+          img: "assets/sheep2.gif",
+          title: "HOW DOES IT WORK?",
+          description:
+            'The second variation, the "sheep-wolves-grass" version explictly models grass (green) in addition to wolves and sheep. The behavior of the wolves is identical to the first variation, however this time the sheep must eat grass in order to maintain their energy - when they run out of energy they die. Once grass is eaten it will only regrow after a fixed amount of time. ',
+          buttonText: "GET STARTED",
+        },
+      ], */
+    
+/**
+ * Displays the results tab with model statistics
+ */
+function ResultsTab() {
     // blur background, not selectable 
     $('.container').css('pointer-events', 'none');
     // create new div
     let resultsSummaryStatsContainer = $('<div/>', {
         class: 'results-summary-stats-container'
     });
-    
-    
-    RunReporter("report-initial-trees").then(initialTrees => {
-        let firesAddedPercentage = (initialValues.initialTreesBurned / initialTrees * 100).toFixed(1);
-        console.log(`Percentage of Fires Added: ${firesAddedPercentage}%`);
-        RunReporter("report-burned-trees").then(burnedTrees => {
-            let burnedTreesPercentage = (burnedTrees / initialTrees * 100).toFixed(1);
-            console.log(`Percentage of Trees Burned: ${burnedTreesPercentage}%`);
+
+    let firesAddedPercentage = (InitialValues.initialTreesBurned / InitialValues.initialTrees * 100).toFixed(1);
+    console.log(`Percentage of Fires Added: ${firesAddedPercentage}%`);
+    RunReporter("report-burned-trees").then(burnedTrees => {
+        let burnedTreesPercentage = (burnedTrees / InitialValues.initialTrees * 100).toFixed(1);
+        console.log(`Percentage of Trees Burned: ${burnedTreesPercentage}%`);
 
         let resultsContainer = $('<div/>', {
             class: 'results-container not-selectable'
@@ -107,15 +165,15 @@ function resultsTab() {
             resultsSummaryContainer.append(resultsSummaryStatsContainer);
         }
         resultsContainer.append(resultsSummaryContainer);
-        
+
         let densityLabelResult = $('<div/>', {
             class: 'results-model-stats not-selectable',
-            css: { backgroundColor: '#32D583', color: '#FCFCFD'}
+            css: { backgroundColor: '#32D583', color: '#FCFCFD' }
         }).append($('<img/>', {
             class: 'results-model-stats-icon',
             src: './assets/ChartPieSlice.svg',
         }));
-        
+
         let densityValContainerResult = $('<div/>', {
             class: 'stats-val-container not-selectable',
         }).append($('<span/>', {
@@ -123,21 +181,21 @@ function resultsTab() {
             text: 'The density of the trees:'
         }), $('<span/>', {
             class: 'stats-val-bottom-text not-selectable',
-            id: 'density-val-result', 
-            text: `${controlWidget.currentDensity}%`,
+            id: 'density-val-result',
+            text: `${ControlWidget.CurrentDensity}%`,
         }));
-        
-        
+
+
         densityLabelResult.append(densityValContainerResult);
-        
+
         let burnedLabelResult = $('<div/>', {
             class: 'results-model-stats not-selectable',
-            css: { backgroundColor: '#F04438', color: '#FCFCFD'}
+            css: { backgroundColor: '#F04438', color: '#FCFCFD' }
         }).append($('<img/>', {
             class: 'results-model-stats-icon',
             src: './assets/FireSimple.svg',
         }));
-        
+
         let burnedValContainerResult = $('<div/>', {
             class: 'stats-val-container not-selectable',
         }).append($('<span/>', {
@@ -145,15 +203,15 @@ function resultsTab() {
             text: 'The percentage of fire added:'
         }), $('<span/>', {
             class: 'stats-val-bottom-text not-selectable',
-            id: 'burned-val-result', 
+            id: 'burned-val-result',
             text: `${firesAddedPercentage}%`,
         }));
-        
+
         burnedLabelResult.append(burnedValContainerResult);
 
         let percentBurnedStatsContainer = $('<div/>', {
             class: 'results-model-stats not-selectable',
-            css: { backgroundColor: '#6941C6', color: '#FCFCFD'} 
+            css: { backgroundColor: '#6941C6', color: '#FCFCFD' }
         }).append($('<img/>', {
             class: 'results-model-stats-icon',
             src: './assets/amountBurned.svg',
@@ -165,9 +223,9 @@ function resultsTab() {
             text: 'The percentage of trees burned:'
         }), $('<span/>', {
             class: 'stats-val-bottom-text not-selectable',
-            text: `${burnedTreesPercentage}%` 
+            text: `${burnedTreesPercentage}%`
         })));
-        
+
         resultsSummaryStatsContainer.append(burnedLabelResult, densityLabelResult, percentBurnedStatsContainer);
 
         resultsSummaryContainer.append($('<span/>', {
@@ -177,32 +235,13 @@ function resultsTab() {
         $('body').append(resultsContainer);
         // try again
         resultsContainer.append($('<button/>', {
-        class: 'results-summary-button',
-        text: 'TRY AGAIN'
-    }).on('click', function () {        
-        setDensity(controlWidget.currentDensity);
-        switchMode(false);
-        resultsContainer.remove();
-        $('.container').css('pointer-events', 'auto');
-    }));
-        });
+            class: 'results-summary-button',
+            text: 'TRY AGAIN'
+        }).on('click', function () {
+            SetDensity(ControlWidget.CurrentDensity);
+            SwitchMode(false);
+            resultsContainer.remove();
+            $('.container').css('pointer-events', 'auto');
+        }));
     });
-}
-
-function setup() {
-    $('#intro').remove();
-    $('.model-container').removeClass('invisible-element');
-    $(".container").addClass("no-padding");
-    RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
-
-    // define objects
-    controlWidget = {
-        slider: $('.styled-slider'),
-        densityLabel: $('.density-label'),
-        currentDensity: 0,
-    };
-    showSlider();
-    setDensity(50);
-    switchMode(false);
-    Click("#netlogo-button-5 input");
 }

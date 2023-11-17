@@ -1,5 +1,6 @@
 /** Model: All model-general code goes here. */
 
+/** The model interaction */
 /** WaitFor: A helper for Async Timeout. */
 const WaitFor = delay => new Promise(resolve => setTimeout(resolve, delay));
 
@@ -67,3 +68,41 @@ window.addEventListener("message", (event) => {
     Handlers[event.data.id](event.data.result);
     delete Handlers[event.data.id];
 });
+
+/** The controlling interface */
+// The control widget
+var ControlWidget;
+/**
+ * Hide the Introduction and show the model
+ */
+function ShowModel(Widgets) {
+    // Show and hide
+    $('#intro').hide();
+    $('.model-container').removeClass('invisible-element');
+    $(".container").addClass("no-padding");
+    $(".play-container").on("click", HandleRun);
+    // Define objects
+    ControlWidget = Widgets;
+    Widgets.Slider = $('.styled-slider');
+    // Switch the mode
+    SwitchMode(false);
+}
+/**
+ * Switches the mode of the application between running and not running
+ * @param {boolean} isRunning - Indicates whether the model is running
+ */
+function SwitchMode(isRunning) {
+    $(".slider-label-container").toggle(!isRunning);
+    $(".running-model-stats").toggle(isRunning);
+}
+/**
+ * Initializes and shows the parameter slider
+ */
+function ShowSlider(Callback, DefaultValue) {
+    ControlWidget.Slider.on('input', function() {
+        var value = $(this).val();
+        $(this).css('--value', value);
+        Callback(value);
+    });
+    Callback(DefaultValue);
+}
