@@ -35,7 +35,7 @@ async function GameLoop() {
     var finished = await CallReporter("is-finished");
     CallReporter("report-burned-trees").then(burnedTrees => {
         let burnedPercentage = (burnedTrees / InitialValues.initialTrees) * 100;
-        $('#burned-val').text(`${burnedPercentage.toFixed(1)}%`);
+        $('.burned-val').text(`${burnedPercentage.toFixed(1)}%`);
     });
     if (finished) {
         // Game is over
@@ -138,10 +138,15 @@ function ResultsTab() {
         let BurnedTrees = (burnedTrees / InitialValues.initialTrees * 100).toFixed(1);
 
         ShowResultTab();
+        console.log(FiresAdded);
+        console.log(BurnedTrees);
         // Update texts where necessary
         let FireAddedLabel = GetResultLabel(0);
         let TreeDensityLabel = GetResultLabel(1);
         let BurnedLabel = GetResultLabel(2);
+        console.log(TreeDensityLabel);
+        console.log(FireAddedLabel);
+        console.log(BurnedLabel);
         TreeDensityLabel.text(`${ControlWidget.CurrentDensity}%`);
         FireAddedLabel.text(`${FiresAdded}%`);
         BurnedLabel.text(`${BurnedTrees}%`);

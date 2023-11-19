@@ -126,5 +126,5 @@ function HideResultTab() {
  * Gets the label of a result widget
  */
 function GetResultLabel(Index) {
-    return $('.results-model-stats').eq(Index).children("span.stats-val-bottom-text");
+    return $('.results-model-stats').eq(Index).find("span.stats-val-bottom-text");
 }
