@@ -159,3 +159,20 @@ function ResultsTab() {
         });
     });
 }
+
+let isDragging = false;
+const firstCard = $('.results-summary-container')[0];
+const secondCard = $('.results-summary-container')[1];
+
+firstCard.addEventListener('mousedown', function(event) {
+    isDragging = true;
+});
+
+document.addEventListener('mouseup', function(event) {
+    if (isDragging) {
+        isDragging = false;
+        firstCard.style.transform = 'translateX(-100%)'; // slide out
+        secondCard.classList.remove('invisible-element');
+        secondCard.style.transform = 'translateX(0)'; // slide in
+    }
+});

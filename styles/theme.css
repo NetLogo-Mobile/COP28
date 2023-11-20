@@ -10,7 +10,7 @@ body {
 }
 
 .invisible-element {
-    display: none;
+    display: none !important;
 }
 
 .not-selectable {
