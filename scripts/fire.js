@@ -157,11 +157,9 @@ function ResultsTab() {
 
 
 
-// Assuming you have a draggable element with the id "draggableElement"
-const draggableElement = $('.results-summary-container')[0];
+const draggableElement = $('.sliding-window')[0];
 let isDragging = false;
 
-// Add event listeners for drag start and end
 draggableElement.addEventListener('mousedown', startDrag);
 draggableElement.addEventListener('touchstart', startDrag);
 document.addEventListener('mousemove', dragging);
@@ -169,16 +167,13 @@ document.addEventListener('touchmove', dragging);
 document.addEventListener('mouseup', endDrag);
 document.addEventListener('touchend', endDrag);
 
-// Define the navigation destination and animation properties
 const navigationDestination = "Results::scoreboard";
 const animationTimingFunction = "ease-out";
 const animationDuration = "300ms";
 
-// Variables to track the initial mouse/touch position
 let startX = 0;
 let currentX = 0;
 
-// Function to start the drag
 function startDrag(e) {
     e.preventDefault();
     isDragging = true;
@@ -190,7 +185,6 @@ function startDrag(e) {
     }
 }
 
-// Function to perform the drag
 function dragging(e) {
     if (!isDragging) return;
 
@@ -202,40 +196,26 @@ function dragging(e) {
         currentX = e.clientX;
     }
 
-    // Calculate the horizontal distance moved
     const distanceX = currentX - startX;
-
-    // Perform the drag animation (e.g., move the element)
     draggableElement.style.transform = `translateX(${distanceX}px)`;
 }
 
-// Function to end the drag
 function endDrag(e) {
     if (!isDragging) return;
 
     isDragging = false;
-
-    // Calculate the horizontal distance moved
     const distanceX = currentX - startX;
-
-    // Check if the drag distance is significant (you can set a threshold)
-    const dragThreshold = 50; // Adjust this threshold as needed
+    const dragThreshold = 50; 
 
     if (Math.abs(distanceX) >= dragThreshold) {
-        // Perform navigation and animation if the drag distance is significant
         navigateAndAnimate();
     } else {
-        // Reset the element's position if the drag distance is not significant
         draggableElement.style.transform = 'translateX(0)';
     }
 }
 
 // Function to navigate and animate
 function navigateAndAnimate() {
-    // Perform the navigation to "Results::scoreboard" here
-    // You can use window.location or a navigation library for navigation
-
-    // Apply animation properties
     draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
-    draggableElement.style.transform = 'translateX(0)'; // Reset the element's position
+    draggableElement.style.transform = 'translateX(0)'; 
 }

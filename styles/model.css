@@ -268,15 +268,23 @@ input[type='range'].styled-slider.slider-progress::-webkit-slider-runnable-track
   font-size: 0.7rem;
 }
 
-.sliding-window {
-  display: flex;
-  flex-direction: row;
-  width: calc(400px + 1%); /* Adjusted to match the child's width plus padding */
-  height: auto; /* Height will adjust based on content */
+.window {
+  width: calc(400px + 2%); 
+  height: auto; 
   margin-left: auto;
   margin-right: auto;
-  overflow-x: auto; /* Enable horizontal scrolling */
-  overflow-y: hidden; /* Prevent vertical scrolling */
+  overflow-x: auto; 
+  overflow-y: hidden; 
+}
+
+.sliding-window {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+#results-p2 {
+  margin-left: 2.5%;
 }
 
 
@@ -322,10 +330,14 @@ input[type='range'].styled-slider.slider-progress::-webkit-slider-runnable-track
     width: 250px;
   }
 
-  .sliding-window {
-    width: calc(250px + 2%); 
+  .window {
+    width: 100svw;
   }
 
+  .sliding-window {
+    margin-left: 5%;
+  }
+  
   .results-summary-button {
     width: 250px;
   }

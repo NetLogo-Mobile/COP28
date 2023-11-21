@@ -83,42 +83,44 @@
 
     <!-- Results Container -->
     <div class="invisible-element results-container not-selectable">
-        <div class="sliding-window">
-            <div class="results-summary-container bordered draggable">
-                <span class="results-summary-title">RESULTS</span>
-    
-                <div class="results-summary-stats-container">
-                    <div class="results-model-stats" style="background-color: #F04438">
-                        <img src="./assets/FireSimple.svg" class="results-model-stats-icon">
-                        <div class="stats-val-container">
-                            <span class="stats-val-top-text">Fire added:</span>
-                            <span id="burned-val-result" class="stats-val-bottom-text">0%</span>
+        <div class="window">
+            <div class="sliding-window">
+                <div id="results-p1" class="results-summary-container bordered draggable">
+                    <span class="results-summary-title">RESULTS</span>
+        
+                    <div class="results-summary-stats-container">
+                        <div class="results-model-stats" style="background-color: #F04438">
+                            <img src="./assets/FireSimple.svg" class="results-model-stats-icon">
+                            <div class="stats-val-container">
+                                <span class="stats-val-top-text">Fire added:</span>
+                                <span id="burned-val-result" class="stats-val-bottom-text">0%</span>
+                            </div>
+                        </div>
+        
+                        <div class="results-model-stats" style="background-color: #32D583">
+                            <img src="./assets/ChartPieSlice.svg" class="results-model-stats-icon">
+                            <div class="stats-val-container">
+                                <span class="stats-val-top-text">Tree density:</span>
+                                <span id="density-val-result" class="stats-val-bottom-text">0%</span>
+                            </div>
+                        </div>
+        
+                        <div class="results-model-stats" style="background-color: #6941C6">
+                            <img src="./assets/amountBurned.svg" class="results-model-stats-icon" style="margin-left: 8%">
+                            <div class="stats-val-container">
+                                <span class="run-stats-val-top-text">Burned trees:</span>
+                                <span class="stats-val-bottom-text">0%</span>
+                            </div>
                         </div>
                     </div>
-    
-                    <div class="results-model-stats" style="background-color: #32D583">
-                        <img src="./assets/ChartPieSlice.svg" class="results-model-stats-icon">
-                        <div class="stats-val-container">
-                            <span class="stats-val-top-text">Tree density:</span>
-                            <span id="density-val-result" class="stats-val-bottom-text">0%</span>
-                        </div>
-                    </div>
-    
-                    <div class="results-model-stats" style="background-color: #6941C6">
-                        <img src="./assets/amountBurned.svg" class="results-model-stats-icon" style="margin-left: 8%">
-                        <div class="stats-val-container">
-                            <span class="run-stats-val-top-text">Burned trees:</span>
-                            <span class="stats-val-bottom-text">0%</span>
-                        </div>
-                    </div>
+        
+                    <span class="results-summary-tip">“Swipe to see detail stats. Note that different distribution of trees might result in different burnt ratio. Try adjusting density value or add more trees.”</span>
                 </div>
-    
-                <span class="results-summary-tip">“Swipe to see detail stats. Note that different distribution of trees might result in different burnt ratio. Try adjusting density value or add more trees.”</span>
-            </div>
-    
-            <!-- For John: The div to display the graphing -->
-            <div class="results-summary-container draggable bordered">
-                <span class = "results-summary-title"> Chart results </span>
+        
+                <!-- For John: The div to display the graphing -->
+                <div id="results-p2" class="results-summary-container draggable bordered">
+                    <span class = "results-summary-title"> Chart results </span>
+                </div>
             </div>
         </div>
 
