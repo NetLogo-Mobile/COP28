@@ -138,15 +138,10 @@ function ResultsTab() {
         let BurnedTrees = (burnedTrees / InitialValues.initialTrees * 100).toFixed(1);
 
         ShowResultTab();
-        console.log(FiresAdded);
-        console.log(BurnedTrees);
         // Update texts where necessary
         let FireAddedLabel = GetResultLabel(0);
         let TreeDensityLabel = GetResultLabel(1);
         let BurnedLabel = GetResultLabel(2);
-        console.log(TreeDensityLabel);
-        console.log(FireAddedLabel);
-        console.log(BurnedLabel);
         TreeDensityLabel.text(`${ControlWidget.CurrentDensity}%`);
         FireAddedLabel.text(`${FiresAdded}%`);
         BurnedLabel.text(`${BurnedTrees}%`);
@@ -160,19 +155,87 @@ function ResultsTab() {
     });
 }
 
+
+
+// Assuming you have a draggable element with the id "draggableElement"
+const draggableElement = $('.results-summary-container')[0];
 let isDragging = false;
-const firstCard = $('.results-summary-container')[0];
-const secondCard = $('.results-summary-container')[1];
 
-firstCard.addEventListener('mousedown', function(event) {
+// Add event listeners for drag start and end
+draggableElement.addEventListener('mousedown', startDrag);
+draggableElement.addEventListener('touchstart', startDrag);
+document.addEventListener('mousemove', dragging);
+document.addEventListener('touchmove', dragging);
+document.addEventListener('mouseup', endDrag);
+document.addEventListener('touchend', endDrag);
+
+// Define the navigation destination and animation properties
+const navigationDestination = "Results::scoreboard";
+const animationTimingFunction = "ease-out";
+const animationDuration = "300ms";
+
+// Variables to track the initial mouse/touch position
+let startX = 0;
+let currentX = 0;
+
+// Function to start the drag
+function startDrag(e) {
+    e.preventDefault();
     isDragging = true;
-});
 
-document.addEventListener('mouseup', function(event) {
-    if (isDragging) {
-        isDragging = false;
-        firstCard.style.transform = 'translateX(-100%)'; // slide out
-        secondCard.classList.remove('invisible-element');
-        secondCard.style.transform = 'translateX(0)'; // slide in
+    if (e.type === 'touchstart') {
+        startX = e.touches[0].clientX;
+    } else {
+        startX = e.clientX;
     }
-});
+}
+
+// Function to perform the drag
+function dragging(e) {
+    if (!isDragging) return;
+
+    e.preventDefault();
+
+    if (e.type === 'touchmove') {
+        currentX = e.touches[0].clientX;
+    } else {
+        currentX = e.clientX;
+    }
+
+    // Calculate the horizontal distance moved
+    const distanceX = currentX - startX;
+
+    // Perform the drag animation (e.g., move the element)
+    draggableElement.style.transform = `translateX(${distanceX}px)`;
+}
+
+// Function to end the drag
+function endDrag(e) {
+    if (!isDragging) return;
+
+    isDragging = false;
+
+    // Calculate the horizontal distance moved
+    const distanceX = currentX - startX;
+
+    // Check if the drag distance is significant (you can set a threshold)
+    const dragThreshold = 50; // Adjust this threshold as needed
+
+    if (Math.abs(distanceX) >= dragThreshold) {
+        // Perform navigation and animation if the drag distance is significant
+        navigateAndAnimate();
+    } else {
+        // Reset the element's position if the drag distance is not significant
+        draggableElement.style.transform = 'translateX(0)';
+    }
+}
+
+// Function to navigate and animate
+function navigateAndAnimate() {
+    // Perform the navigation to "Results::scoreboard" here
+    // You can use window.location or a navigation library for navigation
+
+    // Apply animation properties
+    draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
+    draggableElement.style.transform = 'translateX(0)'; // Reset the element's position
+}
