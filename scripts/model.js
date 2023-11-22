@@ -114,6 +114,7 @@ function ShowSlider(Callback, DefaultValue) {
 function ShowResultTab() {
     $('.container').css('pointer-events', 'none');
     $('.results-container').removeClass('invisible-element');
+    InitializeDragging();
 }
 /**
  * Hides the results tab
@@ -127,4 +128,92 @@ function HideResultTab() {
  */
 function GetResultLabel(Index) {
     return $('.results-model-stats').eq(Index).find("span.stats-val-bottom-text");
+}
+/**
+ * Initializes the dragging functionality
+ */
+function InitializeDragging() {
+    const draggableElement = $('.sliding-window')[0];
+    let isDragging = false;
+
+    draggableElement.addEventListener('mousedown', startDrag);
+    draggableElement.addEventListener('touchstart', startDrag);
+    document.addEventListener('mousemove', dragging);
+    document.addEventListener('touchmove', dragging);
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+
+    const animationTimingFunction = "ease-out";
+    const animationDuration = "300ms";
+
+    let startX = 0;
+    let currentX = 0;
+    let pageIndex = 0;
+
+    function startDrag(e) {
+        e.preventDefault();
+        isDragging = true;
+
+        if (e.type === 'touchstart') {
+            startX = e.touches[0].clientX;
+        } else {
+            startX = e.clientX;
+        }
+    }
+
+    function dragging(e) {
+        if (!isDragging) return;
+
+        e.preventDefault();
+
+        if (e.type === 'touchmove') {
+            currentX = e.touches[0].clientX;
+        } else {
+            currentX = e.clientX;
+        }
+
+        const distanceX = currentX - startX;
+        draggableElement.style.transform = `translateX(${distanceX}px)`;
+    }
+
+    function endDrag(e) {
+        if (!isDragging) return;
+
+        isDragging = false;
+        const distanceX = currentX - startX;
+        console.log(distanceX);
+        const dragThreshold = 70; 
+
+        if (Math.abs(distanceX) >= dragThreshold) {
+            navigateAndAnimate();
+            shiftPage(distanceX);
+        } else {
+            draggableElement.style.transform = 'translateX(0)';
+        }
+    }
+
+    // shiftPage: shifts the page to destPage
+    function shiftPage(dragDistance) {
+        // get length of resultPage 
+        const resultPageLen = $('.results-summary-container').outerWidth();
+        console.log(dragDistance);
+        // check if drag is right direction:
+        if(dragDistance < 0 && pageIndex == 0) {
+            draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
+            draggableElement.style.transform = `translateX(${-resultPageLen}px)`;
+            // set index to next page
+            pageIndex = 1;
+        }
+        else if(dragDistance > 0 && pageIndex == 1) {
+            draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
+            draggableElement.style.transform = `translateX(${0}px)`;
+            // set index to next page
+            pageIndex = 0;
+        }
+    }
+
+    function navigateAndAnimate() {
+        draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
+        draggableElement.style.transform = 'translateX(0)'; 
+    }
 }
