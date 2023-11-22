@@ -146,7 +146,7 @@ function InitializeDragging() {
     let pageIndex = 0;
     let resetX = 0; // the value for it to "snap back" to
     const dragThreshold = $('.results-summary-container').outerWidth() / 2.3;
-    const resultPageLen = $('.results-summary-container').outerWidth();
+    const resultPageLen = $('.results-summary-container').outerWidth() + 10; // the 10 is to account for the gap 
 
     function startDrag(e) {
         e.preventDefault();
