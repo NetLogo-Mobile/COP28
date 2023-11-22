@@ -139,13 +139,14 @@ function InitializeDragging() {
     document.addEventListener('touchend', endDrag);
 
     const animationTimingFunction = "ease-out";
-    const animationDuration = "300ms";
+    const animationDuration = "100ms";
 
     let startX = 0;
     let currentX = 0;
     let pageIndex = 0;
     let resetX = 0; // the value for it to "snap back" to
     const dragThreshold = $('.results-summary-container').outerWidth() / 2.3;
+    const resultPageLen = $('.results-summary-container').outerWidth();
 
     function startDrag(e) {
         e.preventDefault();
@@ -174,7 +175,7 @@ function InitializeDragging() {
             draggableElement.style.transform = `translateX(${distanceX}px)`;
         }
         else if(pageIndex == 1) {
-            draggableElement.style.transform = `translateX(${distanceX - 400}px)`;
+            draggableElement.style.transform = `translateX(${distanceX - resultPageLen}px)`;
         }
     }
 
@@ -196,13 +197,12 @@ function InitializeDragging() {
 
     // shiftPage: shifts the page to destPage
     function shiftPage(dragDistance) {
-        const resultPageLen = $('.results-summary-container').outerWidth();
         // check if drag is right direction:
         if(dragDistance < 0 && pageIndex == 0) {
             navigateAndAnimate(-resultPageLen);
             // set index to next page
             pageIndex = 1;
-            resetX = -400;
+            resetX = -resultPageLen;
         }
         else if(dragDistance > 0 && pageIndex == 1) {
             navigateAndAnimate(0);
