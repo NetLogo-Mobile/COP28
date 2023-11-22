@@ -87,7 +87,7 @@ const IntroMetadata =
     [
         {
             img: "assets/fire.png",
-            title: "CONTEXT STORY",
+            title: "BACKGROUND STORY",
             description:
                 "Forest fires are becoming increasingly destructive. It is important to understand how they spread.",
         },
