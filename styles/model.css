@@ -57,6 +57,17 @@ div.intro .img-top-fixed {
   color: #101828;
 }
 
+.text-start a {
+  color: #101828;
+  font-size: 1.25em;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.text-start a i {
+  margin-right: 0.5rem;
+}
+
 /* Controlling Widgets */
 .control-widget-container {
   position: absolute;
