@@ -22,7 +22,7 @@ function Setup() {
  */
 async function HandleRun() {
     if (await RunReporter("report-burned-trees") == 0) {
-        // For acero: Turn this into the real interface.
+        // For acero: Turn this into the real interface. 
         alert("Please click on the trees to start a fire.");
     } else {
         SwitchMode(true);
@@ -87,6 +87,31 @@ async function InitializeValues() {
     }
 }
 
+/**
+ * Displays the results tab with model statistics
+ */
+function ResultsTab() {
+    RunReporter("report-burned-trees").then(burnedTrees => {
+        // Show the results tab
+        ShowResultTab();
+        // Update texts where necessary
+        let FiresAdded = (InitialValues.initialTreesBurned / InitialValues.initialTrees * 100).toFixed(1);
+        let BurnedTrees = (burnedTrees / InitialValues.initialTrees * 100).toFixed(1);
+        let FireAddedLabel = GetResultLabel(0);
+        let TreeDensityLabel = GetResultLabel(1);
+        let BurnedLabel = GetResultLabel(2);
+        TreeDensityLabel.text(`${ControlWidget.CurrentDensity}%`);
+        FireAddedLabel.text(`${FiresAdded}%`);
+        BurnedLabel.text(`${BurnedTrees}%`);
+        // Try again button functionality
+        $('.results-summary-button').on('click', function () {
+            SetDensity(ControlWidget.CurrentDensity);
+            SwitchMode(false);
+            HideResultTab();
+        });
+    });
+}
+
 // Metadata for Introduction
 const IntroMetadata =
     [
@@ -134,27 +159,3 @@ const IntroMetadata =
         },
       ], */
     
-/**
- * Displays the results tab with model statistics
- */
-function ResultsTab() {
-    RunReporter("report-burned-trees").then(burnedTrees => {
-        // Show the results tab
-        ShowResultTab();
-        // Update texts where necessary
-        let FiresAdded = (InitialValues.initialTreesBurned / InitialValues.initialTrees * 100).toFixed(1);
-        let BurnedTrees = (burnedTrees / InitialValues.initialTrees * 100).toFixed(1);
-        let FireAddedLabel = GetResultLabel(0);
-        let TreeDensityLabel = GetResultLabel(1);
-        let BurnedLabel = GetResultLabel(2);
-        TreeDensityLabel.text(`${ControlWidget.CurrentDensity}%`);
-        FireAddedLabel.text(`${FiresAdded}%`);
-        BurnedLabel.text(`${BurnedTrees}%`);
-        // Try again button functionality
-        $('.results-summary-button').on('click', function () {
-            SetDensity(ControlWidget.CurrentDensity);
-            SwitchMode(false);
-            HideResultTab();
-        });
-    });
-}
