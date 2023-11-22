@@ -144,6 +144,8 @@ function InitializeDragging() {
     let startX = 0;
     let currentX = 0;
     let pageIndex = 0;
+    let resetX = 0; // the value for it to "snap back" to
+    const dragThreshold = $('.results-summary-container').outerWidth() / 2.3;
 
     function startDrag(e) {
         e.preventDefault();
@@ -168,7 +170,12 @@ function InitializeDragging() {
         }
 
         const distanceX = currentX - startX;
-        draggableElement.style.transform = `translateX(${distanceX}px)`;
+        if(pageIndex == 0) {
+            draggableElement.style.transform = `translateX(${distanceX}px)`;
+        }
+        else if(pageIndex == 1) {
+            draggableElement.style.transform = `translateX(${distanceX - 400}px)`;
+        }
     }
 
     function endDrag(e) {
@@ -176,39 +183,37 @@ function InitializeDragging() {
 
         isDragging = false;
         const distanceX = currentX - startX;
-        console.log(distanceX);
-        const dragThreshold = 70; 
 
         if (Math.abs(distanceX) >= dragThreshold) {
-            navigateAndAnimate();
+            console.log("should move to the other page");
             shiftPage(distanceX);
         } else {
-            draggableElement.style.transform = 'translateX(0)';
+            console.log("resetX " + resetX);
+            navigateAndAnimate(resetX);
+            console.log("should not move to the other page");
         }
     }
 
     // shiftPage: shifts the page to destPage
     function shiftPage(dragDistance) {
-        // get length of resultPage 
         const resultPageLen = $('.results-summary-container').outerWidth();
-        console.log(dragDistance);
         // check if drag is right direction:
         if(dragDistance < 0 && pageIndex == 0) {
-            draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
-            draggableElement.style.transform = `translateX(${-resultPageLen}px)`;
+            navigateAndAnimate(-resultPageLen);
             // set index to next page
             pageIndex = 1;
+            resetX = -400;
         }
         else if(dragDistance > 0 && pageIndex == 1) {
-            draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
-            draggableElement.style.transform = `translateX(${0}px)`;
+            navigateAndAnimate(0);
             // set index to next page
             pageIndex = 0;
+            resetX = 0;
         }
     }
 
-    function navigateAndAnimate() {
+    function navigateAndAnimate(translateDist) {
         draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
-        draggableElement.style.transform = 'translateX(0)'; 
+        draggableElement.style.transform = `translateX(${translateDist}px)`;
     }
 }
