@@ -20,10 +20,15 @@ function Setup() {
 /**
  * Handles the 'run' action of the model
  */
-function HandleRun() {
-    SwitchMode(true);
-    InitializeValues();
-    GameLoop();
+async function HandleRun() {
+    if (await RunReporter("report-burned-trees") == 0) {
+        // For acero: Turn this into the real interface.
+        alert("Please click on the trees to start a fire.");
+    } else {
+        SwitchMode(true);
+        InitializeValues();
+        GameLoop();
+    }
 }
 
 /**

@@ -19,7 +19,6 @@ function Click(Selector) {
         selector: Selector
     })
 }
-
 /** Call a Command */
 function CallCommand(Command) {
     Simulation.postMessage({
@@ -27,7 +26,6 @@ function CallCommand(Command) {
         command: Command,
     }, "*");
 }
-
 /** Call a Reporter */
 function CallReporter(Reporter) {
     return CallWithCallback({
@@ -35,7 +33,6 @@ function CallReporter(Reporter) {
         command: Reporter
     });
 }
-
 /** Run a Reporter Statement */
 function RunReporter(Statement) {
     return CallWithCallback({
@@ -43,7 +40,6 @@ function RunReporter(Statement) {
         command: Statement
     });
 }
-
 /** Call a Something with Callback */
 function CallWithCallback(Data) {
     var Handler = new Promise((resolve, reject) => {
@@ -53,7 +49,6 @@ function CallWithCallback(Data) {
     });
     return Handler;
 }
-
 /** Run a Command Statement */
 function RunCommand(Statement) {
     Simulation.postMessage({
