@@ -87,21 +87,21 @@ const IntroMetadata =
     [
         {
             img: "assets/fire.png",
-            title: "WHAT IS IT?",
+            title: "CONTEXT STORY",
             description:
-                "The model you will be playing with simulates the spread of a fire through a forest.",
+                "Forest fires are becoming increasingly destructive. It is important to understand how they spread.",
         },
         {
             img: "assets/burning.gif",
-            title: "HOW DOES IT WORK?",
+            title: "WHAT IS IT?",
             description:
-                "You will be able to change the density of the trees in the forest, and add fires through touching, to understand how fires spread in forests.",
+                "In this simple simulation, the forest is modeled as a grid of trees and empty spots. We’ll explore how the density of trees affects fire spread. ",
         },
         {
             img: "assets/burning_close.gif",
             title: "HOW DOES IT WORK?",
             description:
-                "The fire spreads in four directions: to the tree directly north, and to trees to the east, south, and west.",
+                "Each step, fires spread to neighboring trees and then burn out.",
             buttonText: "GET STARTED",
         },
     ];
