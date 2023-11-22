@@ -145,7 +145,8 @@ function ResultsTab() {
         TreeDensityLabel.text(`${ControlWidget.CurrentDensity}%`);
         FireAddedLabel.text(`${FiresAdded}%`);
         BurnedLabel.text(`${BurnedTrees}%`);
-
+        // Drag effect
+        dragEffect();
         // Try again button functionality
         $('.results-summary-button').on('click', function () {
             SetDensity(ControlWidget.CurrentDensity);
@@ -157,65 +158,89 @@ function ResultsTab() {
 
 
 
-const draggableElement = $('.sliding-window')[0];
-let isDragging = false;
+function dragEffect() {
+    const draggableElement = $('.sliding-window')[0];
+    let isDragging = false;
 
-draggableElement.addEventListener('mousedown', startDrag);
-draggableElement.addEventListener('touchstart', startDrag);
-document.addEventListener('mousemove', dragging);
-document.addEventListener('touchmove', dragging);
-document.addEventListener('mouseup', endDrag);
-document.addEventListener('touchend', endDrag);
+    draggableElement.addEventListener('mousedown', startDrag);
+    draggableElement.addEventListener('touchstart', startDrag);
+    document.addEventListener('mousemove', dragging);
+    document.addEventListener('touchmove', dragging);
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
 
-const navigationDestination = "Results::scoreboard";
-const animationTimingFunction = "ease-out";
-const animationDuration = "300ms";
+    const navigationDestination = "Results::scoreboard";
+    const animationTimingFunction = "ease-out";
+    const animationDuration = "300ms";
 
-let startX = 0;
-let currentX = 0;
+    let startX = 0;
+    let currentX = 0;
+    let pageIndex = 0;
 
-function startDrag(e) {
-    e.preventDefault();
-    isDragging = true;
+    function startDrag(e) {
+        e.preventDefault();
+        isDragging = true;
 
-    if (e.type === 'touchstart') {
-        startX = e.touches[0].clientX;
-    } else {
-        startX = e.clientX;
-    }
-}
-
-function dragging(e) {
-    if (!isDragging) return;
-
-    e.preventDefault();
-
-    if (e.type === 'touchmove') {
-        currentX = e.touches[0].clientX;
-    } else {
-        currentX = e.clientX;
+        if (e.type === 'touchstart') {
+            startX = e.touches[0].clientX;
+        } else {
+            startX = e.clientX;
+        }
     }
 
-    const distanceX = currentX - startX;
-    draggableElement.style.transform = `translateX(${distanceX}px)`;
-}
+    function dragging(e) {
+        if (!isDragging) return;
 
-function endDrag(e) {
-    if (!isDragging) return;
+        e.preventDefault();
 
-    isDragging = false;
-    const distanceX = currentX - startX;
-    const dragThreshold = 50; 
+        if (e.type === 'touchmove') {
+            currentX = e.touches[0].clientX;
+        } else {
+            currentX = e.clientX;
+        }
 
-    if (Math.abs(distanceX) >= dragThreshold) {
-        navigateAndAnimate();
-    } else {
-        draggableElement.style.transform = 'translateX(0)';
+        const distanceX = currentX - startX;
+        draggableElement.style.transform = `translateX(${distanceX}px)`;
     }
-}
 
-// Function to navigate and animate
-function navigateAndAnimate() {
-    draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
-    draggableElement.style.transform = 'translateX(0)'; 
+    function endDrag(e) {
+        if (!isDragging) return;
+
+        isDragging = false;
+        const distanceX = currentX - startX;
+        console.log(distanceX);
+        const dragThreshold = 70; 
+
+        if (Math.abs(distanceX) >= dragThreshold) {
+            navigateAndAnimate();
+            shiftPage(distanceX);
+        } else {
+            draggableElement.style.transform = 'translateX(0)';
+        }
+    }
+
+    // shiftPage: shifts the page to destPage
+    function shiftPage(dragDistance) {
+        // get length of resultPage 
+        const resultPageLen = $('.results-summary-container').outerWidth();
+        console.log(dragDistance);
+        // check if drag is right direction:
+        if(dragDistance < 0 && pageIndex == 0) {
+            draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
+            draggableElement.style.transform = `translateX(${-resultPageLen}px)`;
+            // set index to next page
+            pageIndex = 1;
+        }
+        else if(dragDistance > 0 && pageIndex == 1) {
+            draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
+            draggableElement.style.transform = `translateX(${0}px)`;
+            // set index to next page
+            pageIndex = 0;
+        }
+    }
+
+    function navigateAndAnimate() {
+        draggableElement.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
+        draggableElement.style.transform = 'translateX(0)'; 
+    }
 }
