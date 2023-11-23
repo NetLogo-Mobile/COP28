@@ -38,7 +38,7 @@ div.intro .img-top-fixed {
     width: 100%;
     aspect-ratio: 1/1;
     max-height: calc(100% - 150px);
-    object-fit: cover; 
+    object-fit: contain;
     border-radius: 1rem;
 }
 
@@ -183,7 +183,7 @@ input[type='range'].styled-slider::-webkit-slider-thumb {
   width: 2em;
   height: 2em;
   border-radius: 1em;
-  background: white url('../assets/ChartPieSlice.svg') no-repeat center center;
+  background: black url('../assets/icon-density.svg') no-repeat center center;
   background-size: 1.5em 1.5em;
   /* Adjust to your preference */
   border: none;

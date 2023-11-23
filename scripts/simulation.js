@@ -64,7 +64,13 @@ window.addEventListener("message", (event) => {
         }, "*");
         break;
       case "Click":
-        $(event.data.selector).click()
+        $(event.data.selector).click();
+      case "ExportCanvas":
+        window.parent.postMessage({
+          sender: "ExportCanvas",
+          result: ExportCanvas(),
+          id: event.data.id
+        }, "*");
     }
 });
 
@@ -86,4 +92,9 @@ function RunReporter(Statement) {
 /** Run a Command Statement */
 function RunCommand(Statement) {
   return session.run("command", Statement);
+}
+
+/** Export the canvas image */
+function ExportCanvas() {
+  return $("canvas").get(0).toDataURL("image/png");
 }

@@ -40,6 +40,12 @@ function RunReporter(Statement) {
         command: Statement
     });
 }
+/** Export the Canvas */
+function ExportCanvas() {
+    return CallWithCallback({
+        sender: "ExportCanvas"
+    });
+}
 /** Call a Something with Callback */
 function CallWithCallback(Data) {
     var Handler = new Promise((resolve, reject) => {
@@ -110,6 +116,9 @@ function ShowResultTab() {
     $('.container').css('pointer-events', 'none');
     $('.results-container').removeClass('invisible-element');
     InitializeDragging();
+    ExportCanvas().then(Data => {
+        $('.results-model-canvas').attr("src", Data);
+    });
 }
 /**
  * Hides the results tab
