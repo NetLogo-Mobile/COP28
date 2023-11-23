@@ -147,18 +147,24 @@ function GetResultLabel(Index) {
  * Initializes the dragging functionality
  */
 function InitializeDragging() {
+    // Cache DOM selectors
     const draggableElement = $('.sliding-window')[0];
     const learnMore = $('.results-summary-button')[1];
+    const resultsSummaryContainer = $('.results-summary-container');
+    const resultPageLen = resultsSummaryContainer.outerWidth() + 10;
+    const dragThreshold = resultsSummaryContainer.outerWidth() / 2.3;
+    let btnHeight = $('.results-summary-button').outerHeight(true);
+
     let isDragging = false;
-    const throttledDragging = throttle(dragging, 70); // throttle rapid fire dragging 
     let startX = 0;
     let currentX = 0;
     let pageIndex = 0;
-    let resetX = 0; // the value for it to "snap back" to
+    let resetX = 0;
     const animationTimingFunction = "ease-out";
     const animationDuration = "100ms";
-    const dragThreshold = $('.results-summary-container').outerWidth() / 2.3;
-    const resultPageLen = $('.results-summary-container').outerWidth() + 10; // the 10 is to account for the gap 
+    const throttledDragging = throttle(dragging, 50); 
+
+    // Adding event listeners
     draggableElement.addEventListener('mousedown', startDrag);
     draggableElement.addEventListener('touchstart', startDrag);
     document.addEventListener('mousemove', throttledDragging);
@@ -171,15 +177,16 @@ function InitializeDragging() {
     function throttle(func, limit) {
         let inThrottle;
         return function() {
-          const args = arguments;
-          const context = this;
-          if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-          }
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
         }
     }
+
     
     function startDrag(e) {
         e.preventDefault();
@@ -201,16 +208,17 @@ function InitializeDragging() {
         } else {
             currentX = e.clientX;
         }
-        const distanceX = currentX - startX;
+        let distanceX = currentX - startX;
         if(pageIndex == 0) {
+            distanceX = distanceX > 0 ? 0 : distanceX;
             draggableElement.style.transform = `translateX(${distanceX}px)`;
             showLearnMore(Math.abs(distanceX / resultPageLen));
         }
         else if(pageIndex == 1) {
+            distanceX = distanceX < 0 ? 0 : distanceX;
             draggableElement.style.transform = `translateX(${distanceX - resultPageLen}px)`;
             showLearnMore(distanceX / resultPageLen);
         }
-        // calculate percentage
     }
 
     function endDrag(e) {
@@ -260,8 +268,6 @@ function InitializeDragging() {
         } else {
             learnMore.style.opacity = 1 - percent; // pageIndex1 goes the other way;
         }
-        // calculate height of button with padding
-        let btnHeight = $('.results-summary-button').outerHeight(true);
         // translate learnMore
         learnMore.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
         if(pageIndex == 0) {
