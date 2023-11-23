@@ -126,7 +126,17 @@ function ShowResultTab() {
 function HideResultTab() {
     $('.container').css('pointer-events', 'auto');
     $('.results-container').addClass('invisible-element');
+    resetResultState();
 }
+
+/* resetStateAndStyles: resets result page back, should be called after leaving the results page */
+function resetResultState() {
+    //reset styles 
+    $('.sliding-window')[0].style.transform = 'translateX(0px)';
+    $('.results-summary-button')[1].style.transform = 'translateY(0px)';
+    $('.results-summary-button')[1].classList.add('no-visibility');
+}
+
 /**
  * Gets the label of a result widget
  */
@@ -138,25 +148,39 @@ function GetResultLabel(Index) {
  */
 function InitializeDragging() {
     const draggableElement = $('.sliding-window')[0];
+    const learnMore = $('.results-summary-button')[1];
     let isDragging = false;
-
-    draggableElement.addEventListener('mousedown', startDrag);
-    draggableElement.addEventListener('touchstart', startDrag);
-    document.addEventListener('mousemove', dragging);
-    document.addEventListener('touchmove', dragging);
-    document.addEventListener('mouseup', endDrag);
-    document.addEventListener('touchend', endDrag);
-
-    const animationTimingFunction = "ease-out";
-    const animationDuration = "100ms";
-
+    const throttledDragging = throttle(dragging, 70); // throttle rapid fire dragging 
     let startX = 0;
     let currentX = 0;
     let pageIndex = 0;
     let resetX = 0; // the value for it to "snap back" to
+    const animationTimingFunction = "ease-out";
+    const animationDuration = "100ms";
     const dragThreshold = $('.results-summary-container').outerWidth() / 2.3;
     const resultPageLen = $('.results-summary-container').outerWidth() + 10; // the 10 is to account for the gap 
+    draggableElement.addEventListener('mousedown', startDrag);
+    draggableElement.addEventListener('touchstart', startDrag);
+    document.addEventListener('mousemove', throttledDragging);
+    document.addEventListener('touchmove', throttledDragging);
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
 
+    showLearnMore(0);
+
+    function throttle(func, limit) {
+        let inThrottle;
+        return function() {
+          const args = arguments;
+          const context = this;
+          if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+          }
+        }
+    }
+    
     function startDrag(e) {
         e.preventDefault();
         isDragging = true;
@@ -170,54 +194,73 @@ function InitializeDragging() {
 
     function dragging(e) {
         if (!isDragging) return;
-
         e.preventDefault();
-
         if (e.type === 'touchmove') {
             currentX = e.touches[0].clientX;
         } else {
             currentX = e.clientX;
         }
-
         const distanceX = currentX - startX;
         if(pageIndex == 0) {
             draggableElement.style.transform = `translateX(${distanceX}px)`;
+            showLearnMore(Math.abs(distanceX / resultPageLen));
         }
         else if(pageIndex == 1) {
             draggableElement.style.transform = `translateX(${distanceX - resultPageLen}px)`;
+            showLearnMore(distanceX / resultPageLen);
         }
+        // calculate percentage
     }
 
     function endDrag(e) {
         if (!isDragging) return;
-
         isDragging = false;
         const distanceX = currentX - startX;
 
         if (Math.abs(distanceX) >= dragThreshold) {
-            console.log("should move to the other page");
             shiftPage(distanceX);
         } else {
-            console.log("resetX " + resetX);
             navigateAndAnimate(resetX);
-            console.log("should not move to the other page");
+            showLearnMore(0);
         }
     }
 
-    // shiftPage: shifts the page to destPage
+    // shiftPage: shifts the page to destPage & updates
     function shiftPage(dragDistance) {
         // check if drag is right direction:
         if(dragDistance < 0 && pageIndex == 0) {
             navigateAndAnimate(-resultPageLen);
+            showLearnMore(1);
             // set index to next page
             pageIndex = 1;
+            learnMore.classList.remove('no-visibility');
             resetX = -resultPageLen;
         }
         else if(dragDistance > 0 && pageIndex == 1) {
             navigateAndAnimate(0);
+            showLearnMore(1);
             // set index to next page
             pageIndex = 0;
+            learnMore.classList.add('no-visibility');
             resetX = 0;
+        }
+    }
+
+    /* show the learn more button as a function of percent (For opacity and location) */
+    function showLearnMore(percent) {
+        // percent for drag can be greater than 1 if dragged past page 1
+        if(percent > 1) {
+            percent = 1;
+        }
+        // calculate height of button with padding
+        let btnHeight = $('.results-summary-button').outerHeight(true);
+        // translate learnMore
+        learnMore.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
+        if(pageIndex == 0) {
+            learnMore.style.transform = `translateY(-${btnHeight * (1 - percent)}px)`;
+        }else {
+            // page is 1 
+            learnMore.style.transform = `translateY(-${btnHeight * (percent)}px)`;
         }
     }
 

@@ -120,6 +120,7 @@ function ResultsTab() {
             SetDensity(Density);
             SwitchMode(false);
             HideResultTab();
+            resetResultState();
         });
     });
 }
