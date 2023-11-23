@@ -234,6 +234,23 @@ input[type='range'].styled-slider.slider-progress::-webkit-slider-runnable-track
   display: none;
 }
 
+.window {
+  width: 500px; 
+  padding-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: hidden; 
+  overflow-y: hidden;
+}
+
+.sliding-window {
+  width: 100%;
+  gap: 10px;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
 .results-summary-container,
 button.results-summary-button {
   width: 80svw;
@@ -252,7 +269,6 @@ button.results-summary-button {
   display: flex;
   flex-direction: row;
   gap: 10px;
-
 }
 
 .results-summary-title {
@@ -314,24 +330,39 @@ button.results-summary-button {
   margin-left: auto;
   margin-right: auto;
   margin-top: 5%;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 
-.window {
-  width: 500px; 
-  padding-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  overflow-x: hidden; 
-  overflow-y: hidden;
+/* Chartist */
+.results-plots {
+  flex-grow: 1;
+  position: relative;
 }
 
-.sliding-window {
+.plot-container {
   width: 100%;
-  gap: 10px;
-  margin-left: 50px;
-  display: flex;
-  flex-direction: row;
+  height: 100%;
+  padding: 0 0 20px 15px;
+}
+
+.axis-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.x-axis-label {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.y-axis-label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) rotate(-90deg);
 }
 
 /* Media query for phones */

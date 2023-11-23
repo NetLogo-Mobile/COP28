@@ -87,6 +87,8 @@ async function InitializeValues() {
     }
 }
 
+var Results = [];
+var Estimation = {};
 /**
  * Displays the results tab with model statistics
  */
@@ -95,20 +97,87 @@ function ResultsTab() {
         // Show the results tab
         ShowResultTab();
         // Update texts where necessary
+        let Density = ControlWidget.CurrentDensity;
         let FiresAdded = (InitialValues.initialTreesBurned / InitialValues.initialTrees * 100).toFixed(1);
         let BurnedTrees = (burnedTrees / InitialValues.initialTrees * 100).toFixed(1);
         let FireAddedLabel = GetResultLabel(0);
         let TreeDensityLabel = GetResultLabel(1);
         let BurnedLabel = GetResultLabel(2);
-        TreeDensityLabel.text(`${ControlWidget.CurrentDensity}%`);
+        TreeDensityLabel.text(`${Density}%`);
         FireAddedLabel.text(`${FiresAdded}%`);
         BurnedLabel.text(`${BurnedTrees}%`);
+        // Record the data
+        Results.push({ x: Density, y: BurnedTrees });
+        if (typeof(Estimation[Density]) == 'undefined')
+            Estimation[Density] = { Count: 0, Sum: 0 };
+        Estimation[Density].Count++;
+        Estimation[Density].Sum += parseFloat(BurnedTrees);
+        // Plot the data
+        setTimeout(PlotResults, 100);
         // Try again button functionality
         $('.results-summary-button').on('click', function () {
-            SetDensity(ControlWidget.CurrentDensity);
+            SetDensity(Density);
             SwitchMode(false);
             HideResultTab();
         });
+    });
+}
+
+/** 
+ * Plot the results
+ */
+function PlotResults() {
+    // Calculate the estimation
+    var Estimated = [];
+    for (var Key in Estimation) {
+        Estimated.push({ x: Key, y: Estimation[Key].Sum / Estimation[Key].Count });
+    }
+    Estimated.sort((a, b) => a.x - b.x);
+    // Plot the player's results
+    new Chartist.Line('.plot-container', {
+        series: [{
+            name: 'series-player',
+            data: Results
+        }, {
+            name: 'series-estimation',
+            data: Estimated
+        }]
+    }, {
+        series: {
+          'series-player': {
+            showLine: false,
+            showPoint: true
+          },
+          'series-estimation': {
+            showLine: Results.length >= 5,
+            showPoint: false,
+            lineSmooth: Chartist.Interpolation.cardinal({
+              fillHoles: true,
+            }),
+          },
+          'series-reference': {
+            showLine: false,
+            showPoint: true
+          }
+        },
+        axisX: {
+            type: Chartist.FixedScaleAxis,
+            low: 0,
+            high: 100,
+            divisor: 5,
+            onlyInteger: true,
+            labelInterpolationFnc: (Value) => Value + "%" // Add percentage sign
+        },
+        axisY: {
+            type: Chartist.FixedScaleAxis,
+            low: 0,
+            high: 100,
+            divisor: 5,
+            onlyInteger: true,
+            labelInterpolationFnc: (Value) => Value + "%" // Add percentage sign
+        },
+        showLine: Results.length >= 5,
+        showPoint: true
     });
 }
 
