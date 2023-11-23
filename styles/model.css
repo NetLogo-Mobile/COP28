@@ -285,11 +285,12 @@ button.results-summary-button {
 }
 
 .results-model-stats {
-  min-height: 4.0rem;
   border: 1.5px solid #344054;
   border-radius: 0.5rem;
   display: flex;
-  justify-content: center;
+  padding: 0 10px;
+  min-height: 4.0rem;
+  justify-content: left;
   align-items: center;
 }
 
