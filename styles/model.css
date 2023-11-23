@@ -369,11 +369,6 @@ button.results-summary-button {
   stroke-width: 10px;
 }
 
-.ct-series-c {
-  opacity: 0;
-  transition: all 1s;
-}
-
 /* Media query for phones */
 @media (max-width: 500px) {
   .control-widget-container {

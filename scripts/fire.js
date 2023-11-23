@@ -136,14 +136,14 @@ function PlotResults() {
     Estimated.sort((a, b) => a.x - b.x);
     // Generate the series
     var Series = [{
-        name: 'series-player',
-        data: Results
+        name: 'series-reference',
+        data: Official
     }, {
         name: 'series-estimation',
         data: Estimated
     }, {
-        name: 'series-reference',
-        data: Official
+        name: 'series-player',
+        data: Results
     }];
     // Plot the player's results
     new Chartist.Line('.plot-container', {
@@ -189,7 +189,7 @@ function PlotResults() {
  * Plot the reference results
  */
 function ShowReference() {
-    $(".ct-series-c").css("opacity", 0.5);
+    $(".ct-series-a").css("opacity", 0.5);
 }
 
 // Metadata for Introduction

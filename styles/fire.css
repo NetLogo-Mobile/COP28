@@ -5,5 +5,17 @@
 }
 
 .ct-series-a {
+    opacity: 0;
+    transition: all 1s;
+}
+
+.ct-series-b path {
+    stroke: #dc3545 !important;
+    opacity: 0.5;
     stroke-dasharray: 5px 5px;
+    stroke-width: 3px;
+}
+
+.ct-series-c line {
+    stroke: #dc3545 !important;
 }
