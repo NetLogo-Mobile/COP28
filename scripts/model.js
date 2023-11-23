@@ -117,7 +117,7 @@ function ShowResultTab() {
     $('.results-container').removeClass('invisible-element');
     InitializeDragging();
     ExportCanvas().then(Data => {
-        $('.results-model-canvas').attr("src", Data);
+        $('.results-img img').attr("src", Data);
     });
 }
 /**
