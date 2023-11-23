@@ -184,6 +184,7 @@ function InitializeDragging() {
     function startDrag(e) {
         e.preventDefault();
         isDragging = true;
+        learnMore.classList.remove('no-visibility');
 
         if (e.type === 'touchstart') {
             startX = e.touches[0].clientX;
@@ -216,6 +217,7 @@ function InitializeDragging() {
         if (!isDragging) return;
         isDragging = false;
         const distanceX = currentX - startX;
+        learnMore.classList.add('no-visibility');
 
         if (Math.abs(distanceX) >= dragThreshold) {
             shiftPage(distanceX);
@@ -251,6 +253,12 @@ function InitializeDragging() {
         // percent for drag can be greater than 1 if dragged past page 1
         if(percent > 1) {
             percent = 1;
+        }
+        // opacity 
+        if(pageIndex == 0) {
+            learnMore.style.opacity = percent;
+        } else {
+            learnMore.style.opacity = 1 - percent; // pageIndex1 goes the other way;
         }
         // calculate height of button with padding
         let btnHeight = $('.results-summary-button').outerHeight(true);
