@@ -211,8 +211,6 @@ function InitializeDragging() {
     document.addEventListener('mouseup', endDrag);
     document.addEventListener('touchend', endDrag);
 
-    showLearnMore(0);
-
     function throttle(func, limit) {
         let inThrottle;
         return function() {
@@ -225,7 +223,6 @@ function InitializeDragging() {
             }
         }
     }
-
     
     function startDrag(e) {
         e.preventDefault();
@@ -251,12 +248,10 @@ function InitializeDragging() {
         if(pageIndex == 0) {
             distanceX = distanceX > 0 ? 0 : distanceX;
             draggableElement.style.transform = `translateX(${distanceX}px)`;
-            showLearnMore(Math.abs(distanceX / resultPageLen));
         }
         else if(pageIndex == 1) {
             distanceX = distanceX < 0 ? 0 : distanceX;
             draggableElement.style.transform = `translateX(${distanceX - resultPageLen}px)`;
-            showLearnMore(distanceX / resultPageLen);
         }
     }
 
@@ -279,7 +274,6 @@ function InitializeDragging() {
         // check if drag is right direction:
         if(dragDistance < 0 && pageIndex == 0) {
             navigateAndAnimate(-resultPageLen);
-            showLearnMore(1);
             // set index to next page
             pageIndex = 1;
             learnMore.classList.remove('no-visibility');
@@ -287,33 +281,10 @@ function InitializeDragging() {
         }
         else if(dragDistance > 0 && pageIndex == 1) {
             navigateAndAnimate(0);
-            showLearnMore(1);
             // set index to next page
             pageIndex = 0;
             learnMore.classList.add('no-visibility');
             resetX = 0;
-        }
-    }
-
-    /* show the learn more button as a function of percent (For opacity and location) */
-    function showLearnMore(percent) {
-        // percent for drag can be greater than 1 if dragged past page 1
-        if(percent > 1) {
-            percent = 1;
-        }
-        // opacity 
-        if(pageIndex == 0) {
-            learnMore.style.opacity = percent;
-        } else {
-            learnMore.style.opacity = 1 - percent; // pageIndex1 goes the other way;
-        }
-        // translate learnMore
-        learnMore.style.transition = `transform ${animationDuration} ${animationTimingFunction}`;
-        if(pageIndex == 0) {
-            learnMore.style.transform = `translateY(-${btnHeight * (1 - percent)}px)`;
-        }else {
-            // page is 1 
-            learnMore.style.transform = `translateY(-${btnHeight * (percent)}px)`;
         }
     }
 
