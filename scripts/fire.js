@@ -116,11 +116,20 @@ function ResultsTab() {
         // Plot the data
         setTimeout(PlotResults, 100);
         // Try again button functionality
-        $('.results-summary-button').on('click', function () {
+        $('.results-summary-button:first').on('click', function () {
             SetDensity(Density);
             SwitchMode(false);
             HideResultTab();
             resetResultState();
+        });
+
+        // Learn more functionality
+        $('.results-summary-button:last').on('click', function () {
+            HideResultTab();
+            HideModel();
+            SetLearnMore();
+            // make learn more visible
+            $('.learn-more-container').removeClass('invisible-element');
         });
     });
 }

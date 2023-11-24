@@ -369,6 +369,23 @@ button.results-summary-button {
   stroke-width: 10px;
 }
 
+.learn-more-container {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-button {
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 0.25rem;
+  border: 1.5px solid #334456;
+  background: var(--offPurple, #FCFAFF);
+}
+
 /* Media query for phones */
 @media (max-width: 500px) {
   .control-widget-container {

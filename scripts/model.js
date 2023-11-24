@@ -108,6 +108,13 @@ function ShowSlider(Callback, DefaultValue) {
     Callback(DefaultValue);
 }
 
+/**
+ * Hides the Model 
+ */
+function HideModel() {
+    $('.model-container').addClass('invisible-element');
+}
+
 /** The result interface */
 /**
  * Shows the results tab
@@ -144,6 +151,38 @@ function GetResultLabel(Index) {
     return $('.results-model-stats').eq(Index).find("span.stats-val-bottom-text");
 }
 /**
+ * Creates a go back button
+ */
+function CreateGoBackButton(onClick) {
+    let button = $('<button class="nav-button"></button>')
+        .append($('<img>', { src: "../assets/arrow-back.svg", alt: "Home" }))
+        .click(onClick);
+    let colWrapper = $('<div class="col-2"></div>').append(button);
+    return colWrapper;
+}
+/**
+ * Creates a home button
+ */
+function CreateHomeButton() {
+    let homeButton = $('<div class="nav-button"></div>')
+        .append($('<img>', { src: "../assets/home.svg", alt: "Home" }))
+        .click(function() {  
+            window.location.href = "../index.html";
+        });  
+    let colWrapper = $('<div class="col-1"></div>').append(homeButton);
+    return colWrapper;
+}
+
+
+/**
+ * Loads the proper "text" to the model & other styles 
+ */
+function SetLearnMore() {
+    CreateGoBackButton( () => { console.log("go back"); } ).prependTo($('#learn-header')[0]);
+    CreateHomeButton().appendTo($('#learn-header')[0]);
+}
+
+/**
  * Initializes the dragging functionality
  */
 function InitializeDragging() {
@@ -152,7 +191,7 @@ function InitializeDragging() {
     const learnMore = $('.results-summary-button')[1];
     const resultsSummaryContainer = $('.results-summary-container');
     const resultPageLen = resultsSummaryContainer.outerWidth() + 10;
-    const dragThreshold = resultsSummaryContainer.outerWidth() / 2.3;
+    const dragThreshold = resultsSummaryContainer.outerWidth() / 5;
     let btnHeight = $('.results-summary-button').outerHeight(true);
 
     let isDragging = false;
