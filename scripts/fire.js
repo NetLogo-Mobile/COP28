@@ -230,16 +230,18 @@ const IntroMetadata =
 const LearnMoreMetadata =
     [ 
         {
-            title: "Important Concept",
+            title: "IMPORTANT CONCEPT",
             description: "This model showcases a very important complex systems principle: tipping points. ",
             text: `This model showcases a very important concept about complex systems: tipping points. Below a certain critical density (in the model around 60%) any fire burns out very quickly. Above the critical density, most of the forest burns. More generally, a tipping point is a value for a parameter at which the behavior of a system qualitatively changes very suddenly. Other examples of tipping points related to increasing temperatures include:
 
             - Glacier melt 
+    
             - Ice sheet collapse
+
             - Permafrost thaw which would release massive amounts of methane`
         },
         {
-            title: "Using models in the real world",
+            title: "USING MODELS IN THE REAL WORLD",
             description: "How could this model be made more realistic to be more useful in real efforts to prevent massive forest fires?",
             text: `Models such as this forest fire model can be used in the real world in a number of ways including: to better understand a phenomenon, to explain it to others, to design solutions, and to make predictions. Models are always simplifications of reality, but they can still be very useful.
 
@@ -250,7 +252,7 @@ const LearnMoreMetadata =
             `
         },
         {
-            title: "About NetLogo",
+            title: "ABOUT NETLOGO",
             description: "This model is powered by NetLogo, open-source software for modeling and exploring complex systems. ",
             text: `This model is powered by NetLogo, open-source software for modeling and exploring complex systems. We provide it for free to hundreds of thousands of researchers, teachers, and students worldwide to model and understand complex systems. It is developed at the CCL, lead by Uri Wilensky.`         
         }

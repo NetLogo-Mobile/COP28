@@ -88,17 +88,23 @@
                 </div>
             </div>
             <div class="learn-more-body mb-5">
-                <div class="learn-more-card card-body bordered">
-                    <h4 class="card-title lm-title">Important Concept</h4>
-                    <p class="card-text lm-text">This model showcases a very important complex systems principle: tipping points. </p>
+                <div class="card">
+                    <div class="learn-more-card card-body bordered">
+                        <h4 class="card-title lm-title onboarding-title">Important Concept</h4>
+                        <p class="card-text lm-text">This model showcases a very important complex systems principle: tipping points. </p>
+                    </div>
                 </div>
-                <div class="learn-more-card card-body bordered">
-                    <h4 class="card-title lm-title">Important Concept</h4>
-                    <p class="card-text lm-text">This model showcases a very important complex systems principle: tipping points. </p>
+                <div class="card">
+                    <div class="learn-more-card card-body bordered">
+                        <h4 class="card-title lm-title onboarding-title">Important Concept</h4>
+                        <p class="card-text lm-text">This model showcases a very important complex systems principle: tipping points. </p>
+                    </div>
                 </div>
-                <div class="learn-more-card card-body bordered">
-                    <h4 class="card-title lm-title">Important Concept</h4>
-                    <p class="card-text lm-text">This model showcases a very important complex systems principle: tipping points. </p>
+                <div class="card">
+                    <div class="learn-more-card card-body bordered">
+                        <h4 class="card-title lm-title onboarding-title">Important Concept</h4>
+                        <p class="card-text lm-text">This model showcases a very important complex systems principle: tipping points. </p>
+                    </div>
                 </div>
             </div>
             <!-- Should be an iframe-->
@@ -106,10 +112,15 @@
                 <button type="button" class="bordered not-selectable" id="button-support" onclick='window.location.href = "../more/about-netlogo.html"'>SUPPORT US</button>
             </div>
         </div>
+
+        <!-- this is not actually a bootstrap card -->
         <div class="lm-expand-card-container invisible-element">
-            <div class="lm-expand-card">
-                <h5 class="card-title lm-expand-title">PLACEHOLDER</h5>
-                <p class="card-text lm-expand-text"> PLACEHOLDER</p>
+            <div class="lm-expand-card bordered">
+                <div class="lm-expand-header mt-4 row">
+                    <span class="lm-expand-title onboarding-title col-11"></span>
+                    <button class="close-button nav-button col-1" onclick="HideLMCard()"><img src="../assets/x.svg" alt="Home"></button>
+                </div>
+                <p class="card-text lm-expand-text lm-text"></p>
             </div>
         </div>
     </div>

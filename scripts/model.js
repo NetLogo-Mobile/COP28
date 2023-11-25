@@ -173,6 +173,18 @@ function CreateHomeButton() {
     return colWrapper;
 }
 
+var expandCardContainer = $('.lm-expand-card-container');
+var expandCard = $('.lm-expand-card');
+var expandTitle = expandCard.find('.lm-expand-title');
+var expandText = expandCard.find('.lm-expand-text');
+
+/**
+ * Hides the expanded learn more card
+ */
+function HideLMCard() {
+    expandCardContainer.addClass('invisible-element');
+}
+
 
 /**
  * Loads the proper "text" to the model & other styles 
@@ -181,10 +193,6 @@ function CreateHomeButton() {
 function SetLearnMore(metadata) {
     CreateGoBackButton( () => { console.log("go back"); } ).prependTo($('#learn-header')[0]);
     CreateHomeButton().appendTo($('#learn-header')[0]);
-    let expandCard = $('.lm-expand-card');
-    let expandTitle = expandCard.find('.lm-expand-title');
-    let expandText = expandCard.find('.lm-expand-text');
-    let expandCardContainer = $('.lm-expand-card-container');
     metadata.forEach((item, index) => {
         $('.lm-title').eq(index).text(item.title);
         $('.lm-text').eq(index).text(item.description);

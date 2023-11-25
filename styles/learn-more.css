@@ -45,8 +45,23 @@
 
 .lm-expand-card {
     height: 68.75%;
-    width: 91.6%;
+    width: 81.6%;
+    padding-left: 5%;
+    padding-right: 5%;
     border-radius: 0.9375rem;
     border: 2px solid #334456;
     background: var(--offPurple, #FCFAFF);
 }
+
+.close-button {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.lm-text {
+    font-size: 0.9rem;
+    width: 100%;
+    line-height: 1.5;
+    color: var(--textSecondary, #344054);
+  }
