@@ -65,3 +65,7 @@
     line-height: 1.5;
     color: var(--textSecondary, #344054);
   }
+
+  .lm-card {
+    flex-grow: 1;
+  }
