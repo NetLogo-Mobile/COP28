@@ -3,18 +3,27 @@
 }
 
 .learn-more-container {
-    width: 90%;
-    height: 100%;
-    margin-left: auto;
+    width: 90%; 
+    height: 100svh;
+    margin-left: auto; 
     margin-right: auto;
+}
+
+.learn-more-body {
+    height: 60%; /* no need to adjust learn box size, this will do the trick */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .learn-box {
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    height: 100%;
 }
 
 .learn-more-card {
     width: 100%;
-    height: 30%;
+    cursor: pointer; 
 }
