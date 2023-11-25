@@ -42,3 +42,11 @@
     justify-content: center;
     align-items: center;
 }
+
+.lm-expand-card {
+    height: 68.75%;
+    width: 91.6%;
+    border-radius: 0.9375rem;
+    border: 2px solid #334456;
+    background: var(--offPurple, #FCFAFF);
+}

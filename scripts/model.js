@@ -182,6 +182,8 @@ function SetLearnMore(metadata) {
     CreateGoBackButton( () => { console.log("go back"); } ).prependTo($('#learn-header')[0]);
     CreateHomeButton().appendTo($('#learn-header')[0]);
     let expandCard = $('.lm-expand-card');
+    let expandTitle = expandCard.find('.lm-expand-title');
+    let expandText = expandCard.find('.lm-expand-text');
     let expandCardContainer = $('.lm-expand-card-container');
     metadata.forEach((item, index) => {
         $('.lm-title').eq(index).text(item.title);
@@ -189,6 +191,8 @@ function SetLearnMore(metadata) {
         // event listeners for each card 
         $('.learn-more-card')[index].addEventListener('click', () => {
             expandCardContainer.removeClass('invisible-element');
+            expandTitle.text(item.title);
+            expandText.text(item.text);
         });
     });
     
