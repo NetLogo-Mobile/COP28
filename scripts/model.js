@@ -176,10 +176,22 @@ function CreateHomeButton() {
 
 /**
  * Loads the proper "text" to the model & other styles 
+ * {metadata} - learn more metadata
  */
-function SetLearnMore() {
+function SetLearnMore(metadata) {
     CreateGoBackButton( () => { console.log("go back"); } ).prependTo($('#learn-header')[0]);
     CreateHomeButton().appendTo($('#learn-header')[0]);
+    let expandCard = $('.lm-expand-card');
+    let expandCardContainer = $('.lm-expand-card-container');
+    metadata.forEach((item, index) => {
+        $('.lm-title').eq(index).text(item.title);
+        $('.lm-text').eq(index).text(item.description);
+        // event listeners for each card 
+        $('.learn-more-card')[index].addEventListener('click', () => {
+            expandCardContainer.removeClass('invisible-element');
+        });
+    });
+    
 }
 
 /**
