@@ -370,24 +370,24 @@ button.results-summary-button {
 }
 
 .learn-more-container {
-  width: 90%; 
-  height: 100svh;
+  height: 100%;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
   margin-left: auto; 
   margin-right: auto;
 }
 
-.learn-more-body {
-  height: 60%; /* no need to adjust learn box size, this will do the trick */
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.learn-more-container .row {
+  width: 100%;
+  margin: 0;
 }
 
-.learn-box {
+.learn-more-body {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   gap: 20px;
-  height: 100%;
 }
 
 .learn-more-card {
@@ -410,31 +410,19 @@ button.results-summary-button {
   align-items: center;
 }
 
-.lm-expand-card {
-  height: 68.75%;
-  width: 81.6%;
-  padding-left: 5%;
-  padding-right: 5%;
-  border-radius: 0.9375rem;
-  border: 2px solid #334456;
-  background: var(--offPurple, #FCFAFF);
+.learn-header {
+  display: flex;
+  flex-direction: row;
 }
 
-.close-button {
-  margin: 0;
+.learn-header > div {
+  flex: 0 1;
   padding: 0;
-  border: none;
 }
 
-.lm-text {
-  font-size: 0.9rem;
-  width: 100%;
-  line-height: 1.5;
-  color: var(--textSecondary, #344054);
-}
-
-.lm-card {
+.learn-header .text-center {
   flex-grow: 1;
+  padding: 5px 0 0 0;
 }
 
 .nav-button {
@@ -447,6 +435,27 @@ button.results-summary-button {
   border-radius: 0.25rem;
   border: 1.5px solid #334456;
   background: var(--offPurple, #FCFAFF);
+}
+
+.lm-expand-card {
+  height: 68.75%;
+  width: 81.6%;
+  padding-left: 5%;
+  padding-right: 5%;
+  border-radius: 0.9375rem;
+  border: 2px solid #334456;
+  background: var(--offPurple, #FCFAFF);
+}
+
+.lm-text {
+  width: 100%;
+  line-height: 1.5;
+  color: var(--textSecondary, #344054);
+}
+
+.lm-card {
+  border: 0;
+  flex-grow: 1;
 }
 
 /* Media query for phones */

@@ -87,6 +87,8 @@ function ShowModel(Widgets) {
     Widgets.Slider = $('.styled-slider');
     // Switch the mode
     SwitchMode(false);
+    // Learn more
+    InitializeLearnMore(LearnMoreMetadata);
 }
 /**
  * Switches the mode of the application between running and not running
@@ -106,13 +108,6 @@ function ShowSlider(Callback, DefaultValue) {
         Callback(value);
     });
     Callback(DefaultValue);
-}
-
-/**
- * Hides the Model 
- */
-function HideModel() {
-    $('.model-container').addClass('invisible-element');
 }
 
 /** The result interface */
@@ -157,7 +152,7 @@ function CreateGoBackButton(onClick) {
     let button = $('<button class="nav-button"></button>')
         .append($('<img>', { src: "../assets/arrow-back.svg", alt: "Home" }))
         .click(onClick);
-    let colWrapper = $('<div class="col-2"></div>').append(button);
+    let colWrapper = $('<div class="button"></div>').append(button);
     return colWrapper;
 }
 /**
@@ -169,7 +164,7 @@ function CreateHomeButton() {
         .click(function() {  
             window.location.href = "../index.html";
         });  
-    let colWrapper = $('<div class="col-1"></div>').append(homeButton);
+    let colWrapper = $('<div class="button"></div>').append(homeButton);
     return colWrapper;
 }
 
@@ -185,14 +180,13 @@ function HideLMCard() {
     expandCardContainer.addClass('invisible-element');
 }
 
-
 /**
  * Loads the proper "text" to the model & other styles 
  * {metadata} - learn more metadata
  */
-function SetLearnMore(metadata) {
-    CreateGoBackButton( () => { console.log("go back"); } ).prependTo($('#learn-header')[0]);
-    CreateHomeButton().appendTo($('#learn-header')[0]);
+function InitializeLearnMore(metadata) {
+    CreateGoBackButton(() => { ToggleLearnMore(false); } ).prependTo($('.learn-header'));
+    CreateHomeButton(() => { navigator.location = 'index.html' }).appendTo($('.learn-header'));
     metadata.forEach((item, index) => {
         $('.lm-title').eq(index).text(item.title);
         $('.lm-text').eq(index).text(item.description);
@@ -203,7 +197,14 @@ function SetLearnMore(metadata) {
             expandText.text(item.text);
         });
     });
-    
+}
+
+/**
+ * Toggles the learn more page
+ */
+function ToggleLearnMore(Visibility) {
+    $('.model-container').toggleClass('invisible-element', Visibility);
+    $('.learn-more-container').toggleClass('invisible-element', !Visibility);
 }
 
 /**
@@ -216,7 +217,6 @@ function InitializeDragging() {
     const resultsSummaryContainer = $('.results-summary-container');
     const resultPageLen = resultsSummaryContainer.outerWidth() + 10;
     const dragThreshold = resultsSummaryContainer.outerWidth() / 5;
-    let btnHeight = $('.results-summary-button').outerHeight(true);
 
     let isDragging = false;
     let startX = 0;

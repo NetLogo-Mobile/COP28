@@ -126,10 +126,7 @@ function ResultsTab() {
         // Learn more functionality
         $('.results-summary-button:last').on('click', function () {
             HideResultTab();
-            HideModel();
-            SetLearnMore(LearnMoreMetadata);
-            // make learn more visible
-            $('.learn-more-container').removeClass('invisible-element');
+            ToggleLearnMore(true);
         });
     });
 }
