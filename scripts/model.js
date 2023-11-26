@@ -212,7 +212,7 @@ function SetLearnMore(metadata) {
 function InitializeDragging() {
     // Cache DOM selectors
     const draggableElement = $('.sliding-window')[0];
-    const learnMore = $('.results-summary-button')[1];
+    const learnMore = $('.results-summary-button:eq(1)');
     const resultsSummaryContainer = $('.results-summary-container');
     const resultPageLen = resultsSummaryContainer.outerWidth() + 10;
     const dragThreshold = resultsSummaryContainer.outerWidth() / 5;
@@ -251,7 +251,6 @@ function InitializeDragging() {
     function startDrag(e) {
         e.preventDefault();
         isDragging = true;
-        learnMore.classList.remove('no-visibility');
 
         if (e.type === 'touchstart') {
             startX = e.touches[0].clientX;
@@ -283,13 +282,13 @@ function InitializeDragging() {
         if (!isDragging) return;
         isDragging = false;
         const distanceX = currentX - startX;
-        learnMore.classList.add('no-visibility');
 
         if (Math.abs(distanceX) >= dragThreshold) {
             shiftPage(distanceX);
         } else {
             navigateAndAnimate(resetX);
-            showLearnMore(0);
+            // Since we want people to visit learn more, we don't hide it for now. I will see how the feedback goes.
+            // learnMore.addClass('no-visibility');
         }
     }
 
@@ -300,14 +299,14 @@ function InitializeDragging() {
             navigateAndAnimate(-resultPageLen);
             // set index to next page
             pageIndex = 1;
-            learnMore.classList.remove('no-visibility');
+            // learnMore.removeClass('no-visibility');
             resetX = -resultPageLen;
         }
         else if(dragDistance > 0 && pageIndex == 1) {
             navigateAndAnimate(0);
             // set index to next page
             pageIndex = 0;
-            learnMore.classList.add('no-visibility');
+            // learnMore.addClass('no-visibility');
             resetX = 0;
         }
     }
