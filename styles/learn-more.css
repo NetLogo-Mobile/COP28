@@ -1,5 +1,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 body {
     font-family: Lato, sans-serif;
     background-color: transparent;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* To create the space between the bottom and button*/
+.spacer {
+    flex-grow: 1;
+}
+
+.inner-text {
+    width: 100%;
+    line-height: 1.5;
+    color: var(--textSecondary, #344054);
+}
+.button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5%;
+    height: 9.6%;
+    width: 67.5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lm-button {
+    border-radius: 0.3125rem;
+    border: 1.5px solid var(--h1, #334456);
+    background: var(--h1, #334456);
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    color: #FFFF;
+    font-family: Lato;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 0.78125rem;
 }
