@@ -88,7 +88,7 @@ function ShowModel(Widgets) {
     // Switch the mode
     SwitchMode(false);
     // Learn more
-    InitializeLearnMore(LearnMoreMetadata);
+    InitializeLearnMore();
 }
 /**
  * Switches the mode of the application between running and not running
@@ -171,12 +171,12 @@ function CreateHomeButton() {
 var expandCardContainer = $('.lm-expand-card-container');
 var expandCard = $('.lm-expand-card');
 var expandTitle = expandCard.find('.lm-expand-title');
-var expandText = expandCard.find('.lm-expand-text');
+var expandBody = expandCard.find('.lm-expand-body');
 
 /**
  * Hides the expanded learn more card
  */
-function HideLMCard() {
+function HideExpandedCard() {
     expandCardContainer.addClass('invisible-element');
 }
 
@@ -184,19 +184,15 @@ function HideLMCard() {
  * Loads the proper "text" to the model & other styles 
  * {metadata} - learn more metadata
  */
-function InitializeLearnMore(metadata) {
+function InitializeLearnMore() {
     CreateGoBackButton(() => { ToggleLearnMore(false); } ).prependTo($('.learn-header'));
     CreateHomeButton(() => { navigator.location = 'index.html' }).appendTo($('.learn-header'));
-    metadata.forEach((item, index) => {
-        $('.lm-title').eq(index).text(item.title);
-        $('.lm-text').eq(index).text(item.description);
-        // event listeners for each card 
-        $('.learn-more-card')[index].addEventListener('click', () => {
-            expandCardContainer.removeClass('invisible-element');
-            expandTitle.text(item.title);
-            expandText.text(item.text);
-        });
-    });
+    $('*[link]').on("click", (Event) => {
+        var Element = Event.delegateTarget;
+        expandCardContainer.removeClass('invisible-element');
+        expandTitle.text($(Element).attr("header") ?? $(Element).text());
+        expandBody.attr("src", $(Element).attr("link"));
+    })
 }
 
 /**

@@ -45,8 +45,7 @@ div.intro .img-top-fixed {
 .onboarding-title {
   font-size: 1.25rem;
   font-weight: 700;
-  line-height: 24px;
-  margin-bottom: 0.5rem;
+  line-height: 1.25rem;
   color: #334456;
 }
 
@@ -410,12 +409,13 @@ button.results-summary-button {
   align-items: center;
 }
 
-.learn-header {
+.learn-header, .lm-expand-header {
   display: flex;
   flex-direction: row;
 }
 
-.learn-header > div {
+.learn-header > div,
+.lm-expand-header > div {
   flex: 0 1;
   padding: 0;
 }
@@ -437,16 +437,6 @@ button.results-summary-button {
   background: var(--offPurple, #FCFAFF);
 }
 
-.lm-expand-card {
-  height: 68.75%;
-  width: 81.6%;
-  padding-left: 5%;
-  padding-right: 5%;
-  border-radius: 0.9375rem;
-  border: 2px solid #334456;
-  background: var(--offPurple, #FCFAFF);
-}
-
 .lm-text {
   width: 100%;
   line-height: 1.5;
@@ -455,6 +445,26 @@ button.results-summary-button {
 
 .lm-card {
   border: 0;
+  flex-grow: 1;
+}
+
+.lm-expand-card {
+  width: 90%;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 0.9375rem;
+  border: 2px solid #334456;
+  background: var(--offPurple, #FCFAFF);
+}
+
+.lm-expand-header .lm-expand-title {
+  flex-grow: 1;
+  line-height: 1.8rem;
+}
+
+.lm-expand-body {
   flex-grow: 1;
 }
 

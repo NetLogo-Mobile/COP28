@@ -81,45 +81,47 @@
         
         <!-- Learn More -->
         <div class="learn-more-container invisible-element">
-            <div class="row mb-4 learn-header">
+            <div class="row mb-3 learn-header">
                 <div class="text-center">
                     <span class="onboarding-title">LEARN MORE</span>
                 </div>
             </div>
-            <div class="learn-more-body mb-5">
+            <div class="learn-more-body mb-3">
                 <div class="card lm-card">
-                    <div class="learn-more-card card-body bordered">
-                        <h4 class="card-title lm-title onboarding-title">Important Concept</h4>
-                        <p class="card-text lm-text">This model showcases a very important complex systems principle: tipping points. </p>
+                    <div class="learn-more-card card-body bordered" header="IMPORTANT CONCEPT" link="more/fire/concepts.html">
+                        <h4 class="card-title lm-title onboarding-title">IMPORTANT CONCEPT</h4>
+                        <p class="card-text lm-text">This model showcases a very important complex systems principle: tipping points.</p>
                     </div>
                 </div>
                 <div class="card lm-card">
-                    <div class="learn-more-card card-body bordered">
-                        <h4 class="card-title lm-title onboarding-title">Important Concept</h4>
-                        <p class="card-text lm-text">This model showcases a very important complex systems principle: tipping points. </p>
+                    <div class="learn-more-card card-body bordered" header="USING MODELS IN THE REAL WORLD" link="more/fire/real-world.html">
+                        <h4 class="card-title lm-title onboarding-title">USING MODELS IN THE REAL WORLD</h4>
+                        <p class="card-text lm-text">How could this model be made more realistic to be more useful in real efforts to prevent massive forest fires?</p>
                     </div>
                 </div>
                 <div class="card lm-card">
-                    <div class="learn-more-card card-body bordered">
-                        <h4 class="card-title lm-title onboarding-title">Important Concept</h4>
-                        <p class="card-text lm-text">This model showcases a very important complex systems principle: tipping points. </p>
+                    <div class="learn-more-card card-body bordered" header="ABOUT NETLOGO" link="more/about-netlogo.html">
+                        <h4 class="card-title lm-title onboarding-title">ABOUT NETLOGO</h4>
+                        <p class="card-text lm-text">This model is powered by NetLogo, open-source software for modeling and exploring complex systems.</p>
                     </div>
                 </div>
             </div>
-            <!-- Should be an iframe-->
-            <div class="row mb-3">
-                <button type="button" class="bordered not-selectable" id="button-support" onclick='window.location.href = "../more/about-netlogo.html"'>SUPPORT US</button>
+            <div class="row mb-2">
+                <button type="button" class="bordered not-selectable" link="more/support-us.html">SUPPORT US</button>
+            </div>
+            <div class="row">
+                <button type="button" class="bordered not-selectable" link="more/credits.html">CREDITS</button>
             </div>
         </div>
 
         <!-- this is not actually a bootstrap card -->
         <div class="lm-expand-card-container invisible-element">
-            <div class="lm-expand-card bordered">
-                <div class="lm-expand-header mt-4 row">
-                    <span class="lm-expand-title onboarding-title col-11"></span>
-                    <button class="close-button nav-button col-1" onclick="HideLMCard()"><img src="../assets/x.svg" alt="Home"></button>
+            <div class="lm-expand-card bordered container">
+                <div class="lm-expand-header">
+                    <div class="lm-expand-title onboarding-title"></div>
+                    <div class="button"><button class="close-button nav-button" onclick="HideExpandedCard()"><img src="../assets/x.svg" alt="Home"></button></div>
                 </div>
-                <p class="card-text lm-expand-text lm-text"></p>
+                <iframe class="lm-expand-body" src="" scrolling="yes"></iframe>
             </div>
         </div>
     </div>
