@@ -133,10 +133,9 @@ function HideResultTab() {
 
 /* resetStateAndStyles: resets result page back, should be called after leaving the results page */
 function resetResultState() {
-    //reset styles 
     $('.sliding-window')[0].style.transform = 'translateX(0px)';
-    $('.results-summary-button')[1].style.transform = 'translateY(0px)';
-    $('.results-summary-button')[1].classList.add('no-visibility');
+    // $('.results-summary-button')[1].style.transform = 'translateY(0px)';
+    // $('.results-summary-button')[1].classList.add('no-visibility');
 }
 
 /**
