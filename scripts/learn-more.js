@@ -19,10 +19,10 @@ supportButtons.forEach((button) => {
 
 // about netlogo btns 
 const downloadBtns = document.querySelectorAll('.download-btn');
-
-if(downloadBtns.size > 0){
-    downloadBtns[0].addEventListener('click' , () => {
+if(downloadBtns.length > 0){
+        downloadBtns[0].addEventListener('click' , () => {
         top.location.href = 'https://ccl.northwestern.edu/netlogo/download.shtml';
+        console.log("download");
     });
     
     downloadBtns[1].addEventListener('click' , () => {
