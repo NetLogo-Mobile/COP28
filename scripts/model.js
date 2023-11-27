@@ -149,7 +149,7 @@ function GetResultLabel(Index) {
  */
 function CreateGoBackButton(onClick) {
     let button = $('<button class="nav-button"></button>')
-        .append($('<img>', { src: "../assets/arrow-back.png", alt: "Back" }))
+        .append($('<img>', { src: "assets/arrow-back.svg", alt: "Back" }))
         .click(onClick);
     let colWrapper = $('<div class="button"></div>').append(button);
     return colWrapper;
@@ -159,9 +159,9 @@ function CreateGoBackButton(onClick) {
  */
 function CreateHomeButton() {
     let homeButton = $('<div class="nav-button"></div>')
-        .append($('<img>', { src: "../assets/home.svg", alt: "Home" }))
+        .append($('<img>', { src: "assets/home.svg", alt: "Home" }))
         .click(function() {  
-            window.location.href = "../index.html";
+            window.location.href = "index.html";
         });  
     let colWrapper = $('<div class="button"></div>').append(homeButton);
     return colWrapper;
