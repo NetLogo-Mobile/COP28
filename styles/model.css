@@ -415,6 +415,10 @@ button.results-summary-button {
   backdrop-filter: blur(5px);
 }
 
+.lm-expand-card {
+  max-width: 600px;
+}
+
 .learn-header, .lm-expand-header {
   display: flex;
   flex-direction: row;
