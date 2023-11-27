@@ -19,7 +19,7 @@ supportButtons.forEach((button) => {
 
 // about netlogo btns 
 const downloadBtns = document.querySelectorAll('.download-btn');
-if(downloadBtns.length > 0){
+    if(downloadBtns.length > 0){
         downloadBtns[0].addEventListener('click' , () => {
         top.location.href = 'https://ccl.northwestern.edu/netlogo/download.shtml';
         console.log("download");
@@ -45,6 +45,6 @@ function subscribeToList() {
 const donateBtn = document.querySelector('.donate-btn');
 if(donateBtn){
     donateBtn.addEventListener('click' , () => {
-        top.location.href = 'https://ccl.northwestern.edu/netlogo/giving.shtml';
+        top.location.href = 'https://secure.ard.northwestern.edu/s/1479/282-giving/basic-page-nonav-campaign.aspx?sid=1479&gid=282&pgid=19841&cid=31575';
     });
 }

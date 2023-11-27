@@ -85,17 +85,19 @@ body {
     flex-shrink: 0;
 }
 
-.subscribe-container {
-    border: none;
-}
-
 .card {
     border: none;
 }
 
+.subscribe-container {
+    border: none;
+    display: flex;
+    flex-direction: row;
+}
+
 .subscribe-button {
-    width: 6.5rem;
     height: 2.75rem;
+    flex: 1 1; 
     color: var(--offWhite, #FCFCFD);
     background-color: #344054;  
     border-radius: 0.3125rem;
@@ -110,7 +112,6 @@ body {
 
 #subscribe-input {
     border: none;
-    width: 79%;
 }
 
 #subscribe-input:focus {
