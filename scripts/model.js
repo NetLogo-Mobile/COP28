@@ -149,7 +149,7 @@ function GetResultLabel(Index) {
  */
 function CreateGoBackButton(onClick) {
     let button = $('<button class="nav-button"></button>')
-        .append($('<img>', { src: ".././assets/arrow-back.svg", alt: "Back" }))
+        .append($('<img>', { src: "../assets/arrow-back.png", alt: "Back" }))
         .click(onClick);
     let colWrapper = $('<div class="button"></div>').append(button);
     return colWrapper;
