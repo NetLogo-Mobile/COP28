@@ -29,6 +29,7 @@ div.intro {
 }
 
 div.intro div.bordered {
+  display: block;
   padding: 20px 12px;
   overflow: hidden;
   flex-grow: 1;
@@ -476,6 +477,16 @@ button.results-summary-button {
 
 .lm-expand-body {
   flex-grow: 1;
+}
+
+/* Media query for phones */
+@media (max-height: 750px) {
+  .card-title.onboarding-title {
+    font-size: 1.1rem;
+  }
+  .lm-text {
+    font-size: 0.9rem;
+  }
 }
 
 /* Media query for phones */

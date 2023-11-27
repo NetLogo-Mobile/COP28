@@ -17,6 +17,7 @@ body {
 
 /* To create the space between the bottom and button*/
 .spacer {
+    min-height: 15px;
     flex-grow: 1;
 }
 
@@ -30,19 +31,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 5%;
-    height: 9.6%;
+    margin-bottom: 10px;
+    height: 40px;
     width: 67.5%;
     margin-left: auto;
     margin-right: auto;
 }
 
 .lm-button {
-    border-radius: 0.3125rem;
+    border-radius: 5px;
     border: 1.5px solid var(--h1, #334456);
     background: var(--h1, #334456);
-    height: 100%;
     width: 100%;
+    height: 40px;
     cursor: pointer;
     color: #FFFF;
     font-family: Lato;
@@ -63,8 +64,7 @@ body {
     border-radius: 1rem;
     border: 1.5px solid var(--textSecondary, #344054);
     background: var(--offWhite, #FCFCFD);
-    padding: 0.44rem;
-    padding-left: 1.37rem;
+    padding: 5px 10px;
     cursor: pointer;
     display: flex;
     flex-direction: row;
@@ -72,8 +72,7 @@ body {
 }
 
 .download-btn-right {
-    margin-top: 1%;
-    margin-right: 5%;
+    margin-top: 2px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
