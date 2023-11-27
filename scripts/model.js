@@ -149,7 +149,7 @@ function GetResultLabel(Index) {
  */
 function CreateGoBackButton(onClick) {
     let button = $('<button class="nav-button"></button>')
-        .append($('<img>', { src: "../assets/arrow-back.svg", alt: "Home" }))
+        .append($('<img>', { src: ".././assets/arrow-back.svg", alt: "Back" }))
         .click(onClick);
     let colWrapper = $('<div class="button"></div>').append(button);
     return colWrapper;
@@ -208,7 +208,6 @@ function ToggleLearnMore(Visibility) {
 function InitializeDragging() {
     // Cache DOM selectors
     const draggableElement = $('.sliding-window')[0];
-    const learnMore = $('.results-summary-button:eq(1)');
     const resultsSummaryContainer = $('.results-summary-container');
     const resultPageLen = resultsSummaryContainer.outerWidth() + 10;
     const dragThreshold = resultsSummaryContainer.outerWidth() / 5;
