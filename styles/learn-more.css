@@ -22,6 +22,7 @@ body {
 
 .inner-text {
     width: 100%;
+    height: 100%;
     line-height: 1.5;
     color: var(--textSecondary, #344054);
 }
@@ -50,3 +51,88 @@ body {
     font-weight: 700;
     line-height: 0.78125rem;
 }
+
+.download-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.63rem;
+    margin-bottom: 10%;
+}
+
+.download-btn {
+    border-radius: 1rem;
+    border: 1.5px solid var(--textSecondary, #344054);
+    background: var(--offWhite, #FCFCFD);
+    padding: 0.44rem;
+    padding-left: 1.37rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.download-btn-right {
+    margin-top: 1%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.download-icon {
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+}
+
+.subscribe-container {
+    border: none;
+}
+
+.card {
+    border: none;
+}
+
+.subscribe-button {
+    width: 6.5rem;
+    height: 2.75rem;
+    color: var(--offWhite, #FCFCFD);
+    background-color: #344054;  
+    border-radius: 0.3125rem;
+    border: 1.5px solid #334456;
+    text-align: center;
+    font-family: Lato;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 150%; 
+}
+
+#subscribe-input {
+    border: none;
+    width: 79%;
+}
+
+#subscribe-input:focus {
+    outline: none;
+}
+
+.bordered {
+    border: 2px solid #334456;
+    border-radius: 10px;
+    box-shadow: #334456 3px 3px 0;
+    background: #ffffff;
+    transition: 0.3s ease;
+}
+
+button.bordered {
+    width: 100%;
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button.bordered:hover {
+    background: #f5f5f5;
+}
+

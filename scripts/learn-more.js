@@ -3,6 +3,8 @@
 const visitSiteButtons = document.querySelectorAll('.visit-button');
 const supportButtons = document.querySelectorAll('.support-button');
 
+
+
 visitSiteButtons.forEach((button) => {
     button.addEventListener('click' , () => {
         top.location.href = 'https://www.netlogoweb.org/';
@@ -11,5 +13,38 @@ visitSiteButtons.forEach((button) => {
 
 supportButtons.forEach((button) => {
     button.addEventListener('click' , () => {
+
     });
 });
+
+// about netlogo btns 
+const downloadBtns = document.querySelectorAll('.download-btn');
+
+if(downloadBtns.size > 0){
+    downloadBtns[0].addEventListener('click' , () => {
+        top.location.href = 'https://ccl.northwestern.edu/netlogo/download.shtml';
+    });
+    
+    downloadBtns[1].addEventListener('click' , () => {
+        top.location.href = 'https://www.netlogoweb.org/launch';
+    });
+    
+    downloadBtns[2].addEventListener('click' , () => {
+        top.location.href = 'https://turtlesim.com/products/turtle-universe/';
+    });
+}
+
+// subscribe btn
+function subscribeToList() {
+    let email = document.querySelector('#subscribe-input').value;
+    console.log(email);
+    // do smth
+}
+
+//donate btn
+const donateBtn = document.querySelector('.donate-btn');
+if(donateBtn){
+    donateBtn.addEventListener('click' , () => {
+        top.location.href = 'https://ccl.northwestern.edu/netlogo/giving.shtml';
+    });
+}
