@@ -209,7 +209,7 @@ const IntroMetadata =
                 "Forest fires are becoming increasingly destructive. It is important to understand how they spread.",
         },
         {
-            img: "assets/burning.gif",
+            img: "assets/burning_far_2.gif",
             title: "WHAT IS IT?",
             description:
                 "In this simple simulation, the forest is modeled as a grid of trees and empty spots. We’ll explore how the density of trees affects fire spread. ",
