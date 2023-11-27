@@ -11,6 +11,5 @@ visitSiteButtons.forEach((button) => {
 
 supportButtons.forEach((button) => {
     button.addEventListener('click' , () => {
-        window.location.href 
     });
 });
