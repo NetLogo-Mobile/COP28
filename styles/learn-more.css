@@ -23,10 +23,10 @@ body {
 
 .inner-text {
     width: 100%;
-    height: 100%;
     line-height: 1.5;
     color: var(--textSecondary, #344054);
 }
+
 .button-wrapper {
     display: flex;
     align-items: center;
