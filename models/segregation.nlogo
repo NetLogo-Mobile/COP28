@@ -78,6 +78,17 @@ to update-globals
   set percent-unhappy (count turtles with [ not happy? ]) / (count turtles) * 100
 end
 
+to resize [ screen-width screen-height ]
+  let coefficient 30
+  if screen-height <= 1500 [ set coefficient 25 ]
+  if screen-height <= 1080 [ set coefficient 20 ]
+  if screen-height <= 720 [ set coefficient 15 ]
+  if screen-height <= 480 [ set coefficient 12 ]
+  let width round (screen-width / coefficient) - 1
+  let height round (screen-height / coefficient) - 1
+  resize-world 0 width 0 height
+  setup
+end
 
 ; Copyright 1997 Uri Wilensky.
 ; See Info tab for full copyright and license.
@@ -158,7 +169,7 @@ SLIDER
 %-similar-wanted
 0
 100
-30.0
+36.0
 1
 1
 %
@@ -693,6 +704,20 @@ NetLogo 6.3.0-beta1
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
+<experiments>
+  <experiment name="experiment" repetitions="100" sequentialRunOrder="false" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>percent-similar</metric>
+    <enumeratedValueSet variable="density">
+      <value value="95"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="%-similar-wanted" first="1" step="1" last="60"/>
+    <enumeratedValueSet variable="visualization">
+      <value value="&quot;square-x&quot;"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default

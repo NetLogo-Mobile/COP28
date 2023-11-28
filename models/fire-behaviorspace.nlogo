@@ -1,5 +1,6 @@
 globals [
   initial-trees   ;; how many trees (green patches) we started with
+  initial-burned-trees   ;; how many trees (green patches) we started with
   burned-trees    ;; how many have burned so far
 ]
 
@@ -18,6 +19,7 @@ to setup
   ;; add fire
   ask patches with [distancexy 0 0 <= 5]
     [ ignite ]
+  set initial-burned-trees burned-trees
   reset-ticks
 end
 
@@ -125,7 +127,7 @@ density
 density
 0.0
 99.0
-56.0
+100.0
 1.0
 1
 %
@@ -544,10 +546,10 @@ NetLogo 6.3.0-beta1
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="experiment" repetitions="1" runMetricsEveryStep="true">
+  <experiment name="experiment" repetitions="100" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <metric>report-burned-trees / report-initial-trees</metric>
+    <metric>(report-burned-trees - initial-burned-trees) / (report-initial-trees - initial-burned-trees)</metric>
     <steppedValueSet variable="density" first="1" step="1" last="100"/>
   </experiment>
 </experiments>
