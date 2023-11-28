@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COP28: Forest Fire</title>
+    <!-- Library CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/theme.css">
+    <link rel="stylesheet" href="styles/model.css">
+    <link rel="stylesheet" href="styles/fire.css">
+</head>
+
+<body>
+
+    <div class="container my-5">
+        <!-- Intro pages -->
+        <div id="intro" class="intro">
+            <!-- Back Button -->
+            <div class="row mb-3 text-start">
+                <a href="index.html" class="btn-link" id="button-back"><i class="fas fa-chevron-left"></i> EARTH SCIENCE/FIRE</a>
+            </div>
+            
+            <!-- Content -->
+            <div class="row card mb-3 bordered">
+                <img alt="Fire Image" class="card-img-top demo-img img-top-fixed">
+                <div class="card-body scroll-overflow">
+                    <h5 class="card-title onboarding-title">WHAT IS IT?</h5>
+                    <p class="card-text onboarding-descript">In this simple simulation, the forest is modeled as a grid of trees and empty spots. We’ll explore how the density of trees affects fire spread.</p>
+                </div>
+            </div>
+            
+            <!-- Next Button -->
+            <div class="row mb-3">
+                <button type="button" class="bordered not-selectable" id="button-next">NEXT</button>
+            </div>
+        </div>
+    
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="https://www.netlogoweb.org/assets/jquery/dist/00727d1d5d9c90f7de826f1a4a9cc632-jquery.min.js"></script>
+    
+    <!-- Dynamic JS -->
+    <script src="scripts/model.js"></script>
+    <script src="scripts/segregation.js"></script>
+    <script src="scripts/onboarding.js"></script>
+</body>
+
+</html>

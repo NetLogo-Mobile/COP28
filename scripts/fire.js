@@ -212,7 +212,7 @@ const IntroMetadata =
     [
         {
             img: "assets/fire.png",
-            title: "BACKGROUND STORY",
+            title: "CONTEXT",
             description:
                 "Forest fires are becoming increasingly destructive. It is important to understand how they spread.",
         },
