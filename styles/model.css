@@ -4,6 +4,12 @@
   position: relative;
 }
 
+.center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .model-container {
   width: 100%;
   height: calc(100% - 55px);
@@ -445,6 +451,23 @@ button.results-summary-button {
   align-items: center;
 }
 
+.lm-header {
+  display: flex;
+  flex-direction: row;
+  height: 1.89494rem;
+  line-height: 1.89494rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.go-right-arrow {
+  width: 1.875rem;
+  height: 1.89494rem;
+  background-color: #334456;
+  flex-shrink: 0;
+  border-radius: 0.25rem;
+}
+
 .backdrop {
   width: 100%;
   height: 100%;
@@ -489,6 +512,10 @@ button.results-summary-button {
   width: 100%;
   line-height: 1.5;
   color: var(--textSecondary, #344054);
+}
+
+.lm-title { 
+  margin-bottom: 0;
 }
 
 .lm-card {
