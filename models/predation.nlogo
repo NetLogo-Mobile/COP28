@@ -6,6 +6,7 @@ globals [
   wolf-reproduce
   average-sheep
   average-wolves
+  cutoff-ticks
 ]
 
 ; Sheep and wolves are both breeds of turtles
@@ -20,12 +21,13 @@ to setup-globals
   set wolf-gain-from-food 20
   set sheep-reproduce 4
   set wolf-reproduce 5
+  set max-sheep 1000
+  set cutoff-ticks 500
 end
 
 to setup
   clear-all
   setup-globals
-  set max-sheep 1000
 
   ask patches [
     set pcolor one-of [ green brown ]
@@ -57,10 +59,12 @@ to setup
 end
 
 to go
+  if ticks > cutoff-ticks [ stop ]
   ; stop the model if there are no wolves and no sheep
   if not any? turtles [ stop ]
   ; stop the model if there are no wolves and the number of sheep gets very large
   if not any? wolves and count sheep > max-sheep [ stop ]
+
   ask sheep [
     move
     set energy energy - 1  ; deduct energy for sheep only if running sheep-wolves-grass model version
@@ -75,6 +79,9 @@ to go
     death ; wolves die if they run out of energy
     reproduce-wolves ; wolves reproduce at a random rate governed by a slider
   ]
+
+  ; If there are wolves but not any sheep, they are dying. And we want to extend the cutoff.
+  if any? wolves and not any? sheep [ set cutoff-ticks max (list cutoff-ticks (ticks + 100)) ]
   set average-sheep average-sheep * 0.95 + count sheep * 0.05
   set average-wolves average-wolves * 0.95 + count wolves * 0.05
 
@@ -207,7 +214,7 @@ grass-regrowth-time
 grass-regrowth-time
 0
 150
-80.0
+20.0
 5
 1
 NIL
@@ -736,6 +743,15 @@ setup
 repeat 75 [ go ]
 @#$#@#$#@
 @#$#@#$#@
+<experiments>
+  <experiment name="experiment" repetitions="10" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>get-final-wolves</metric>
+    <metric>get-final-sheep</metric>
+    <steppedValueSet variable="grass-regrowth-time" first="1" step="1" last="100"/>
+  </experiment>
+</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default
