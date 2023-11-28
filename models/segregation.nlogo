@@ -131,10 +131,10 @@ ticks
 30.0
 
 MONITOR
-265
-365
-355
-410
+10
+345
+100
+390
 % unhappy
 percent-unhappy
 1
@@ -142,33 +142,15 @@ percent-unhappy
 11
 
 MONITOR
-265
-220
-355
-265
+10
+200
+100
+245
 % similar
 percent-similar
 1
 1
 11
-
-PLOT
-10
-140
-260
-285
-Percent Similar
-time
-%
-0.0
-5.0
-0.0
-100.0
-true
-false
-"" ""
-PENS
-"percent" 1.0 0 -16777216 true "" "plot percent-similar"
 
 SLIDER
 10
@@ -261,29 +243,11 @@ density
 %
 HORIZONTAL
 
-PLOT
+MONITOR
 10
 295
-260
-445
-Number-unhappy
-NIL
-NIL
-0.0
-10.0
-0.0
-100.0
-true
-false
-"" ""
-PENS
-"default" 1.0 0 -16777216 true "" "plot count turtles with [not happy?]"
-
-MONITOR
-265
-315
-355
-360
+100
+340
 num-unhappy
 count turtles with [not happy?]
 1
@@ -291,10 +255,10 @@ count turtles with [not happy?]
 11
 
 MONITOR
-265
-170
-355
-215
+10
+150
+100
+195
 # agents
 count turtles
 1

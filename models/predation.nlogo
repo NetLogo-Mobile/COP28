@@ -258,26 +258,6 @@ NIL
 NIL
 0
 
-PLOT
-10
-360
-350
-530
-populations
-time
-pop.
-0.0
-100.0
-0.0
-100.0
-true
-true
-"" ""
-PENS
-"sheep" 1.0 0 -612749 true "" "plot count sheep"
-"wolves" 1.0 0 -16449023 true "" "plot count wolves"
-"grass / 4" 1.0 0 -10899396 true "" "plot count grass / 4 "
-
 MONITOR
 41
 308
