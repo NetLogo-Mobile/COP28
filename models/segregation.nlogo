@@ -35,6 +35,7 @@ end
 ; run the model for one tick
 to go
   if all? turtles [ happy? ] [ stop ]
+  if ticks > 100 [ stop ]
   move-unhappy-turtles
   update-turtles
   update-globals
@@ -88,6 +89,10 @@ to resize [ screen-width screen-height ]
   let height round (screen-height / coefficient) - 1
   resize-world 0 width 0 height
   setup
+end
+
+to-report get-similar
+  report percent-similar
 end
 
 ; Copyright 1997 Uri Wilensky.
@@ -169,7 +174,7 @@ SLIDER
 %-similar-wanted
 0
 100
-36.0
+14.0
 1
 1
 %
@@ -705,7 +710,7 @@ NetLogo 6.3.0-beta1
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="experiment" repetitions="100" sequentialRunOrder="false" runMetricsEveryStep="true">
+  <experiment name="experiment" repetitions="100" sequentialRunOrder="false" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <metric>percent-similar</metric>

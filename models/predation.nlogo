@@ -4,6 +4,8 @@ globals [
   wolf-gain-from-food
   sheep-reproduce
   wolf-reproduce
+  average-sheep
+  average-wolves
 ]
 
 ; Sheep and wolves are both breeds of turtles
@@ -11,9 +13,7 @@ breed [ sheep a-sheep ]  ; sheep is its own plural, so we use "a-sheep" as the s
 breed [ wolves wolf ]
 
 turtles-own [ energy ]       ; both wolves and sheep have energy
-
 patches-own [ countdown ]    ; this is for the sheep-wolves-grass model version
-
 
 to setup-globals
   set sheep-gain-from-food 4
@@ -25,8 +25,7 @@ end
 to setup
   clear-all
   setup-globals
-  ifelse netlogo-web? [ set max-sheep 10000 ] [ set max-sheep 30000 ]
-
+  set max-sheep 1000
 
   ask patches [
     set pcolor one-of [ green brown ]
@@ -61,7 +60,7 @@ to go
   ; stop the model if there are no wolves and no sheep
   if not any? turtles [ stop ]
   ; stop the model if there are no wolves and the number of sheep gets very large
-  if not any? wolves and count sheep > max-sheep [ user-message "The sheep have inherited the earth" stop ]
+  if not any? wolves and count sheep > max-sheep [ stop ]
   ask sheep [
     move
     set energy energy - 1  ; deduct energy for sheep only if running sheep-wolves-grass model version
@@ -76,11 +75,12 @@ to go
     death ; wolves die if they run out of energy
     reproduce-wolves ; wolves reproduce at a random rate governed by a slider
   ]
+  set average-sheep average-sheep * 0.95 + count sheep * 0.05
+  set average-wolves average-wolves * 0.95 + count wolves * 0.05
 
   ask patches [ grow-grass ]
 
   tick
-
 end
 
 to move  ; turtle procedure
@@ -135,11 +135,38 @@ to grow-grass  ; patch procedure
 end
 
 to-report grass
-
   report patches with [pcolor = green]
 end
 
+to resize [ screen-width screen-height ]
+  let coefficient 30
+  if screen-height <= 1500 [ set coefficient 25 ]
+  if screen-height <= 1080 [ set coefficient 20 ]
+  if screen-height <= 720 [ set coefficient 15 ]
+  if screen-height <= 480 [ set coefficient 12 ]
+  let width round (screen-width / coefficient) - 1
+  let height round (screen-height / coefficient) - 1
+  resize-world 0 width 0 height
+  setup
+end
 
+to-report get-wolves
+  report count wolves
+end
+
+to-report get-sheep
+  report count sheep
+end
+
+to-report get-final-wolves
+  if get-wolves = 0 [ report 0 ]
+  report average-wolves
+end
+
+to-report get-final-sheep
+  if get-sheep = 0 [ report 0 ]
+  report average-sheep
+end
 
 ; Copyright 1997 Uri Wilensky.
 ; See Info tab for full copyright and license.
@@ -701,7 +728,7 @@ false
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 @#$#@#$#@
-NetLogo 6.3.0
+NetLogo 6.3.0-beta1
 @#$#@#$#@
 set model-version "sheep-wolves-grass"
 set show-energy? false
