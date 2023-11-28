@@ -35,18 +35,20 @@ div.intro {
 }
 
 div.intro div.bordered {
-  display: block;
+  display: flex;
   padding: 20px 12px;
   overflow: hidden;
   flex-grow: 1;
+  flex-wrap: nowrap;
+  flex-direction: column;
 }
 
 div.intro .img-top-fixed {
-    width: 100%;
-    aspect-ratio: 1/1;
-    max-height: calc(100% - 150px);
-    object-fit: contain;
-    border-radius: 1rem;
+  width: 100%;
+  aspect-ratio: 1/1;
+  max-height: calc(100% - 150px);
+  object-fit: contain;
+  border-radius: 1rem;
 }
 
 .onboarding-title {
@@ -57,8 +59,9 @@ div.intro .img-top-fixed {
 }
 
 .scroll-overflow {
-  overflow: scroll;
+  overflow-y: auto;
 }
+
 .onboarding-descript {
   font-size: 1rem;
   width: 100%;
