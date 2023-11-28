@@ -13,7 +13,7 @@ function Setup() {
     // Setup the model
     RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
     // Define objects
-    ShowSlider(SetWanted, 50);
+    ShowSlider(SetWanted, 30);
 }
 
 /**
