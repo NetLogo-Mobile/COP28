@@ -97,6 +97,7 @@ function ShowModel(Widgets) {
 function SwitchMode(isRunning) {
     $(".slider-label-container").toggle(!isRunning);
     $(".running-model-stats").toggle(isRunning);
+    $(".miniplot-container").toggle(isRunning);
 }
 /**
  * Initializes and shows the parameter slider
