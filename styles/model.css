@@ -50,6 +50,9 @@ div.intro .img-top-fixed {
   color: #334456;
 }
 
+.scroll-overflow {
+  overflow: scroll;
+}
 .onboarding-descript {
   font-size: 1rem;
   width: 100%;
@@ -214,6 +217,40 @@ input[type='range'].styled-slider.slider-progress::-webkit-slider-runnable-track
   display: flex;
   flex-direction: column;
 }
+
+/* Thumb for the slider in Firefox */
+input[type='range'].styled-slider::-moz-range-thumb {
+  width: 2em;
+  height: 2em;
+  border-radius: 1em;
+  background: black url('../assets/icon-density.svg') no-repeat center center;
+  background-size: 1.5em 1.5em;
+  border: none;
+  box-shadow: 0 0 0.125rem black;
+  cursor: pointer;
+}
+
+/* Track for the slider in Firefox */
+input[type='range'].styled-slider::-moz-range-track {
+  height: 2.5svh;
+  border: 1px solid #b2b2b2;
+  border-radius: 0.8svh;
+  background: #32d583;
+  box-shadow: none;
+}
+
+/* Progress style for the slider in Firefox */
+input[type='range'].styled-slider.slider-progress::-moz-range-progress {
+  background: #32d583;
+  border-radius: 0.8svh;
+  height: 2.5svh;
+}
+
+/* Track for the blue slider in Firefox */
+input[type='range'].styled-slider.slider-progress::-moz-range-track {
+  background: #efefef;
+}
+
 
 /** Results Container */
 .results-container {
