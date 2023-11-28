@@ -59,12 +59,7 @@ to setup
 end
 
 to go
-  if ticks > cutoff-ticks [ stop ]
-  ; stop the model if there are no wolves and no sheep
-  if not any? turtles [ stop ]
-  ; stop the model if there are no wolves and the number of sheep gets very large
-  if not any? wolves and count sheep > max-sheep [ stop ]
-
+  if is-finished [ stop ]
   ask sheep [
     move
     set energy energy - 1  ; deduct energy for sheep only if running sheep-wolves-grass model version
@@ -157,6 +152,15 @@ to resize [ screen-width screen-height ]
   setup
 end
 
+to-report is-finished
+  if ticks > cutoff-ticks [ report true ]
+  ; stop the model if there are no wolves and no sheep
+  if not any? turtles [ report true ]
+  ; stop the model if there are no wolves and the number of sheep gets very large
+  if not any? wolves and count sheep > max-sheep [ report true ]
+  report false
+end
+
 to-report get-wolves
   report count wolves
 end
@@ -214,7 +218,7 @@ grass-regrowth-time
 grass-regrowth-time
 0
 150
-20.0
+100.0
 5
 1
 NIL

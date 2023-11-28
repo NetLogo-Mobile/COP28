@@ -34,8 +34,7 @@ end
 
 ; run the model for one tick
 to go
-  if all? turtles [ happy? ] [ stop ]
-  if ticks > 100 [ stop ]
+  if is-finished [ stop ]
   move-unhappy-turtles
   update-turtles
   update-globals
@@ -89,6 +88,12 @@ to resize [ screen-width screen-height ]
   let height round (screen-height / coefficient) - 1
   resize-world 0 width 0 height
   setup
+end
+
+to-report is-finished
+  if all? turtles [ happy? ] [ report true ]
+  if ticks > 100 [ report true ]
+  report false
 end
 
 to-report get-similar
