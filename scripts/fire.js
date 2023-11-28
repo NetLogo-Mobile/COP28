@@ -39,7 +39,7 @@ async function GameLoop() {
     // Check if the game is over
     var finished = await CallReporter("is-finished");
     GetBurnedRatio().then(burnedPercentage => {
-        $('.burned-val').text(`${burnedPercentage.toFixed(1)}%`);
+        ControlWidget.BurnedVal.text(`${burnedPercentage.toFixed(1)}%`);
     });
     if (finished) {
         // Game is over
