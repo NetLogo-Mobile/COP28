@@ -22,7 +22,7 @@ to setup-globals
   set sheep-reproduce 4
   set wolf-reproduce 5
   set max-sheep 1000
-  set cutoff-ticks 500
+  set cutoff-ticks 1000
 end
 
 to setup
@@ -162,7 +162,7 @@ to-report is-finished
 end
 
 to-report get-count
-  report (list count sheep count wolves)
+  report (list ticks count sheep count wolves)
 end
 
 to-report get-final-count

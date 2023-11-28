@@ -4,7 +4,7 @@
 }
 
 .plot-container .ct-series-a,
-.ct-series-b {
+.plot-container .ct-series-b {
     opacity: 0;
     transition: all 1s;
 }

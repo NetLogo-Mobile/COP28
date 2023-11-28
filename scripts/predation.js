@@ -1,4 +1,5 @@
-/** Predation: The predation model specific code goes here. *
+/** Predation: The predation model specific code goes here. */
+var MiniPlot, Series;
 /**
  * Sets up the model interface and initializes components
  */
@@ -13,6 +14,40 @@ function Setup() {
     RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
     // Define objects
     ShowSlider(SetRegrowth, 50);
+    // Plotting
+    Series = [{
+        name: 'series-sheep',
+        data: []
+    }, {
+        name: 'series-wolves',
+        data: []
+    }];
+    MiniPlot = new Chartist.Line('.miniplot-container', {
+        series: Series
+    }, {
+        showPoint: false,
+        showLine: true,
+        axisX: {
+            type: Chartist.AutoScaleAxis,
+            low: 0,
+            referenceValue: 100,
+            divisor: 5,
+            onlyInteger: true,
+            showLabel: false,
+            offset: 0,
+            labelInterpolationFnc: (Value) => Value
+        },
+        axisY: {
+            type: Chartist.AutoScaleAxis,
+            low: 0,
+            divisor: 5,
+            onlyInteger: true,
+            showLabel: false,
+            offset: 0,
+            labelInterpolationFnc: (Value) => Value
+        },
+        chartPadding: 2
+    });
 }
 
 /**
@@ -36,7 +71,14 @@ async function GameLoop() {
         SwitchMode(false);
         ResultsTab();
     } else {
-        await WaitFor(20);
+        // Plotting
+        var Count = await GetCount();
+        Series[0].data.push({ x: Count[0], y: Count[1] });
+        Series[1].data.push({ x: Count[0], y: Count[2] });
+        MiniPlot.update({
+            series: Series
+        });
+        await WaitFor(10);
         return await GameLoop();
     }
 }
@@ -101,6 +143,8 @@ function ResultsTab() {
         setTimeout(PlotResults, 100);
         // Try again button functionality
         $('.results-summary-button:first').on('click', function () {
+            Series[0].data = [];
+            Series[1].data = [];
             CallCommand("setup");
             SetRegrowth(Regrowth);
             SwitchMode(false);
@@ -196,9 +240,8 @@ function PlotResults() {
             labelInterpolationFnc: (Value) => Value
         },
         axisY: {
-            type: Chartist.FixedScaleAxis,
+            type: Chartist.AutoScaleAxis,
             low: 0,
-            high: 500,
             divisor: 5,
             onlyInteger: true,
             labelInterpolationFnc: (Value) => Value
