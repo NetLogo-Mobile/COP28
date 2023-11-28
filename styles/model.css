@@ -223,7 +223,7 @@ input[type='range'].styled-slider.fire-model.slider-progress::-webkit-slider-run
   background: linear-gradient(#32d583, #32d583) 0 / var(--sx) 100% no-repeat,
     #efefef;
 }
-input[type='range'].styled-slider::-webkit-slider-thumb {
+input[type='range'].styled-slider.fire-model::-webkit-slider-thumb {
   background: var(--offPurple, #FCFAFF) url('../assets/icon-density.svg') no-repeat center center;
 }
 
@@ -250,11 +250,62 @@ input[type='range'].styled-slider.segregation-model::-webkit-slider-runnable-tra
   background: #F04438;
 }
 
-
 input[type='range'].styled-slider.segregation-model.slider-progress::-webkit-slider-runnable-track {
   background: linear-gradient(#F04438, #F04438) 0 / var(--sx) 100% no-repeat,
     #efefef;
 }
+
+/* moz */
+input[type='range'].styled-slider::-moz-range-thumb {
+  width: 2em;
+  height: 2em;
+  border-radius: 1em;
+  background-size: 1.5em 1.5em;
+  border: none;
+  box-shadow: 0 0 0.125rem black;
+  cursor: pointer;
+}
+
+/* Track for the slider in Firefox */
+input[type='range'].styled-slider::-moz-range-track {
+  height: 2.5svh;
+  border: 1px solid #b2b2b2;
+  border-radius: 0.8svh;
+  box-shadow: none;
+}
+
+/* Progress style for the slider in Firefox */
+input[type='range'].styled-slider.slider-progress::-moz-range-progress {
+  border-radius: 0.8svh;
+  height: 2.5svh;
+}
+
+/* moz slider specific */
+input[type='range'].styled-slider.fire-model::-moz-range-thumb {
+  background: var(--offPurple, #FCFAFF) url('../assets/icon-density.svg') no-repeat center center;
+}
+input[type='range'].styled-slider.fire-model::-moz-range-track { 
+  background: linear-gradient(#32d583, #32d583) 0 / var(--sx) 100% no-repeat,
+  #efefef;
+}
+/* predation icon */
+input[type='range'].styled-slider.predation-model::-moz-range-thumb {
+  background: var(--offPurple, #FCFAFF) url('../assets/predation-icon.svg') no-repeat center center;
+}
+input[type='range'].styled-slider.predation-model::-moz-range-track { 
+  background: linear-gradient(#32d583, #32d583) 0 / var(--sx) 100% no-repeat,
+  #efefef;
+}
+
+/* segregation model */
+input[type='range'].styled-slider.segregation-model::-moz-range-thumb {
+  background: var(--offPurple, #FCFAFF) url('../assets/segregation-icon.svg') no-repeat center center;
+}
+input[type='range'].styled-slider.segregation-model::-moz-range-track { 
+  background: linear-gradient(#F04438, #F04438) 0 / var(--sx) 100% no-repeat,
+    #efefef;
+}
+
 
 .slider-label-container {
   flex: 1 0;
