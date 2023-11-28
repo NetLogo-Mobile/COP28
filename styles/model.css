@@ -69,15 +69,23 @@ div.intro .img-top-fixed {
   color: #101828;
 }
 
-.text-start a {
+.row.text-start {
   color: #101828;
   font-size: 1.25em;
   font-weight: 700;
+}
+
+.row.text-start a {
+  color: #101828;
+  width: auto;
+  display: inline;
+  padding-left: 0;
+  padding-right: 0.4rem;
   text-decoration: none;
 }
 
-.text-start a i {
-  margin-right: 0.5rem;
+.row.text-start a i {
+  margin-right: 0.4rem;
 }
 
 /* Controlling Widgets */
@@ -99,7 +107,7 @@ div.intro .img-top-fixed {
   align-items: center;
 }
 
-.density-label {
+.slider-label {
   color: #101828;
   font-size: 1.2em;
   font-weight: 800;
@@ -565,7 +573,7 @@ button.results-summary-button {
     overflow: hidden;
   }
 
-  .density-label {
+  .slider-label {
     font-size: 1.1em;
   }
 

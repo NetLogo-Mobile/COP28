@@ -128,11 +128,11 @@ function ShowResultTab() {
 function HideResultTab() {
     $('.container').css('pointer-events', 'auto');
     $('.results-container').addClass('invisible-element');
-    resetResultState();
+    ResetResultState();
 }
 
-/* resetStateAndStyles: resets result page back, should be called after leaving the results page */
-function resetResultState() {
+/* ResetResultState: resets result page back, should be called after leaving the results page */
+function ResetResultState() {
     $('.sliding-window')[0].style.transform = 'translateX(0px)';
     // $('.results-summary-button')[1].style.transform = 'translateY(0px)';
     // $('.results-summary-button')[1].classList.add('no-visibility');

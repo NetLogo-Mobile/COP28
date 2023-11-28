@@ -1,20 +1,19 @@
-/** Fire: The fire model specific code goes here. *
+/** Predation: The predation model specific code goes here. *
 /**
  * Sets up the model interface and initializes components
  */
 function Setup() {
     // Show the model
     ShowModel({
-        Density: 0,
-        DensityLabel: $('.density-label'),
-        DensityVal: $('.density-val'),
+        Wanted: 0,
+        WantedLabel: $('.density-label'),
+        WantedVal: $('.density-val'),
         BurnedVal: $('.burned-val'),
     });
     // Setup the model
     RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
-    Click("#netlogo-button-5 input");
     // Define objects
-    ShowSlider(SetDensity, 50);
+    ShowSlider(SetWanted, 50);
 }
 
 /**
@@ -33,8 +32,8 @@ async function GameLoop() {
     CallCommand("go");
     // Check if the game is over
     var finished = await CallReporter("is-finished");
-    GetBurnedRatio().then(burnedPercentage => {
-        $('.burned-val').text(`${burnedPercentage.toFixed(1)}%`);
+    GetSimilarity().then(burnedPercentage => {
+        ControlWidget.BurnedVal.text(`${burnedPercentage.toFixed(1)}%`);
     });
     if (finished) {
         // Game is over
@@ -48,47 +47,21 @@ async function GameLoop() {
 }
 
 /**
- * Sets the density value and updates the related UI components
- * @param {number} value - The density value to set
+ * Sets the %-similar-wanted value and updates the related UI components
+ * @param {number} value - The % value to set
  */
-function SetDensity(value) {
-    ControlWidget.DensityLabel.text(`Density: ${value}%`);
-    ControlWidget.DensityVal.text(`${value}%`);
-    ControlWidget.CurrentDensity = value;
-    RunCommand(`set density ${value}`);
-    CallCommand("setup");
-}
-
-// Initial values
-var InitialValues = {};
-/**
- * Initializes the initial values for the model
- */
-async function InitializeValues() {
-    try {
-        const initialTreesResult = await RunReporter("report-initial-trees");
-        const initialTreesBurnedResult = await RunReporter("report-burned-trees");
-
-        let firesAddedPercentageCalc = (initialTreesBurnedResult / initialTreesResult * 100).toFixed(1);
-        InitialValues = {
-            initialTrees: initialTreesResult,
-            initialTreesBurned: initialTreesBurnedResult,
-            firesAddedPercentage: firesAddedPercentageCalc
-        };
-
-    } catch (error) {
-        console.error('Error occurred while initializing InitialValues:', error);
-    }
+function SetWanted(value) {
+    ControlWidget.WantedLabel.text(`Wanted: ${value}%`);
+    ControlWidget.WantedVal.text(`${value}%`);
+    ControlWidget.CurrentWanted = value;
+    RunCommand(`set %-similar-wanted ${value}`);
 }
 
 /**
- * Get the burned trees ratio for display
+ * Get the similarity ratio for display
  */
-async function GetBurnedRatio() {
-    var Burned = await CallReporter("report-burned-trees");
-    var Initial = InitialValues.initialTrees - InitialValues.initialTreesBurned;
-    if (Initial <= 0) Initial = 1;
-    return (Burned - InitialValues.initialTreesBurned) / Initial * 100;
+async function GetSimilarity() {
+    return await CallReporter("get-similar");
 }
 
 var Results = [];
@@ -98,32 +71,29 @@ var Official = [{"x":1,"y":1.11},{"x":2,"y":0.97},{"x":3,"y":0.89},{"x":4,"y":0.
  * Displays the results tab with model statistics
  */
 function ResultsTab() {
-    GetBurnedRatio().then(BurnedTrees => {
+    GetSimilarity().then(Similarity => {
         // Show the results tab
         ShowResultTab();
         // Update texts where necessary
-        let Density = ControlWidget.CurrentDensity;
-        let FiresAdded = (InitialValues.initialTreesBurned / InitialValues.initialTrees * 100).toFixed(1);
-        let FireAddedLabel = GetResultLabel(0);
-        let TreeDensityLabel = GetResultLabel(1);
-        let BurnedLabel = GetResultLabel(2);
-        TreeDensityLabel.text(`${Density}%`);
-        FireAddedLabel.text(`${FiresAdded}%`);
-        BurnedLabel.text(`${BurnedTrees.toFixed(1)}%`);
+        let WantedLabel = GetResultLabel(0);
+        let SimilarityLabel = GetResultLabel(1);
+        WantedLabel.text(`${ControlWidget.CurrentWanted}%`);
+        SimilarityLabel.text(`${Similarity.toFixed(1)}%`);
         // Record the data
-        Results.push({ x: Density, y: BurnedTrees });
-        if (typeof(Estimation[Density]) == 'undefined')
-            Estimation[Density] = { Count: 0, Sum: 0 };
-        Estimation[Density].Count++;
-        Estimation[Density].Sum += parseFloat(BurnedTrees);
+        Results.push({ x: Wanted, y: Similarity });
+        if (typeof(Estimation[Wanted]) == 'undefined')
+            Estimation[Wanted] = { Count: 0, Sum: 0 };
+        Estimation[Wanted].Count++;
+        Estimation[Wanted].Sum += parseFloat(Similarity);
         // Plot the data
         setTimeout(PlotResults, 100);
         // Try again button functionality
         $('.results-summary-button:first').on('click', function () {
-            SetDensity(Density);
+            CallCommand("setup");
+            SetWanted(Wanted);
             SwitchMode(false);
             HideResultTab();
-            resetResultState();
+            ResetResultState();
         });
 
         // Learn more functionality

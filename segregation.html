@@ -22,7 +22,7 @@
         <div id="intro" class="intro">
             <!-- Back Button -->
             <div class="row mb-3 text-start">
-                <a href="index.html" class="btn-link" id="button-back"><i class="fas fa-chevron-left"></i> EARTH SCIENCE/FIRE</a>
+                <a href="index.html" class="btn-link" id="button-back">COP28 Models</a> &gt; Segregation
             </div>
             
             <!-- Content -->
@@ -52,28 +52,28 @@
             
                 <!-- Slider Label Container -->
                 <div class="slider-label-container">
-                    <!-- Density Label -->
-                    <span class="density-label not-selectable">Density</span>
+                    <!-- Slider Label -->
+                    <span class="slider-label wanted-label not-selectable">Similarity Wanted</span>
                     <!-- Tooltip Label -->
-                    <span class="tooltip-label not-selectable">Drag to change the density</span>
+                    <span class="tooltip-label not-selectable">Drag to change the residents' preference of neighbors</span>
                     <input type="range" class="styled-slider slider-progress" min="0" max="100" value="50" style="--value: 50; --min: 0; --max: 100;">
                 </div>
 
-                <!-- Density Display -->
+                <!-- Wanted Display -->
                 <div class="running-model-stats not-selectable" style="background-color: #32D583; color: #FCFCFD;">
                     <img src="./assets/icon-density.svg" class="running-model-stats-icon">
                     <div class="stats-val-container not-selectable">
-                        <span class="run-stats-val-top-text not-selectable">Density</span>
-                        <span class="density-val run-stats-val-bottom-text not-selectable">50%</span>
+                        <span class="run-stats-val-top-text not-selectable">Wanted</span>
+                        <span class="wanted-val run-stats-val-bottom-text not-selectable">50%</span>
                     </div>
                 </div>
 
-                <!-- Burned Label -->
+                <!-- Similarity Label -->
                 <div class="running-model-stats not-selectable" style="background-color: #F04438;">
                     <img src="./assets/icon-burned.svg" class="running-model-stats-icon">
                     <div class="stats-val-container not-selectable">
-                        <span class="run-stats-val-top-text not-selectable">Burned</span>
-                        <span class="burned-val run-stats-val-bottom-text not-selectable">50%</span>
+                        <span class="run-stats-val-top-text not-selectable">Resulted</span>
+                        <span class="similarity-val run-stats-val-bottom-text not-selectable">50%</span>
                     </div>
                 </div>
             </div>
@@ -157,30 +157,22 @@
                             <div class="results-model-stats" style="background-color: #F04438">
                                 <img src="./assets/icon-segregation.svg" class="results-model-stats-icon">
                                 <div class="stats-val-container">
-                                    <span class="stats-val-top-text">Fire added:</span>
-                                    <span id="burned-val-result" class="stats-val-bottom-text">0%</span>
+                                    <span class="stats-val-top-text">Similarity wanted:</span>
+                                    <span id="wanted-val-result" class="stats-val-bottom-text">0%</span>
                                 </div>
                             </div>
             
                             <div class="results-model-stats" style="background-color: #32D583">
                                 <img src="./assets/icon-density.svg" class="results-model-stats-icon">
                                 <div class="stats-val-container">
-                                    <span class="stats-val-top-text">Tree density:</span>
-                                    <span id="density-val-result" class="stats-val-bottom-text">0%</span>
-                                </div>
-                            </div>
-            
-                            <div class="results-model-stats" style="background-color: #6941C6">
-                                <img src="./assets/icon-burned.svg" class="results-model-stats-icon">
-                                <div class="stats-val-container">
-                                    <span class="run-stats-val-top-text">Burned trees:</span>
-                                    <span class="stats-val-bottom-text">0%</span>
+                                    <span class="stats-val-top-text">Similarity resulted:</span>
+                                    <span id="similarity-val-result" class="stats-val-bottom-text">0%</span>
                                 </div>
                             </div>
                         </div>
                     </div>
         
-                    <span class="results-summary-tip">Swipe right to see other results. When playing again, try adjusting the slider to control the density of the forest.</span>
+                    <span class="results-summary-tip">Swipe right to see other results. When playing again, try adjusting the slider to control how similar of neighbors that residents want.</span>
                 </div>
         
                 <!-- For John: The div to display the graphing -->
@@ -188,10 +180,10 @@
                     <span class="results-summary-title">RESULT HISTORY</span>
                     <div class="results-plots">
                         <div class="plot-container"></div>
-                        <div class="x-axis-label axis-title">Density</div>
-                        <div class="y-axis-label axis-title">Burnt</div>
+                        <div class="x-axis-label axis-title">% Similarity Wanted</div>
+                        <div class="y-axis-label axis-title">% Similarity Resulted</div>
                     </div>
-                    <span class="results-summary-tip">In a rush? We ran the model with one starting fire for 1,000 times. <a href="javascript:void(0)" onclick="ShowReference();">Click here</a> to visualize the results!</span>
+                    <span class="results-summary-tip">In a rush? We ran the model for 10,000 times. <a href="javascript:void(0)" onclick="ShowReference();">Click here</a> to visualize the results!</span>
                 </div>
             </div>
         </div>
