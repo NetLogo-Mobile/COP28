@@ -161,21 +161,21 @@ to-report is-finished
   report false
 end
 
-to-report get-wolves
-  report count wolves
+to-report get-count
+  report (list count sheep count wolves)
 end
 
-to-report get-sheep
-  report count sheep
+to-report get-final-count
+  report (list get-final-sheep get-final-wolves)
 end
 
 to-report get-final-wolves
-  if get-wolves = 0 [ report 0 ]
+  if count wolves = 0 [ report 0 ]
   report average-wolves
 end
 
 to-report get-final-sheep
-  if get-sheep = 0 [ report 0 ]
+  if count sheep = 0 [ report 0 ]
   report average-sheep
 end
 

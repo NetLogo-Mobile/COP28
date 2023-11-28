@@ -1,0 +1,34 @@
+/* Stylesheets for the Predation model */
+.y-axis-label {
+    left: -30px;
+}
+
+.plot-container .ct-series-a,
+.ct-series-b {
+    opacity: 0;
+    transition: all 1s;
+}
+
+.ct-series-c path {
+    opacity: 0.5;
+    stroke-dasharray: 5px 5px;
+    stroke-width: 3px;
+}
+
+.ct-series-a path,
+.ct-series-c line,
+.ct-series-e line {
+    stroke: #f6a673 !important;
+}
+
+.ct-series-d path {
+    opacity: 0.5;
+    stroke-dasharray: 5px 5px;
+    stroke-width: 3px;
+}
+
+.ct-series-b path,
+.ct-series-d path,
+.ct-series-f line {
+    stroke: #101828 !important;
+}
