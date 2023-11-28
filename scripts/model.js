@@ -101,12 +101,13 @@ function SwitchMode(isRunning) {
 /**
  * Initializes and shows the parameter slider
  */
-function ShowSlider(Callback, DefaultValue) {
+function ShowSlider(Callback, DefaultValue, model) {
     ControlWidget.Slider.on('input', function() {
         var value = $(this).val();
         $(this).css('--value', value);
         Callback(value);
     });
+    ControlWidget.Slider.addClass(model);
     Callback(DefaultValue);
 }
 
