@@ -196,9 +196,12 @@ function HideExpandedCard() {
  * {metadata} - learn more metadata
  */
 function InitializeLearnMore() {
-    // hide the original go back
-    CreateGoBackButton(() => { ToggleLearnMore(false);  $('.go-back-btn').show();} ).prependTo($('.learn-header'));
-    CreateHomeButton(() => { navigator.location = 'index.html' }).appendTo($('.learn-header'));
+    // hide the original go back\
+    // check if buttons have been made 
+    if($('.learn-header').children().length == 1 ) {
+        CreateGoBackButton(() => { ToggleLearnMore(false);  $('.go-back-btn').show();} ).prependTo($('.learn-header'));
+        CreateHomeButton(() => { navigator.location = 'index.html' }).appendTo($('.learn-header'));
+    }
     $('*[link]').on("click", (Event) => {
         var Element = Event.delegateTarget;
         expandCardContainer.removeClass('invisible-element');
