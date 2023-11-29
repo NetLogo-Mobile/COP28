@@ -97,11 +97,8 @@ function HideModel() {
     $(".container").removeClass("no-padding");
     $(".play-container").off("click", HandleRun);
 
-    /* WHY IS THIS REQUIRED? ASK JOHN */
-    RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
+    /* assuming this is resetting the click */
     Click("#netlogo-button-5 input");
-    // Define objects
-    ShowSlider(SetDensity, 50, 'fire-model');
 }
 /**
  * Switches the mode of the application between running and not running

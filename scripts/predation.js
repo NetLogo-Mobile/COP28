@@ -91,6 +91,9 @@ function SetRegrowth(value) {
     ControlWidget.RegrowthLabel.text(`Regrowth Time: ${value}`);
     ControlWidget.CurrentRegrowth = value;
     RunCommand(`set grass-regrowth-time ${value}`);
+    var slider = $("input[type='range'].styled-slider");
+    slider.css('--value', value);
+    slider.val(value);
 }
 
 /**

@@ -60,11 +60,11 @@ function SetDensity(value) {
     ControlWidget.DensityLabel.text(`Density: ${value}%`);
     ControlWidget.DensityVal.text(`${value}%`);
     ControlWidget.CurrentDensity = value;
+    RunCommand(`set density ${value}`);
+    CallCommand("setup");
     var slider = $("input[type='range'].styled-slider");
     slider.css('--value', value);
     slider.val(value);
-    RunCommand(`set density ${value}`);
-    CallCommand("setup");
 }
 
 // Initial values

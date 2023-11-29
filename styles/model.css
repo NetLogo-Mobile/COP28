@@ -530,6 +530,7 @@ button.results-summary-button {
 .go-back-btn {
   display: flex;
   flex-direction: row;
+  gap: 5%;
 }
 
 .go-right-arrow {

@@ -34,9 +34,9 @@ function LoadPageContent(CurrentPage) {
     }
     else if(CurrentPage == 0) {
       window.location.href = "index.html";
+      return;
     }
     CurrentPage--;
-    console.log(CurrentPage);
     UpdateContent(CurrentPage);
   }
 
@@ -45,7 +45,6 @@ function LoadPageContent(CurrentPage) {
 
     if (target.matches("#button-next")) {
       CurrentPage++;
-      console.log(CurrentPage);
       if (CurrentPage < IntroMetadata.length) {
         UpdateContent(CurrentPage);
       } else {
