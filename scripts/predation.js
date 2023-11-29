@@ -13,7 +13,7 @@ function Setup() {
     // Setup the model
     RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
     // Define objects
-    ShowSlider(SetRegrowth, 50);
+    ShowSlider(SetRegrowth, 50, 'predation-model');
     // Plotting
     Series = [{
         name: 'series-sheep',
