@@ -90,6 +90,19 @@ function ShowModel(Widgets) {
     // Learn more
     InitializeLearnMore();
 }
+
+function HideModel() {
+    $('#intro').show();
+    $('.model-container').addClass('invisible-element');
+    $(".container").removeClass("no-padding");
+    $(".play-container").off("click", HandleRun);
+
+    /* WHY IS THIS REQUIRED? ASK JOHN */
+    RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
+    Click("#netlogo-button-5 input");
+    // Define objects
+    ShowSlider(SetDensity, 50, 'fire-model');
+}
 /**
  * Switches the mode of the application between running and not running
  * @param {boolean} isRunning - Indicates whether the model is running
@@ -186,7 +199,8 @@ function HideExpandedCard() {
  * {metadata} - learn more metadata
  */
 function InitializeLearnMore() {
-    CreateGoBackButton(() => { ToggleLearnMore(false); } ).prependTo($('.learn-header'));
+    // hide the original go back
+    CreateGoBackButton(() => { ToggleLearnMore(false);  $('.go-back-btn').show();} ).prependTo($('.learn-header'));
     CreateHomeButton(() => { navigator.location = 'index.html' }).appendTo($('.learn-header'));
     $('*[link]').on("click", (Event) => {
         var Element = Event.delegateTarget;

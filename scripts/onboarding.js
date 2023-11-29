@@ -14,25 +14,52 @@ function UpdateContent(pageIndex) {
 
 // Load content for a specific page and set up event listeners
 function LoadPageContent(CurrentPage) {
-  let container = document.querySelector(".container");
-
+  let container = $(".container")[0];
   // Event listener for navigating through pages
+    // create the two go backs 
+  var outerBackContainer = $('.go-back-btn').eq(1);
+  var outerBackBtn = CreateGoBackButton(goBack);
+  outerBackContainer.append(outerBackBtn);
+  outerBackContainer.hide();
+
+  var innerBackContainer = $('.go-back-btn').eq(0);
+  var innerBackBtn = CreateGoBackButton(goBack);
+  innerBackContainer.prepend(innerBackBtn);
+
+  function goBack() {
+    if(CurrentPage == 3) {
+      HideModel();
+      outerBackContainer.hide();
+      innerBackContainer.show();
+    }
+    else if(CurrentPage == 0) {
+      window.location.href = "index.html";
+    }
+    CurrentPage--;
+    console.log(CurrentPage);
+    UpdateContent(CurrentPage);
+  }
+
   container.addEventListener("click", function (event) {
     const target = event.target;
 
     if (target.matches("#button-next")) {
       CurrentPage++;
+      console.log(CurrentPage);
       if (CurrentPage < IntroMetadata.length) {
         UpdateContent(CurrentPage);
       } else {
+        // hide the inner back button
+        innerBackContainer.hide();
+        outerBackContainer.show();
         Setup(container); // Assuming the definition of Setup is elsewhere in the code
       }
     }
   });
-
   // Initial content load
   UpdateContent(CurrentPage);
 }
 
 // Start loading content from the first page
-LoadPageContent(0);
+var CurrentPage = 0;
+CurrentPage = LoadPageContent(CurrentPage);

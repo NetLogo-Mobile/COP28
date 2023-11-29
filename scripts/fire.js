@@ -60,6 +60,9 @@ function SetDensity(value) {
     ControlWidget.DensityLabel.text(`Density: ${value}%`);
     ControlWidget.DensityVal.text(`${value}%`);
     ControlWidget.CurrentDensity = value;
+    var slider = $("input[type='range'].styled-slider");
+    slider.css('--value', value);
+    slider.val(value);
     RunCommand(`set density ${value}`);
     CallCommand("setup");
 }
@@ -135,6 +138,7 @@ function ResultsTab() {
         $('.results-summary-button:last').on('click', function () {
             HideResultTab();
             ToggleLearnMore(true);
+            $('.go-back-btn').hide();
         });
     });
 }
@@ -215,12 +219,14 @@ const IntroMetadata =
             title: "CONTEXT",
             description:
                 "Forest fires are becoming increasingly destructive. It is important to understand how they spread.",
+            buttonText: "NEXT"
         },
         {
             img: "assets/burning_far_2.gif",
             title: "WHAT IS IT?",
             description:
                 "In this simple simulation, the forest is modeled as a grid of trees and empty spots. We’ll explore how the density of trees affects fire spread. ",
+            buttonText: "NEXT"
         },
         {
             img: "assets/burning_close.gif",
