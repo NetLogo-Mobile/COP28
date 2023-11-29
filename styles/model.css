@@ -119,6 +119,11 @@ div.intro .img-top-fixed {
   font-style: italic;
 }
 
+.miniplot-container {
+  flex-grow: 1;
+  height: 100%;
+}
+
 .running-model-stats {
   flex: 1 0;
   display: flex;
