@@ -14,7 +14,7 @@ function Setup() {
     RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
     Click("#netlogo-button-5 input");
     // Define objects
-    ShowSlider(SetDensity, 50);
+    ShowSlider(SetDensity, 50, 'fire-model');
 }
 
 /**
