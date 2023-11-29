@@ -24,11 +24,28 @@ a.bordered {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 500px;
     align-items: center;
     gap: 5%;
 }
+
+.bottom-icon-container > div:nth-child(2)::before,
+.bottom-icon-container > div:nth-child(2)::after {
+    content: "";
+    display: inline-block;
+    height: 2rem; 
+    width: 2px;
+    background: #344054;
+    vertical-align: middle;
+    margin-left: 0.625rem;
+    margin-right: 0.625rem;
+}
+
 .img-bottom-icon {
-    height: 1.5rem;
+    height: 1.7rem;
     object-fit: fill;
 }
 
@@ -38,4 +55,8 @@ a.bordered {
     font-family: 'Lato';
     font-size: 18px;
     font-weight: 700;
+}
+
+.netlogo-icon {
+    height: 100%;
 }
