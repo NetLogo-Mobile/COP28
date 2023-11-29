@@ -89,6 +89,10 @@ function ShowModel(Widgets) {
     SwitchMode(false);
     // Learn more
     InitializeLearnMore();
+    // Record the event
+    gtag("event", "select_content", {
+        content_type: "model"
+    });
 }
 /**
  * Switches the mode of the application between running and not running
@@ -202,6 +206,10 @@ function InitializeLearnMore() {
 function ToggleLearnMore(Visibility) {
     $('.model-container').toggleClass('invisible-element', Visibility);
     $('.learn-more-container').toggleClass('invisible-element', !Visibility);
+    // Record the event
+    gtag("event", "select_content", {
+        content_type: Visibility ? "learn_more" : "model"
+    });
 }
 
 /**
@@ -304,7 +312,11 @@ function InitializeDragging() {
             pageIndex = 0;
             // learnMore.addClass('no-visibility');
             resetX = 0;
-        }
+        } else return;
+        // Record the event
+        gtag("event", "select_content", {
+            content_type: "result." + pageIndex
+        });
     }
 
     function navigateAndAnimate(translateDist) {

@@ -1,4 +1,5 @@
-/** Segregation: The segregation model specific code goes here. *
+/** Segregation: The segregation model specific code goes here. */
+const LevelName = "segregation";
 /**
  * Sets up the model interface and initializes components
  */
@@ -22,6 +23,11 @@ function Setup() {
 async function HandleRun() {
     SwitchMode(true);
     GameLoop();
+    // Record the event
+    gtag("event", "level_start", {
+        level_name: LevelName,
+        parameter1: ControlWidget.Wanted,
+    });
 }
 
 /**
@@ -79,6 +85,13 @@ function ResultsTab() {
         let SimilarityLabel = GetResultLabel(1);
         WantedLabel.text(`${Wanted}%`);
         SimilarityLabel.text(`${Similarity.toFixed(1)}%`);
+        // Record the event
+        gtag("event", "level_end", {
+            level_name: LevelName,
+            parameter1: Wanted,
+            result1: Similarity,
+            success: true
+        });
         // Record the data
         Results.push({ x: Wanted, y: Similarity });
         if (typeof(Estimation[Wanted]) == 'undefined')

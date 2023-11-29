@@ -7,6 +7,7 @@ globals [
   average-sheep
   average-wolves
   cutoff-ticks
+  cutoff-added
 ]
 
 ; Sheep and wolves are both breeds of turtles
@@ -75,8 +76,12 @@ to go
     reproduce-wolves ; wolves reproduce at a random rate governed by a slider
   ]
 
-  ; If there are wolves but not any sheep, they are dying. And we want to extend the cutoff.
-  if any? wolves and not any? sheep [ set cutoff-ticks max (list cutoff-ticks (ticks + 100)) ]
+  ; If there are wolves but not any sheep, wolves are dying. And we want to extend the cutoff.
+  if any? wolves and not any? sheep [ set cutoff-ticks ticks + 100 ]
+
+  ; If there are sheep but not any wolves, things are still interesting. And we want to expand the cutoff for once.
+  if cutoff-added = 0 and not any? wolves [ set cutoff-ticks ticks + 100 set cutoff-added 1 ]
+
   set average-sheep average-sheep * 0.95 + count sheep * 0.05
   set average-wolves average-wolves * 0.95 + count wolves * 0.05
 

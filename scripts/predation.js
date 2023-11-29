@@ -1,4 +1,5 @@
 /** Predation: The predation model specific code goes here. */
+const LevelName = "predation";
 var MiniPlot, Series;
 /**
  * Sets up the model interface and initializes components
@@ -56,6 +57,11 @@ function Setup() {
 async function HandleRun() {
     SwitchMode(true);
     GameLoop();
+    // Record the event
+    gtag("event", "level_start", {
+        level_name: LevelName,
+        parameter1: ControlWidget.Regrowth,
+    });
 }
 
 /**
@@ -122,12 +128,20 @@ function ResultsTab() {
         ShowResultTab();
         // Update texts where necessary
         var Regrowth = ControlWidget.CurrentRegrowth;
-        let SheepLabel = GetResultLabel(0);
-        let WolfLabel = GetResultLabel(1);
-        let RegrowthLabel = GetResultLabel(2);
+        let RegrowthLabel = GetResultLabel(0);
+        let SheepLabel = GetResultLabel(1);
+        let WolfLabel = GetResultLabel(2);
         RegrowthLabel.text(`${Regrowth}`);
         SheepLabel.text(`${Counts[0].toFixed(1)}`);
         WolfLabel.text(`${Counts[1].toFixed(1)}`);
+        // Record the event
+        gtag("event", "level_end", {
+            level_name: LevelName,
+            parameter1: Regrowth,
+            result1: Counts[0],
+            result2: Counts[1],
+            success: true
+        });
         // Record the data
         ResultsS.push({ x: Regrowth, y: Counts[0] });
         ResultsW.push({ x: Regrowth, y: Counts[1] });

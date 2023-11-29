@@ -1,11 +1,12 @@
-/** Fire: The fire model specific code goes here. *
+/** Fire: The fire model specific code goes here. */
+const LevelName = "fire";
 /**
  * Sets up the model interface and initializes components
  */
 function Setup() {
     // Show the model
     ShowModel({
-        Density: 0,
+        CurrentDensity: 0,
         DensityLabel: $('.density-label'),
         DensityVal: $('.density-val'),
         BurnedVal: $('.burned-val'),
@@ -28,6 +29,12 @@ async function HandleRun() {
         SwitchMode(true);
         InitializeValues();
         GameLoop();
+        // Record the event
+        gtag("event", "level_start", {
+            level_name: LevelName,
+            parameter1: ControlWidget.CurrentDensity,
+            parameter2: InitialValues.initialTreesBurned
+        });
     }
 }
 
@@ -115,6 +122,14 @@ function ResultsTab() {
         TreeDensityLabel.text(`${Density}%`);
         FireAddedLabel.text(`${FiresAdded}%`);
         BurnedLabel.text(`${BurnedTrees.toFixed(1)}%`);
+        // Record the event
+        gtag("event", "level_end", {
+            level_name: LevelName,
+            parameter1: Density,
+            parameter2: InitialValues.initialTreesBurned,
+            result1: BurnedTrees,
+            success: true
+        });
         // Record the data
         Results.push({ x: Density, y: BurnedTrees });
         if (typeof(Estimation[Density]) == 'undefined')
@@ -214,13 +229,13 @@ const IntroMetadata =
             img: "assets/fire.png",
             title: "CONTEXT",
             description:
-                "Forest fires are becoming increasingly destructive. It is important to understand how they spread.",
+                "As the global temperature goes up, forest fires are becoming increasingly destructive. It is important to understand how they spread.",
         },
         {
             img: "assets/burning_far_2.gif",
             title: "WHAT IS IT?",
             description:
-                "In this simple simulation, the forest is modeled as a grid of trees and empty spots. We’ll explore how the density of trees affects fire spread. ",
+                "In this simple simulation, the forest is modeled as a grid of trees and empty spots. We’ll explore how the density of trees affects fire spread.",
         },
         {
             img: "assets/burning_close.gif",

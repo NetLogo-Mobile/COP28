@@ -10,6 +10,11 @@ function UpdateContent(pageIndex) {
   if (buttonText) {
     button.innerText = buttonText;
   }
+
+  // Record the event
+  gtag("event", "select_content", {
+    content_type: "intro." + pageIndex
+  });
 }
 
 // Load content for a specific page and set up event listeners
