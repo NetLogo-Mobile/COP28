@@ -122,9 +122,9 @@ function ResultsTab() {
         ShowResultTab();
         // Update texts where necessary
         var Regrowth = ControlWidget.CurrentRegrowth;
-        let RegrowthLabel = GetResultLabel(0);
-        let SheepLabel = GetResultLabel(1);
-        let WolfLabel = GetResultLabel(2);
+        let SheepLabel = GetResultLabel(0);
+        let WolfLabel = GetResultLabel(1);
+        let RegrowthLabel = GetResultLabel(2);
         RegrowthLabel.text(`${Regrowth}`);
         SheepLabel.text(`${Counts[0].toFixed(1)}`);
         WolfLabel.text(`${Counts[1].toFixed(1)}`);
