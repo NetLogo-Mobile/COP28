@@ -46,11 +46,19 @@ function subscribeToList() {
         success: function(response) {
             // Handle the response here
             field.ariaPlaceholder = 'Thank you for subscribing!';
+            // Record the event
+            gtag("event", "select_content", {
+                content_type: "subscription_success"
+            });
         },
         error: function(xhr, status, error) {
             // Handle errors here
             field.value = email;
             alert("Sorry, the network is busy. Please try again later.");
+            // Record the event
+            gtag("event", "select_content", {
+                content_type: "subscription_failure"
+            });
         }
     });
     // Record the event
