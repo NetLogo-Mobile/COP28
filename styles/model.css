@@ -88,6 +88,7 @@ div.intro .img-top-fixed {
   margin-right: 0.4rem;
 }
 
+
 /* Controlling Widgets */
 .control-widget-container {
   position: absolute;
@@ -176,6 +177,12 @@ div.intro .img-top-fixed {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+#model-back-btn{
+  position: absolute;
+  top: 3%;
+  left: 3%;
 }
 
 .play-container img {
@@ -518,6 +525,12 @@ button.results-summary-button {
   line-height: 1.89494rem;
   align-items: center;
   justify-content: space-between;
+}
+
+.go-back-btn {
+  display: flex;
+  flex-direction: row;
+  gap: 5%;
 }
 
 .go-right-arrow {

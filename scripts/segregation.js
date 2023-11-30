@@ -60,6 +60,9 @@ function SetWanted(value) {
     ControlWidget.WantedVal.text(`${value}%`);
     ControlWidget.CurrentWanted = value;
     RunCommand(`set %-similar-wanted ${value}`);
+    var slider = $("input[type='range'].styled-slider");
+    slider.css('--value', value);
+    slider.val(value);
 }
 
 /**

@@ -94,6 +94,16 @@ function ShowModel(Widgets) {
         content_type: "model"
     });
 }
+
+function HideModel() {
+    $('#intro').show();
+    $('.model-container').addClass('invisible-element');
+    $(".container").removeClass("no-padding");
+    $(".play-container").off("click", HandleRun);
+
+    /* assuming this is resetting the click */
+    Click("#netlogo-button-5 input");
+}
 /**
  * Switches the mode of the application between running and not running
  * @param {boolean} isRunning - Indicates whether the model is running
@@ -190,8 +200,12 @@ function HideExpandedCard() {
  * {metadata} - learn more metadata
  */
 function InitializeLearnMore() {
-    CreateGoBackButton(() => { ToggleLearnMore(false); } ).prependTo($('.learn-header'));
-    CreateHomeButton(() => { navigator.location = 'index.html' }).appendTo($('.learn-header'));
+    // hide the original go back\
+    // check if buttons have been made 
+    if($('.learn-header').children().length == 1 ) {
+        CreateGoBackButton(() => { ToggleLearnMore(false);  $('.go-back-btn').show();} ).prependTo($('.learn-header'));
+        CreateHomeButton(() => { navigator.location = 'index.html' }).appendTo($('.learn-header'));
+    }
     $('*[link]').on("click", (Event) => {
         var Element = Event.delegateTarget;
         expandCardContainer.removeClass('invisible-element');
