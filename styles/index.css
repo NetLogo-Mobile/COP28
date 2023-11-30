@@ -21,27 +21,31 @@ a.bordered {
 }
 
 .bottom-icon-container {
+    width: 100%;
+    max-width: 500px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
-    max-width: 500px;
     align-items: center;
-    gap: 5%;
 }
 
-.bottom-icon-container > div:nth-child(2)::before,
-.bottom-icon-container > div:nth-child(2)::after {
-    content: "";
-    display: inline-block;
-    height: 2rem; 
-    width: 2px;
-    background: #344054;
-    vertical-align: middle;
-    margin-left: 0.625rem;
-    margin-right: 0.625rem;
+.bottom-icon-container div {
+    padding: 0 10px;
+}
+
+.bottom-icon-container div a {
+    text-decoration: none;
+}
+
+.bottom-icon-container > div:nth-child(2) a img {
+    margin: 0 0.15rem;
+}
+
+.bottom-icon-container > div:nth-child(2) {
+    border-left: 2px solid  #344054;
+    border-right: 2px solid #344054;
 }
 
 .img-bottom-icon {
