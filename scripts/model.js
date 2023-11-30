@@ -112,9 +112,11 @@ function SwitchMode(isRunning) {
     $(".running-model-stats").toggle(isRunning);
     $(".miniplot-container").toggle(isRunning);
     if(isRunning) {
-        $(".play-container").css("background-color", "105, 65, 198, 0.70");
+        $(".play-container").css("background-color", "rgba(105, 65, 198, 0.70)");
+        $(".play-container-icon").attr("src", "../assets/stop-play.svg");
     } else {
         $(".play-container").css("background-color", "#6941C6");
+        $(".play-container-icon").attr("src", "../assets/button-play.svg");
     }
 }
 /**
