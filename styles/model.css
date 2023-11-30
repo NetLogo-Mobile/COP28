@@ -89,7 +89,6 @@ div.intro .img-top-fixed {
   margin-right: 0.4rem;
 }
 
-
 /* Controlling Widgets */
 .control-widget-container {
   position: absolute;
@@ -180,10 +179,11 @@ div.intro .img-top-fixed {
   cursor: pointer;
 }
 
-#model-back-btn{
+.model-container .go-back-btn {
   position: absolute;
-  top: 3%;
-  left: 3%;
+  top: 30px;
+  left: 30px;
+  padding-left: 0;
 }
 
 .play-container img {
@@ -483,7 +483,6 @@ button.results-summary-button {
 .learn-more-container {
   height: 100%;
   display: flex;
-  padding: 20px;
   flex-direction: column;
   margin-left: auto; 
   margin-right: auto;
@@ -529,11 +528,11 @@ button.results-summary-button {
 }
 
 .go-back-btn {
+  gap: 20px;
   display: flex;
+  padding-left: 12px;
   flex-direction: row;
-  gap: 5%;
 }
-
 
 .go-right-arrow {
   width: 1.875rem;

@@ -100,7 +100,6 @@ function HideModel() {
     $('.model-container').addClass('invisible-element');
     $(".container").removeClass("no-padding");
     $(".play-container").off("click", HandleRun);
-
     /* assuming this is resetting the click */
     Click("#netlogo-button-5 input");
 }
@@ -223,6 +222,7 @@ function InitializeLearnMore() {
  * Toggles the learn more page
  */
 function ToggleLearnMore(Visibility) {
+    $('.container').toggleClass('no-padding', !Visibility);
     $('.model-container').toggleClass('invisible-element', Visibility);
     $('.learn-more-container').toggleClass('invisible-element', !Visibility);
     // Record the event
