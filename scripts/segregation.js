@@ -165,7 +165,7 @@ function PlotResults() {
         axisX: {
             type: Chartist.FixedScaleAxis,
             low: 0,
-            high: 100,
+            high: 60,
             divisor: 5,
             onlyInteger: true,
             labelInterpolationFnc: (Value) => Value + "%" // Add percentage sign
