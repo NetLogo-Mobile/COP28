@@ -199,6 +199,10 @@ var expandBody = expandCard.find('.lm-expand-body');
  */
 function HideExpandedCard() {
     expandCardContainer.addClass('invisible-element');
+    // Record the event
+    gtag("event", "select_content", {
+        content_type: "learn_more"
+    });
 }
 
 /**
