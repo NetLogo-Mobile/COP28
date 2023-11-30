@@ -1,4 +1,8 @@
 /* Stylesheets for the Segregation model */
+.y-axis-label {
+    left: -50px;
+}
+
 .ct-series-a {
     opacity: 0;
     transition: all 1s;
