@@ -23,8 +23,7 @@ function Setup() {
  */
 async function HandleRun() {
     if (await RunReporter("report-burned-trees") == 0) {
-        // For acero: Turn this into the real interface. 
-        alert("Please click on the trees to start a fire.");
+        $(".tooltips").show();
     } else {
         SwitchMode(true);
         InitializeValues();
@@ -43,6 +42,7 @@ async function HandleRun() {
  */
 async function GameLoop() {
     CallCommand("go");
+    $(".tooltips").hide();
     // Check if the game is over
     var finished = await CallReporter("is-finished");
     GetBurnedRatio().then(burnedPercentage => {
@@ -150,6 +150,7 @@ function ResultsTab() {
         });
         // Learn more functionality
         $('.results-summary-button:last').on('click', function () {
+            SetDensity(Density);
             HideResultTab();
             ToggleLearnMore(true);
             $('.go-back-btn').hide();

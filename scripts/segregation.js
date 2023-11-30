@@ -106,7 +106,6 @@ function ResultsTab() {
         // Try again button functionality
         $('.results-summary-button:first').on('click', function () {
             CallCommand("setup");
-            SetWanted(Wanted);
             SwitchMode(false);
             HideResultTab();
             ResetResultState();
@@ -114,6 +113,7 @@ function ResultsTab() {
 
         // Learn more functionality
         $('.results-summary-button:last').on('click', function () {
+            CallCommand("setup");
             HideResultTab();
             ToggleLearnMore(true);
         });

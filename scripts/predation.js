@@ -158,12 +158,11 @@ function ResultsTab() {
         EstimationW[Regrowth].Sum += parseFloat(Counts[1]);
         // Plot the data
         setTimeout(PlotResults, 100);
+        Series[0].data = [];
+        Series[1].data = [];
         // Try again button functionality
         $('.results-summary-button:first').on('click', function () {
-            Series[0].data = [];
-            Series[1].data = [];
             CallCommand("setup");
-            SetRegrowth(Regrowth);
             SwitchMode(false);
             HideResultTab();
             ResetResultState();
@@ -171,6 +170,7 @@ function ResultsTab() {
 
         // Learn more functionality
         $('.results-summary-button:last').on('click', function () {
+            CallCommand("setup");
             HideResultTab();
             ToggleLearnMore(true);
         });

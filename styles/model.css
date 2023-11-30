@@ -108,6 +108,28 @@ div.intro .img-top-fixed {
   align-items: center;
 }
 
+.control-widget-container .tooltips {
+  left: 50%;
+  width: 100%;
+  color: #fff;
+  bottom: 120px;
+  position: absolute;
+  z-index: 10;
+  transform: translateX(-50%);
+  max-width: 360px;
+  text-align: center;
+}
+
+.control-widget-container .tooltips .backdrop {
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.control-widget-container .tooltips .text {
+  padding: 2px 10px;
+}
+
 .slider-label {
   color: #101828;
   font-size: 1.2em;
@@ -480,6 +502,8 @@ button.results-summary-button {
   stroke-width: 10px;
 }
 
+/** Learn more interfaces */
+
 .learn-more-container {
   height: 100%;
   display: flex;
@@ -633,7 +657,6 @@ button.results-summary-button {
     gap: 10px;
     height: 100px;
     padding: 10px;
-    overflow: hidden;
   }
 
   .slider-label {
