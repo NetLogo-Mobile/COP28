@@ -112,6 +112,11 @@ function SwitchMode(isRunning) {
     $(".slider-label-container").toggle(!isRunning);
     $(".running-model-stats").toggle(isRunning);
     $(".miniplot-container").toggle(isRunning);
+    if(isRunning) {
+        $(".play-container").css("background-color", "105, 65, 198, 0.70");
+    } else {
+        $(".play-container").css("background-color", "#6941C6");
+    }
 }
 /**
  * Initializes and shows the parameter slider

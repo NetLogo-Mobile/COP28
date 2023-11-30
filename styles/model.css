@@ -4,6 +4,7 @@
   position: relative;
 }
 
+
 .center-flex {
   display: flex;
   justify-content: center;
@@ -440,7 +441,7 @@ button.results-summary-button {
   margin-left: auto;
   margin-right: auto;
   margin-top: 5%;
-  font-size: 0.8rem;
+  font-size: 0.8rem; 
 }
 
 /* Chartist */
@@ -532,6 +533,7 @@ button.results-summary-button {
   flex-direction: row;
   gap: 5%;
 }
+
 
 .go-right-arrow {
   width: 1.875rem;
