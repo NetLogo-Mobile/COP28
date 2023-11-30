@@ -29,12 +29,30 @@ if (downloadBtns.length > 0) {
 
 // subscribe btn
 function subscribeToList() {
-    let email = document.querySelector('#subscribe-input').value;
+    var field = document.querySelector('#subscribe-input');
+    let email = field.value.trim();
+    if (email == '') return;
     // Validate email
     if (!isValidEmail(email)) {
         alert('Please enter a valid email address.');
         return;
     }
+    field.value = '';
+    // Send the email to the API
+    $.ajax({
+        url: 'https://nlm-api-us.turtlesim.com/Users/Subscribe',
+        type: 'GET', // or 'POST' if the API requires a POST request
+        data: { email: email },
+        success: function(response) {
+            // Handle the response here
+            field.ariaPlaceholder = 'Thank you for subscribing!';
+        },
+        error: function(xhr, status, error) {
+            // Handle errors here
+            field.value = email;
+            alert("Sorry, the network is busy. Please try again later.");
+        }
+    });
     // Record the event
     gtag("event", "select_content", {
         content_type: "subscription"
