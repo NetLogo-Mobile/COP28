@@ -69,6 +69,9 @@ function SetDensity(value) {
     ControlWidget.CurrentDensity = value;
     RunCommand(`set density ${value}`);
     CallCommand("setup");
+    var slider = $("input[type='range'].styled-slider");
+    slider.css('--value', value);
+    slider.val(value);
 }
 
 // Initial values
@@ -150,6 +153,7 @@ function ResultsTab() {
         $('.results-summary-button:last').on('click', function () {
             HideResultTab();
             ToggleLearnMore(true);
+            $('.go-back-btn').hide();
         });
     });
 }
