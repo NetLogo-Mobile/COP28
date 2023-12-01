@@ -107,16 +107,20 @@ function HideModel() {
  * Switches the mode of the application between running and not running
  * @param {boolean} isRunning - Indicates whether the model is running
  */
-function SwitchMode(isRunning) {
-    $(".slider-label-container").toggle(!isRunning);
-    $(".running-model-stats").toggle(isRunning);
-    $(".miniplot-container").toggle(isRunning);
-    if(isRunning) {
+function SwitchMode(state) {
+    $(".slider-label-container").toggle(!state.isRunning);
+    $(".running-model-stats").toggle(state.isRunning);
+    $(".miniplot-container").toggle(state.isRunning);
+    if(state.isRunning) {
         $(".play-container").css("background-color", "rgba(105, 65, 198, 0.70)");
         $(".play-container-icon").attr("src", "../assets/stop-play.svg");
+        $(".play-container").off("click");
+        $(".play-container").on("click", HandleStop);
     } else {
         $(".play-container").css("background-color", "#6941C6");
         $(".play-container-icon").attr("src", "../assets/button-play.svg");
+        $(".play-container").off("click");
+        $(".play-container").on("click", HandleRun);
     }
 }
 /**

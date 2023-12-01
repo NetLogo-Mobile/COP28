@@ -1,5 +1,6 @@
 /** Segregation: The segregation model specific code goes here. */
 const LevelName = "segregation";
+var state = {isRunning: false};
 /**
  * Sets up the model interface and initializes components
  */
@@ -21,13 +22,26 @@ function Setup() {
  * Handles the 'run' action of the model
  */
 async function HandleRun() {
-    SwitchMode(true);
+    if(state.isRunning) {
+        return; // if its already running, do nothing
+    }
+    state.isRunning = true
+    SwitchMode(state);
     GameLoop();
     // Record the event
     gtag("event", "level_start", {
         level_name: LevelName,
         parameter1: ControlWidget.Wanted,
     });
+}
+
+/**
+ * Handles the 'stop' action of the model
+ */
+function HandleStop() {
+    if(!state.isRunning) return;
+    state.isRunning = false;
+    SwitchMode(state);
 }
 
 /**
@@ -43,9 +57,15 @@ async function GameLoop() {
     if (finished) {
         // Game is over
         await WaitFor(500);
-        SwitchMode(false);
+        state.isRunning = false
+        SwitchMode(state);
         ResultsTab();
-    } else {
+    } 
+    else if (!state.isRunning ) {
+        // stop button has been pressed
+        ResultsTab();
+    }
+    else {
         await WaitFor(20);
         return await GameLoop();
     }
@@ -106,7 +126,8 @@ function ResultsTab() {
         // Try again button functionality
         $('.results-summary-button:first').on('click', function () {
             CallCommand("setup");
-            SwitchMode(false);
+            state.isRunning = false
+            SwitchMode(state);
             HideResultTab();
             ResetResultState();
         });

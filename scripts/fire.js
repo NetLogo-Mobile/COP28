@@ -1,5 +1,6 @@
 /** Fire: The fire model specific code goes here. */
 const LevelName = "fire";
+var state = {isRunning: false};
 /**
  * Sets up the model interface and initializes components
  */
@@ -22,10 +23,12 @@ function Setup() {
  * Handles the 'run' action of the model
  */
 async function HandleRun() {
+    if(state.isRunning) return;
     if (await RunReporter("report-burned-trees") == 0) {
         $(".tooltips").show();
     } else {
-        SwitchMode(true);
+        state.isRunning = true;
+        SwitchMode(state);
         InitializeValues();
         GameLoop();
         // Record the event
@@ -35,6 +38,15 @@ async function HandleRun() {
             parameter2: InitialValues.initialTreesBurned
         });
     }
+}
+
+/**
+ * Handles the 'stop' action of the model
+ */
+function HandleStop() {
+    if(!state.isRunning) return; // if its not running, do nothing
+    state.isRunning = false;
+    SwitchMode(state);
 }
 
 /**
@@ -51,9 +63,15 @@ async function GameLoop() {
     if (finished) {
         // Game is over
         await WaitFor(500);
-        SwitchMode(false);
+        state.isRunning = false;
+        SwitchMode(state);
         ResultsTab();
-    } else {
+    } else if(!state.isRunning) {
+        // state can only be set to not running if the stop button is pressed or if game is finished
+        // if the game is not finished and the state is not running, then the stop button was pressed
+        ResultsTab();
+    }
+    else {
         await WaitFor(20);
         return await GameLoop();
     }
@@ -144,7 +162,8 @@ function ResultsTab() {
         // Try again button functionality
         $('.results-summary-button:first').on('click', function () {
             SetDensity(Density);
-            SwitchMode(false);
+            state.isRunning = false;
+            SwitchMode(state);
             HideResultTab();
             ResetResultState();
         });
