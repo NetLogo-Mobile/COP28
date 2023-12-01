@@ -46,6 +46,7 @@ function subscribeToList() {
         success: function(response) {
             // Handle the response here
             field.ariaPlaceholder = 'Thank you for subscribing!';
+            console.log(response);
             // Record the event
             gtag("event", "select_content", {
                 content_type: "subscription_success"
