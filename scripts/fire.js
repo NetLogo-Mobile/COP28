@@ -1,6 +1,6 @@
 /** Fire: The fire model specific code goes here. */
 const LevelName = "fire";
-var state = {isRunning: false};
+var state = {isRunning: false}; // state of the model to pass to the SwitchMode function
 /**
  * Sets up the model interface and initializes components
  */
@@ -11,7 +11,7 @@ function Setup() {
         DensityLabel: $('.density-label'),
         DensityVal: $('.density-val'),
         BurnedVal: $('.burned-val'),
-    });
+    }, state);
     // Setup the model
     RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
     Click("#netlogo-button-5 input");
@@ -30,6 +30,7 @@ async function HandleRun() {
         state.isRunning = true;
         SwitchMode(state);
         InitializeValues();
+        Click("#netlogo-button-5 input"); // disable adding fires
         GameLoop();
         // Record the event
         gtag("event", "level_start", {
@@ -65,11 +66,13 @@ async function GameLoop() {
         await WaitFor(500);
         state.isRunning = false;
         SwitchMode(state);
+        Click("#netlogo-button-5 input"); // re-enable adding fires 
         ResultsTab();
     } else if(!state.isRunning) {
         // state can only be set to not running if the stop button is pressed or if game is finished
         // if the game is not finished and the state is not running, then the stop button was pressed
         ResultsTab();
+        Click("#netlogo-button-5 input"); // re-enable adding fires
     }
     else {
         await WaitFor(20);

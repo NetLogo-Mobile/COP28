@@ -24,6 +24,10 @@ body {
     -ms-user-select: none;
 }
 
+.not-interactable {
+    pointer-events: none;
+}
+
 .container {
     width: 100svw;
     height: 100svh;

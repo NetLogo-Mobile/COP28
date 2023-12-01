@@ -11,7 +11,7 @@ function Setup() {
         Regrowth: 0,
         RegrowthLabel: $('.regrowth-label'),
         PlotContainer: $('.miniplot-container'),
-    });
+    }, state);
     // Setup the model
     RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
     // Define objects

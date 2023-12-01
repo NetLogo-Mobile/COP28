@@ -11,7 +11,7 @@ function Setup() {
         WantedLabel: $('.wanted-label'),
         WantedVal: $('.wanted-val'),
         SimilarityVal: $('.similarity-val'),
-    });
+    }, state);
     // Setup the model
     RunCommand(`resize ${SimulationFrame.clientWidth} ${SimulationFrame.clientHeight}`);
     // Define objects

@@ -74,19 +74,20 @@ window.addEventListener("message", (event) => {
 // The control widget
 var ControlWidget;
 /**
- * Hide the Introduction and show the model
+ * Hide the Introduction and show the model   --> showModel is where its wrong 
  */
-function ShowModel(Widgets) {
+function ShowModel(Widgets, state) {
     // Show and hide
     $('#intro').hide();
     $('.model-container').removeClass('invisible-element');
     $(".container").addClass("no-padding");
-    $(".play-container").on("click", HandleRun);
+    $(".play-container").on("click", HandleRun);   
     // Define objects
     ControlWidget = Widgets;
     Widgets.Slider = $('.styled-slider');
     // Switch the mode
-    SwitchMode(false);
+    state.isRunning = false;
+    SwitchMode(state);
     // Learn more
     InitializeLearnMore();
     // Record the event
@@ -103,6 +104,15 @@ function HideModel() {
     /* assuming this is resetting the click */
     Click("#netlogo-button-5 input");
 }
+
+function DisableGoBack() {
+    $('#model-go-back').addClass('not-interactable');
+}
+
+function EnableGoBack() {
+    $('#model-go-back').removeClass('not-interactable');
+}
+
 /**
  * Switches the mode of the application between running and not running
  * @param {boolean} isRunning - Indicates whether the model is running
@@ -116,11 +126,15 @@ function SwitchMode(state) {
         $(".play-container-icon").attr("src", "../assets/stop-play.svg");
         $(".play-container").off("click");
         $(".play-container").on("click", HandleStop);
+        // disable go Back 
+        DisableGoBack();
     } else {
         $(".play-container").css("background-color", "#6941C6");
         $(".play-container-icon").attr("src", "../assets/button-play.svg");
         $(".play-container").off("click");
         $(".play-container").on("click", HandleRun);
+        // renable go back
+        EnableGoBack();
     }
 }
 /**
