@@ -7,7 +7,6 @@ if (downloadBtns.length > 0) {
             content_type: "netlogo-desktop"
         });
         top.location.href = 'https://ccl.northwestern.edu/netlogo/download.shtml';
-        console.log("download");
     });
 
     downloadBtns[1].addEventListener('click', () => {
@@ -34,7 +33,7 @@ function subscribeToList() {
     if (email == '') return;
     // Validate email
     if (!isValidEmail(email)) {
-        alert('Please enter a valid email address.');
+        showSubscriptionMsg('i');
         return;
     }
     field.value = '';
@@ -46,7 +45,7 @@ function subscribeToList() {
         success: function(response) {
             // Handle the response here
             field.ariaPlaceholder = 'Thank you for subscribing!';
-            console.log(response);
+            showSubscriptionMsg('s');
             // Record the event
             gtag("event", "select_content", {
                 content_type: "subscription_success"
@@ -55,7 +54,7 @@ function subscribeToList() {
         error: function(xhr, status, error) {
             // Handle errors here
             field.value = email;
-            alert("Sorry, the network is busy. Please try again later.");
+            showSubscriptionMsg('f');
             // Record the event
             gtag("event", "select_content", {
                 content_type: "subscription_failure"
@@ -74,6 +73,49 @@ function isValidEmail(email) {
     return regex.test(email);
 }
 
+/* Show the result of the subscribe action (success, invalid email, failure) */
+function showSubscriptionMsg(msg) {
+    let msgDiv = $('<div>', {
+        css: {
+            padding: '3%',
+            marginTop: '5%',
+        }
+    }).appendTo($('.spacer'));
+    if(msg == 's') {
+        msgDiv.css({
+            backgroundColor: '#abf7b1',
+        }).text('Subscription successful!');
+    } else if (msg =='f') {
+        msgDiv.css({
+            backgroundColor: '#ffb3b2'
+        }).text('Sorry, the network is busy. Please try again later.');
+    } else {
+        // invalid email 
+        msgDiv.css({
+            backgroundColor: '#ff904f'
+        }).text('Please enter a valid email address.');
+    }
+    disableSubscribe();
+    msgDiv.fadeOut(2000, function() {
+        this.remove();
+        enableSubscribe();
+    });
+}
+
+/* Disable the subscribe button */
+function disableSubscribe() {
+    $('.subscribe-button').css({
+        'pointer-events': 'none',
+        'opacity': '0.5'
+    });
+}
+
+function enableSubscribe() {
+    $('.subscribe-button').css({
+        'pointer-events': 'all',
+        'opacity': '1'
+    });
+}
 //donate btn
 const donateBtn = document.querySelector('.donate-btn');
 if (donateBtn) {
