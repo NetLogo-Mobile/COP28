@@ -121,6 +121,9 @@ function SwitchMode(state) {
     $(".slider-label-container").toggle(!state.isRunning);
     $(".running-model-stats").toggle(state.isRunning);
     $(".miniplot-container").toggle(state.isRunning);
+    if($("predation-icon-container")) {
+        $(".predation-icon-container").toggle(state.isRunning);
+    }
     if(state.isRunning) {
         $(".play-container").css("background-color", "rgba(105, 65, 198, 0.70)");
         $(".play-container-icon").attr("src", "../assets/stop-play.svg");
